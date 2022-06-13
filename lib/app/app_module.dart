@@ -1,4 +1,4 @@
-import 'package:dengue_tcc/app/modules/tutorial/tutorial_module.dart';
+import 'package:dengue_tcc/app/modules/auth/auth_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
@@ -9,7 +9,7 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ModuleRoute(
       Modular.initialRoute, 
-      module: TutorialModule(),
+      module: AuthModule(),
     )
   ];
 }

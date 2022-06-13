@@ -1,6 +1,7 @@
 class ImagesPath {
   ImagesPath._();
 
+  static const logo = 'assets/images/logo.png';
   static const dengueAppbar = 'assets/images/appbar.png';
   static const dengueFight = 'assets/images/fight.png';
   static const dengueGraphic = 'assets/images/graphic.png';
