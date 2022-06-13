@@ -22,11 +22,9 @@ class TutorialContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: Image.asset(
-            imagePath,
-            fit: BoxFit.fill,
-          ),
+        Image.asset(
+          imagePath,
+          fit: BoxFit.fill,
         ),
         Padding(
           padding: const EdgeInsets.fromLTRB(

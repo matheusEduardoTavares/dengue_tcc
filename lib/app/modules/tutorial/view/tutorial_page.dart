@@ -40,25 +40,27 @@ class TutorialPage extends StatelessWidget {
           ],
         ),
       ),
-      body: SafeArea(
-        child: BlocBuilder<Cubit<TutorialControllerState>, TutorialControllerState>(
-          bloc: _controller,
-          builder: (_, state) {
-            return [
-              TutorialAlertContentWidget(
-                onTap: _controller.changePage,
-                selectedBottomNavigatorBarIndex: state.selectedBottomNavigatorBarIndex,
-              ),
-              TutorialNotificationContentWidget(
-                onTap: _controller.changePage,
-                selectedBottomNavigatorBarIndex: state.selectedBottomNavigatorBarIndex,
-              ),
-              TutorialGraphicContentWidget(
-                onTap: _controller.changePage,
-                selectedBottomNavigatorBarIndex: state.selectedBottomNavigatorBarIndex,
-              ),
-            ][state.selectedBottomNavigatorBarIndex];
-          }
+      body: SingleChildScrollView(
+        child: SafeArea(
+          child: BlocBuilder<Cubit<TutorialControllerState>, TutorialControllerState>(
+            bloc: _controller,
+            builder: (_, state) {
+              return [
+                TutorialAlertContentWidget(
+                  onTap: _controller.changePage,
+                  selectedBottomNavigatorBarIndex: state.selectedBottomNavigatorBarIndex,
+                ),
+                TutorialNotificationContentWidget(
+                  onTap: _controller.changePage,
+                  selectedBottomNavigatorBarIndex: state.selectedBottomNavigatorBarIndex,
+                ),
+                TutorialGraphicContentWidget(
+                  onTap: _controller.changePage,
+                  selectedBottomNavigatorBarIndex: state.selectedBottomNavigatorBarIndex,
+                ),
+              ][state.selectedBottomNavigatorBarIndex];
+            }
+          ),
         ),
       ),
     );
