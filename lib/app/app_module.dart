@@ -1,4 +1,4 @@
-import 'package:dengue_tcc/app/modules/tutorial/view/tutorial_page.dart';
+import 'package:dengue_tcc/app/modules/tutorial/tutorial_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AppModule extends Module {
@@ -7,9 +7,9 @@ class AppModule extends Module {
 
   @override
   final List<ModularRoute> routes = [
-    ChildRoute(
+    ModuleRoute(
       Modular.initialRoute, 
-      child: (_, __) => const TutorialPage()
+      module: TutorialModule(),
     )
   ];
 }
