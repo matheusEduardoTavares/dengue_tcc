@@ -22,18 +22,26 @@ class TutorialContentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset(
-          imagePath,
-          fit: BoxFit.fill,
-        ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(
-            20, 20, 20, 40,
-          ),
-          child: content ?? Text(
-            contentText ?? '',
-            textAlign: TextAlign.center,
-            style: context.getPoppins400,
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  imagePath,
+                  fit: BoxFit.fill,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(
+                    20, 20, 20, 7,
+                  ),
+                  child: content ?? Text(
+                    contentText ?? '',
+                    textAlign: TextAlign.center,
+                    style: context.getPoppins400,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         Padding(
