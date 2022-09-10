@@ -63,7 +63,7 @@ linter:
     prefer_spread_collections: true
     recursive_getters: true
     sized_box_for_whitespace: true
-    sort_constructors_first: true
+    sort_constructors_first: false
     sort_unnamed_constructors_first: true
     unnecessary_await_in_return: true
     unnecessary_overrides: true

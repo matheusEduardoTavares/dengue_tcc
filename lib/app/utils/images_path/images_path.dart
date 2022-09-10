@@ -6,4 +6,6 @@ class ImagesPath {
   static const dengueFight = 'assets/images/fight.png';
   static const dengueGraphic = 'assets/images/graphic.png';
   static const dengueSymptons = 'assets/images/symptoms.png';
+  static const signBackground = 'assets/images/sign_background.png';
+  static const logoWithText = 'assets/images/logo_with_text.png';
 }
