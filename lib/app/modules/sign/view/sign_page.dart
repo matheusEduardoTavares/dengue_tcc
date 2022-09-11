@@ -3,7 +3,7 @@ import 'package:dengue_tcc/app/modules/sign/controller/sign_controller_cubit.dar
 import 'package:dengue_tcc/app/modules/sign/controller/sign_controller_interface.dart';
 import 'package:dengue_tcc/app/modules/sign/view/widgets/buttons/login_button.dart';
 import 'package:dengue_tcc/app/modules/sign/view/widgets/buttons/signup_button.dart';
-import 'package:dengue_tcc/app/utils/images_path/images_path.dart';
+import 'package:dengue_tcc/app/modules/sign/view/widgets/sign_background/sign_background.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,36 +19,22 @@ class SignPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: AssetImage(
-              ImagesPath.signBackground,
-            ),
-          ),
-        ),
+      body: SignBackground(
         child: SafeArea(
           child:
               BlocBuilder<SignControllerInterface, InitialSignControllerState>(
             bloc: _controller,
             builder: (_, state) {
-              return Stack(
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   const LogoWithText(),
-                  Column(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const SizedBox.shrink(),
-                      const SizedBox.shrink(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        mainAxisSize: MainAxisSize.max,
-                        children: const [
-                          LoginButton(),
-                          SignUPButton(),
-                        ],
-                      ),
+                    mainAxisSize: MainAxisSize.max,
+                    children: const [
+                      LoginButton(),
+                      SignUPButton(),
                     ],
                   ),
                 ],

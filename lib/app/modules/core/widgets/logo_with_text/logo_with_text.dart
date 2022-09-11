@@ -7,13 +7,12 @@ class LogoWithText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        height: context.h(80),
-        width: context.w(80),
-        child: Image.asset(
-          ImagesPath.logoWithText,
-        ),
+    return SizedBox(
+      child: Image.asset(
+        ImagesPath.logoWithText,
+        height: context.h(25),
+        width: context.w(40),
+        fit: BoxFit.fill,
       ),
     );
   }

@@ -24,6 +24,7 @@ class DefaultButton extends StatelessWidget {
         foregroundColor: MaterialStateProperty.all(AppColors.selectedIconBlue),
         textStyle: MaterialStateProperty.all(
           Theme.of(context).textTheme.bodyMedium!.copyWith(
+            fontSize: 22,
             shadows: const <Shadow>[
               Shadow(
                 blurRadius: 60.0,
