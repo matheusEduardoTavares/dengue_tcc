@@ -13,12 +13,12 @@ class UserModel {
 
   //Email
   final String login;
-  final String name;
+  final String? name;
   final String password;
-  final String phone;
+  final String? phone;
   final bool? isAdm;
   final String authToken;
-  final String refreshToken;
+  final String? refreshToken;
 
   Map<String, dynamic> toMap() {
     return {

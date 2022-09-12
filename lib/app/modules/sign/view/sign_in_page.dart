@@ -1,3 +1,5 @@
+import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_interface.dart';
+import 'package:dengue_tcc/app/modules/core/models/user/user_model.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_appbar/empty_appbar.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/default_text_form_field/default_text_form_field.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widget.dart';
@@ -10,7 +12,7 @@ import 'package:dengue_tcc/app/utils/flushbar_control/flushbar_control.dart';
 import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_modular/flutter_modular.dart' show Modular;
 import 'package:validatorless/validatorless.dart';
 
 class SignINPage extends StatefulWidget {
@@ -31,6 +33,14 @@ class _SignINPageState extends State<SignINPage> {
   final _passwordEC = TextEditingController();
   final _admCodeEC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  late AuthControllerInterface _globalCubit;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _globalCubit = context.read();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +68,19 @@ class _SignINPageState extends State<SignINPage> {
                         context: context,
                       );
                       widget._controller.errorCallbackState();
-                    } else {
+                    } else if (state is SuccessSignINControllerState) {
+                      _globalCubit.updateUserModel(
+                        UserModel(
+                          login: state.email,
+                          password: state.password,
+                          phone: state.phone,
+                          name: state.name,
+                          isAdm: state.isAdmin,
+                          authToken: state.loginResponseModel.accessToken,
+                          refreshToken: null,
+                        ),
+                      );
+
                       Modular.to.navigate(
                         Modular.initialRoute,
                       );

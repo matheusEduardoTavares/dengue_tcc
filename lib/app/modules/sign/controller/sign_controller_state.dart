@@ -73,7 +73,7 @@ class LoadingSignINControllerState extends SignINControllerState {
 
 class SuccessSignINControllerState extends SignINControllerState {
   SuccessSignINControllerState({
-    required this.user,
+    required this.loginResponseModel,
     super.email = '',
     super.password = '',
     super.isAdmin = false,
@@ -82,7 +82,7 @@ class SuccessSignINControllerState extends SignINControllerState {
     super.name,
   });
 
-  final UserModel user;
+  final LoginResponseModel loginResponseModel;
 }
 
 class SignUPControllerState extends InitialSignControllerState {

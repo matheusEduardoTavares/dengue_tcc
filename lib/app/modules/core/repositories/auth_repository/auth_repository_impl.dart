@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dengue_tcc/app/modules/core/models/login/login_response_model.dart';
 import 'package:dengue_tcc/app/modules/core/models/user/user_model.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/core/models/login/login_model.dart';
@@ -27,7 +28,8 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<String, UserModel>> login({required LoginModel model}) async {
+  Future<Either<String, LoginResponseModel>> login(
+      {required LoginModel model}) async {
     const genericErrorMessage = 'Ocorreu um erro ao realizar o login';
     try {
       final userResponse = await _client.unauth().post(
@@ -35,7 +37,7 @@ class AuthRepositoryImpl implements AuthRepository {
             data: model.toMap(),
           );
 
-      return Right(UserModel.fromMap(userResponse.data));
+      return Right(LoginResponseModel.fromMap(userResponse.data));
     } on RestClientException catch (e) {
       return Left(e.message ?? genericErrorMessage);
     } catch (e) {

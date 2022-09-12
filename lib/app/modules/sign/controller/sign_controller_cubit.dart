@@ -1,4 +1,4 @@
-import 'package:dengue_tcc/app/modules/core/models/user/user_model.dart';
+import 'package:dengue_tcc/app/modules/core/models/login/login_response_model.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/sign/controller/sign_controller_interface.dart';
 import 'package:dengue_tcc/app/modules/core/models/login/login_model.dart';
@@ -46,14 +46,14 @@ class SignControllerCubit extends SignControllerInterface {
         name: state.name,
         errorMessage: errorMessage,
       )),
-      (user) => emit(SuccessSignINControllerState(
+      (loginResponseModel) => emit(SuccessSignINControllerState(
         phone: state.phone,
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
         admCode: state.admCode,
         name: state.name,
-        user: user,
+        loginResponseModel: loginResponseModel,
       )),
     );
   }

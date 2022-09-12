@@ -33,4 +33,17 @@ class AuthControllerCubit extends AuthControllerInterface {
       routeToGo,
     );
   }
+
+  @override
+  Future<void> updateUserModel(UserModel newModel) async {
+    await saveUserLocal(newModel);
+    emit(state.copyWith(
+      userModel: newModel,
+    ));
+  }
+
+  @override
+  Future<void> saveUserLocal(UserModel user) async {
+    await _localRepository.saveUser(user);
+  }
 }
