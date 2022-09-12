@@ -4,16 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginButton extends StatelessWidget {
-  const LoginButton({super.key});
+  const LoginButton({this.callback, super.key});
+
+  final VoidCallback? callback;
 
   @override
   Widget build(BuildContext context) {
     return DefaultButton(
-      callback: () {
-        Modular.to.pushNamed(
-          ModulesRoute.signModuleSignINNavigate,
-        );
-      },
+      callback: callback ??
+          () {
+            Modular.to.pushNamed(
+              ModulesRoute.signModuleSignINNavigate,
+            );
+          },
       label: 'Entrar',
     );
   }

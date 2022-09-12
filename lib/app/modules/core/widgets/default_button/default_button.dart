@@ -1,4 +1,5 @@
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
+import 'package:dengue_tcc/app/utils/app_theme/app_shadows/app_shadows.dart';
 import 'package:flutter/material.dart';
 
 class DefaultButton extends StatelessWidget {
@@ -24,22 +25,9 @@ class DefaultButton extends StatelessWidget {
         foregroundColor: MaterialStateProperty.all(AppColors.selectedIconBlue),
         textStyle: MaterialStateProperty.all(
           Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontSize: 22,
-            shadows: const <Shadow>[
-              Shadow(
-                blurRadius: 60.0,
-                color: AppColors.selectedIconBlue,
+                fontSize: 22,
+                shadows: AppShadows.getShadows(),
               ),
-              Shadow(
-                blurRadius: 60.0,
-                color: AppColors.selectedIconBlue,
-              ),
-              Shadow(
-                blurRadius: 60.0,
-                color: AppColors.selectedIconBlue,
-              ),
-            ],
-          ),
         ),
       ),
       child: Text(label),

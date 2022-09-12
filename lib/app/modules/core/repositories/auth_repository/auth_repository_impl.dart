@@ -15,18 +15,20 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<String, void>> logout() async {
+    const genericErrorMessage = 'Ocorreu um erro ao sair da aplicação';
     try {
       await _client.auth().post(ApiDefinitions.logout);
       return const Right(null);
     } on RestClientException catch (e) {
-      return Left(e.message ?? e.error.toString());
+      return Left(e.message ?? genericErrorMessage);
     } catch (e) {
-      return Left(e.toString());
+      return const Left(genericErrorMessage);
     }
   }
 
   @override
   Future<Either<String, UserModel>> login({required LoginModel model}) async {
+    const genericErrorMessage = 'Ocorreu um erro ao realizar o login';
     try {
       final userResponse = await _client.unauth().post(
             ApiDefinitions.signin,
@@ -35,15 +37,17 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return Right(UserModel.fromMap(userResponse.data));
     } on RestClientException catch (e) {
-      return Left(e.message ?? e.error.toString());
+      return Left(e.message ?? genericErrorMessage);
     } catch (e) {
-      return Left(e.toString());
+      return const Left(genericErrorMessage);
     }
   }
 
   @override
   Future<Either<String, UserModel>> refreshToken(
       {required UserModel model}) async {
+    const genericErrorMessage =
+        'Ocorreu um erro ao baixar os dados necessários';
     try {
       final userResponse = await _client.auth().post(
             ApiDefinitions.refreshToken,
@@ -52,9 +56,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
       return Right(UserModel.fromMap(userResponse.data));
     } on RestClientException catch (e) {
-      return Left(e.message ?? e.error.toString());
+      return Left(e.message ?? genericErrorMessage);
     } catch (e) {
-      return Left(e.toString());
+      return const Left(genericErrorMessage);
     }
   }
 }

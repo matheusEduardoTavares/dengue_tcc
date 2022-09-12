@@ -1,5 +1,6 @@
 import 'package:dengue_tcc/app/modules/sign/controller/sign_controller_cubit.dart';
 import 'package:dengue_tcc/app/modules/sign/controller/sign_controller_interface.dart';
+import 'package:dengue_tcc/app/modules/sign/modules/forgot_password/forgot_password_module.dart';
 import 'package:dengue_tcc/app/modules/sign/repositories/signup_repository.dart';
 import 'package:dengue_tcc/app/modules/sign/repositories/signup_repository_impl.dart';
 import 'package:dengue_tcc/app/modules/sign/view/sign_in_page.dart';
@@ -28,9 +29,7 @@ class SignModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute(
       Modular.initialRoute,
-      child: (_, __) => SignPage(
-        controller: Modular.get(),
-      ),
+      child: (_, __) => const SignPage(),
     ),
     ChildRoute(
       ModulesRoute.signModuleSignIN,
@@ -43,6 +42,10 @@ class SignModule extends Module {
       child: (_, __) => SignUPPage(
         controller: Modular.get(),
       ),
+    ),
+    ModuleRoute(
+      ModulesRoute.forgotPasswordModule,
+      module: ForgotPasswordModule(),
     ),
   ];
 }

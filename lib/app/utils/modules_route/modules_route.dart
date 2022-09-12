@@ -10,4 +10,7 @@ class ModulesRoute {
   static const signModuleSignUP = '/signUP';
   static const signModuleSignINNavigate = '$signModule/signIN';
   static const signModuleSignUPNavigate = '$signModule/signUP';
+  //FORGOT PASSWORD
+  static const forgotPasswordModule = '/forgotPassword';
+  static const forgotPasswordModuleNavigate = '$signModule/forgotPassword';
 }

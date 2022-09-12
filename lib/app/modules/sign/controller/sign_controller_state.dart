@@ -5,25 +5,33 @@ class InitialSignControllerState {
     this.email = '',
     this.password = '',
     this.isAdmin = false,
-    this.cellphone,
+    this.phone,
+    this.admCode,
+    this.name,
   });
 
   final String email;
   final String password;
+  final String? admCode;
   final bool isAdmin;
-  final String? cellphone;
+  final String? phone;
+  final String? name;
 
   InitialSignControllerState copyWith({
     String? email,
     String? password,
     bool? isAdmin,
-    String? cellphone,
+    String? phone,
+    String? admCode,
+    String? name,
   }) =>
       InitialSignControllerState(
         email: email ?? this.email,
         password: password ?? this.password,
         isAdmin: isAdmin ?? this.isAdmin,
-        cellphone: cellphone ?? this.cellphone,
+        phone: phone ?? this.phone,
+        admCode: admCode ?? this.admCode,
+        name: name ?? this.name,
       );
 }
 
@@ -32,26 +40,49 @@ class SignINControllerState extends InitialSignControllerState {
     super.email = '',
     super.password = '',
     super.isAdmin = false,
-    super.cellphone,
+    super.phone,
+    super.admCode,
+    super.name,
   });
 }
 
 class ErrorSignINControllerState extends SignINControllerState {
   ErrorSignINControllerState({
+    required this.errorMessage,
     super.email = '',
     super.password = '',
     super.isAdmin = false,
-    super.cellphone,
+    super.phone,
+    super.admCode,
+    super.name,
+  });
+
+  final String errorMessage;
+}
+
+class LoadingSignINControllerState extends SignINControllerState {
+  LoadingSignINControllerState({
+    super.email = '',
+    super.password = '',
+    super.isAdmin = false,
+    super.phone,
+    super.admCode,
+    super.name,
   });
 }
 
 class SuccessSignINControllerState extends SignINControllerState {
   SuccessSignINControllerState({
+    required this.user,
     super.email = '',
     super.password = '',
     super.isAdmin = false,
-    super.cellphone,
+    super.phone,
+    super.admCode,
+    super.name,
   });
+
+  final UserModel user;
 }
 
 class SignUPControllerState extends InitialSignControllerState {
@@ -59,16 +90,34 @@ class SignUPControllerState extends InitialSignControllerState {
     super.email = '',
     super.password = '',
     super.isAdmin = false,
-    super.cellphone,
+    super.phone,
+    super.admCode,
+    super.name,
   });
 }
 
 class ErrorSignUPControllerState extends SignUPControllerState {
   ErrorSignUPControllerState({
+    required this.errorMessage,
     super.email = '',
     super.password = '',
     super.isAdmin = false,
-    super.cellphone,
+    super.phone,
+    super.admCode,
+    super.name,
+  });
+
+  final String errorMessage;
+}
+
+class LoadingSignUPControllerState extends SignUPControllerState {
+  LoadingSignUPControllerState({
+    super.email = '',
+    super.password = '',
+    super.isAdmin = false,
+    super.phone,
+    super.admCode,
+    super.name,
   });
 }
 
@@ -77,6 +126,8 @@ class SuccessSignUPControllerState extends SignUPControllerState {
     super.email = '',
     super.password = '',
     super.isAdmin = false,
-    super.cellphone,
+    super.phone,
+    super.admCode,
+    super.name,
   });
 }

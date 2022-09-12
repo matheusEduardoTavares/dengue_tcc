@@ -17,6 +17,7 @@ class SignupRepositoryImpl implements SignupRepository {
   Future<Either<String, UserModel>> createAccount({
     required CreateAccountModel model,
   }) async {
+    const genericErrorMessage = 'Ocorreu um erro ao criar a conta';
     try {
       final userResponse = await _client.unauth().post(
             ApiDefinitions.signup,
@@ -24,9 +25,9 @@ class SignupRepositoryImpl implements SignupRepository {
           );
       return Right(UserModel.fromMap(userResponse.data));
     } on RestClientException catch (e) {
-      return Left(e.message ?? e.error.toString());
+      return Left(e.message ?? genericErrorMessage);
     } catch (e) {
-      return Left(e.toString());
+      return const Left(genericErrorMessage);
     }
   }
 }

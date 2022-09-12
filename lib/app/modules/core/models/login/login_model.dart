@@ -16,12 +16,10 @@ class LoginModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'text': {
-        'login': login,
-        'password': password,
-        'admCode': admCode,
-        'adm': isAdm,
-      }
+      'login': login,
+      'password': password,
+      'admCode': admCode,
+      'adm': isAdm,
     };
   }
 

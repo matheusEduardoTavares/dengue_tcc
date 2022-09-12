@@ -1,3 +1,4 @@
+import 'package:dengue_tcc/app/modules/core/models/user/user_model.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/sign/controller/sign_controller_interface.dart';
 import 'package:dengue_tcc/app/modules/core/models/login/login_model.dart';
@@ -18,47 +19,90 @@ class SignControllerCubit extends SignControllerInterface {
   final SignupRepository _signupRepository;
 
   @override
-  Future<void> signIN(LoginModel model) async {
+  Future<void> signIN() async {
+    emit(LoadingSignINControllerState(
+      phone: state.phone,
+      email: state.email,
+      isAdmin: state.isAdmin,
+      password: state.password,
+      admCode: state.admCode,
+      name: state.name,
+    ));
+
+    final model = LoginModel(
+      login: state.email,
+      password: state.password,
+      admCode: state.admCode,
+    );
+
     final either = await _authRepository.login(model: model);
     either.fold(
-      (l) => emit(ErrorSignINControllerState(
-        cellphone: state.cellphone,
+      (errorMessage) => emit(ErrorSignINControllerState(
+        phone: state.phone,
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
+        admCode: state.admCode,
+        name: state.name,
+        errorMessage: errorMessage,
       )),
-      (r) => emit(SuccessSignINControllerState(
-        cellphone: state.cellphone,
+      (user) => emit(SuccessSignINControllerState(
+        phone: state.phone,
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
+        admCode: state.admCode,
+        name: state.name,
+        user: user,
       )),
     );
   }
 
   @override
-  Future<void> signUP(CreateAccountModel model) async {
+  Future<void> signUP() async {
+    emit(LoadingSignUPControllerState(
+      phone: state.phone,
+      email: state.email,
+      isAdmin: state.isAdmin,
+      password: state.password,
+      admCode: state.admCode,
+      name: state.name,
+    ));
+
+    final model = CreateAccountModel(
+      login: state.email,
+      password: state.password,
+      admCode: state.admCode,
+      name: state.name!,
+      phone: state.phone!,
+    );
+
     final either = await _signupRepository.createAccount(model: model);
     either.fold(
-      (l) => emit(ErrorSignUPControllerState(
-        cellphone: state.cellphone,
+      (errorMessage) => emit(ErrorSignUPControllerState(
+        phone: state.phone,
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
+        admCode: state.admCode,
+        name: state.name,
+        errorMessage: errorMessage,
       )),
       (r) => emit(SuccessSignUPControllerState(
-        cellphone: state.cellphone,
+        phone: state.phone,
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
+        admCode: state.admCode,
+        name: state.name,
       )),
     );
   }
 
   @override
-  void updateCellphone(String cellphone) {
+  void updateCellphone(String phone) {
     emit(state.copyWith(
-      cellphone: cellphone,
+      phone: phone,
     ));
   }
 
@@ -82,17 +126,21 @@ class SignControllerCubit extends SignControllerInterface {
   }) {
     if (isSignIN) {
       emit(SignINControllerState(
+        phone: state.phone,
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
-        cellphone: state.cellphone,
+        admCode: state.admCode,
+        name: state.name,
       ));
     } else {
       emit(SignUPControllerState(
+        phone: state.phone,
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
-        cellphone: state.cellphone,
+        admCode: state.admCode,
+        name: state.name,
       ));
     }
   }
@@ -102,5 +150,29 @@ class SignControllerCubit extends SignControllerInterface {
     emit(state.copyWith(
       password: password,
     ));
+  }
+
+  @override
+  void updateAdmCode(String admCode) {
+    emit(state.copyWith(
+      admCode: admCode,
+    ));
+  }
+
+  @override
+  void errorCallbackState() {
+    emit(SignINControllerState(
+      phone: state.phone,
+      email: state.email,
+      isAdmin: state.isAdmin,
+      password: state.password,
+      admCode: state.admCode,
+      name: state.name,
+    ));
+  }
+
+  @override
+  void clearState() {
+    emit(InitialSignControllerState());
   }
 }
