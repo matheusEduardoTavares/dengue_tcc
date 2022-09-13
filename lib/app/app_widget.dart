@@ -1,4 +1,3 @@
-import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_cubit.dart';
 import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_interface.dart';
 import 'package:dengue_tcc/app/utils/app_theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +10,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<AuthControllerInterface>(
-      create: (context) => AuthControllerCubit(
-        imagesPrecache: Modular.get(),
-        localRepository: Modular.get(),
-      ),
+      create: (context) => Modular.get(),
       child: MaterialApp.router(
         title: 'Dengue TCC',
         routeInformationParser: Modular.routeInformationParser,

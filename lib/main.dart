@@ -8,7 +8,7 @@ void main() {
   runApp(
     DevicePreview(
       builder: (_) => ModularApp(
-        module: AppModule(), 
+        module: AppModule(),
         child: const AppWidget(),
       ),
       //TODO sempre que precisar testar responsividade, trocar o enabled para true e após usar voltar para false (nunca commitar com enabled true)

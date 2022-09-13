@@ -3,6 +3,8 @@ import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_re
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository_impl.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository_impl.dart';
+import 'package:dengue_tcc/app/utils/environment/environment.dart';
+import 'package:dengue_tcc/app/utils/environment/environment_impl.dart';
 import 'package:dengue_tcc/app/utils/input_formatter/input_formatter.dart';
 import 'package:dengue_tcc/app/utils/input_formatter/input_formatter_impl.dart';
 import 'package:dengue_tcc/app/utils/local_storage/local_storage.dart';
@@ -14,6 +16,9 @@ import 'package:flutter_modular/flutter_modular.dart';
 class AppModule extends Module {
   @override
   final List<Bind> binds = [
+    Bind.lazySingleton<Environment>(
+      (i) => EnvironmentImpl(),
+    ),
     Bind.lazySingleton<InputFormatter>(
       (i) => InputFormatterImpl(),
     ),
