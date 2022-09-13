@@ -1,4 +1,3 @@
-import 'package:dengue_tcc/app/modules/core/widgets/custom_appbar/empty_appbar.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/default_text_form_field/default_text_form_field.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widget.dart';
 import 'package:dengue_tcc/app/modules/sign/controller/sign_controller_cubit.dart';
@@ -9,7 +8,6 @@ import 'package:dengue_tcc/app/utils/extensions/text_extension.dart';
 import 'package:dengue_tcc/app/utils/flushbar_control/flushbar_control.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:validatorless/validatorless.dart';
 
 class DefaultSignPage extends StatelessWidget {
@@ -60,13 +58,14 @@ class DefaultSignPage extends StatelessWidget {
         return true;
       },
       child: Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: EmptyAppbar(),
-        body: CustomScrollView(
-          slivers: [
-            SliverFillRemaining(
-              hasScrollBody: false,
-              child: SignBackground(
+        body: SignBackground(
+          child: CustomScrollView(
+            slivers: [
+              const SliverAppBar(
+                backgroundColor: Colors.transparent,
+              ),
+              SliverFillRemaining(
+                hasScrollBody: false,
                 child: BlocConsumer<SignControllerInterface,
                     InitialSignControllerState>(
                   bloc: _controller,
@@ -206,8 +205,8 @@ class DefaultSignPage extends StatelessWidget {
                   },
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
