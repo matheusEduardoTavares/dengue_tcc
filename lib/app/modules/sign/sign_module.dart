@@ -41,6 +41,7 @@ class SignModule extends Module {
       ModulesRoute.signModuleSignUP,
       child: (_, __) => SignUPPage(
         controller: Modular.get(),
+        formatter: Modular.get(),
       ),
     ),
     ModuleRoute(

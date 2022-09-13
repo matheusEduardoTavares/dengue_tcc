@@ -20,14 +20,12 @@ class CreateAccountModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'text': {
-        'login': login,
-        'password': password,
-        'phone': phone,
-        'admCode': admCode,
-        'name': name,
-        'adm': isAdm,
-      }
+      'login': login,
+      'password': password,
+      'phone': phone,
+      'admCode': admCode,
+      'name': name,
+      'adm': isAdm,
     };
   }
 

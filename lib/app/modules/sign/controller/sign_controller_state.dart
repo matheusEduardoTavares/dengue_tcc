@@ -46,9 +46,9 @@ class SignINControllerState extends InitialSignControllerState {
   });
 }
 
-class ErrorSignINControllerState extends SignINControllerState {
+class ErrorSignINControllerState extends SignErrorState {
   ErrorSignINControllerState({
-    required this.errorMessage,
+    required super.errorMessage,
     super.email = '',
     super.password = '',
     super.isAdmin = false,
@@ -56,8 +56,6 @@ class ErrorSignINControllerState extends SignINControllerState {
     super.admCode,
     super.name,
   });
-
-  final String errorMessage;
 }
 
 class LoadingSignINControllerState extends SignINControllerState {
@@ -96,9 +94,9 @@ class SignUPControllerState extends InitialSignControllerState {
   });
 }
 
-class ErrorSignUPControllerState extends SignUPControllerState {
+class ErrorSignUPControllerState extends SignErrorState {
   ErrorSignUPControllerState({
-    required this.errorMessage,
+    required super.errorMessage,
     super.email = '',
     super.password = '',
     super.isAdmin = false,
@@ -106,8 +104,6 @@ class ErrorSignUPControllerState extends SignUPControllerState {
     super.admCode,
     super.name,
   });
-
-  final String errorMessage;
 }
 
 class LoadingSignUPControllerState extends SignUPControllerState {
@@ -130,4 +126,18 @@ class SuccessSignUPControllerState extends SignUPControllerState {
     super.admCode,
     super.name,
   });
+}
+
+class SignErrorState extends InitialSignControllerState {
+  SignErrorState({
+    required this.errorMessage,
+    super.email = '',
+    super.password = '',
+    super.isAdmin = false,
+    super.phone,
+    super.admCode,
+    super.name,
+  });
+
+  final String errorMessage;
 }

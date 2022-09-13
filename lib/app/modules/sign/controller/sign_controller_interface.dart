@@ -7,6 +7,7 @@ abstract class SignControllerInterface
       : super(initialState);
 
   void updateEmail(String email);
+  void updateName(String name);
   void updatePassword(String password);
   void updateCellphone(String phone);
   void updateIsSignIN({
@@ -16,6 +17,7 @@ abstract class SignControllerInterface
   void updateAdmCode(String admCode);
   Future<void> signIN();
   Future<void> signUP();
-  void errorCallbackState();
+  void setErrorSignINState();
+  void setErrorSignUPState();
   void clearState();
 }

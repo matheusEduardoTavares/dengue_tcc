@@ -114,6 +114,13 @@ class SignControllerCubit extends SignControllerInterface {
   }
 
   @override
+  void updateName(String name) {
+    emit(state.copyWith(
+      name: name,
+    ));
+  }
+
+  @override
   void updateIsAdmin(bool isAdmin) {
     emit(state.copyWith(
       isAdmin: isAdmin,
@@ -160,8 +167,20 @@ class SignControllerCubit extends SignControllerInterface {
   }
 
   @override
-  void errorCallbackState() {
+  void setErrorSignINState() {
     emit(SignINControllerState(
+      phone: state.phone,
+      email: state.email,
+      isAdmin: state.isAdmin,
+      password: state.password,
+      admCode: state.admCode,
+      name: state.name,
+    ));
+  }
+
+  @override
+  void setErrorSignUPState() {
+    emit(SignUPControllerState(
       phone: state.phone,
       email: state.email,
       isAdmin: state.isAdmin,
