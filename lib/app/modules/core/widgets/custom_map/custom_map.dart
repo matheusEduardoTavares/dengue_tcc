@@ -5,7 +5,7 @@ import 'package:dengue_tcc/app/utils/enums/map_styles_enum.dart';
 import 'package:dengue_tcc/app/utils/map_utils/map_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 
 class CustomMap extends StatefulWidget {
@@ -19,12 +19,14 @@ class CustomMap extends StatefulWidget {
 
 class _CustomMapState extends State<CustomMap> {
   late CustomMapControllerInterface _controller;
+  late MapController _mapController;
 
   @override
   void initState() {
     super.initState();
 
     _controller = context.read();
+    _mapController = MapControllerImpl();
   }
 
   @override
@@ -35,6 +37,7 @@ class _CustomMapState extends State<CustomMap> {
         return Stack(
           children: [
             FlutterMap(
+              mapController: _mapController,
               options: MapOptions(
                 center: LatLng(-22.47662684956675, -48.56361525904357),
                 zoom: 16,
@@ -71,17 +74,17 @@ class _CustomMapState extends State<CustomMap> {
                   ),
                 )
                 .values,
-            // Positioned(
-            //   right: 60,
-            //   bottom: 20.0,
-            //   child: FloatingActionButton(
-            //     mini: true,
-            //     onPressed: () {
-            //       _controller.changeMapStyle(currentEnum);
-            //     },
-            //     child: const Icon(Icons.pin_drop),
-            //   ),
-            // ),
+            Positioned(
+              left: 20,
+              top: 60.0,
+              child: FloatingActionButton(
+                mini: true,
+                onPressed: () {
+                  _controller.goToUserLocation(_mapController);
+                },
+                child: const Icon(Icons.pin_drop),
+              ),
+            ),
           ],
         );
       },

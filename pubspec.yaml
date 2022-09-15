@@ -16,6 +16,7 @@ dependencies:
   dartz: ^0.10.1
   device_preview: ^1.1.0
   dio: ^4.0.6
+  equatable: ^2.0.5
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.1
@@ -23,8 +24,10 @@ dependencies:
   flutter_map: ^3.0.0
   flutter_modular: ^5.0.3
   flutter_svg: ^1.1.0
+  geolocator: ^9.0.1 
   latlong2: ^0.8.1
   mask_text_input_formatter: ^2.4.0
+  permission_handler: ^10.0.0 
   validatorless: ^1.2.1
   shared_preferences: ^2.0.15 
 
