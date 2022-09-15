@@ -1,4 +1,5 @@
 import 'package:dengue_tcc/app/modules/core/models/permissions/permission_model.dart';
+import 'package:dengue_tcc/app/modules/core/widgets/custom_appbar/dengue_appbar.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/general_error/general_error_widget.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/permissions/cubit/permissions_cubit.dart';
 import 'package:flutter/material.dart';
@@ -66,6 +67,7 @@ class _PermissionsPageState extends State<PermissionsPage>
         }
       },
       builder: (_, state) => Scaffold(
+        appBar: state is! SuccessPermissionsState ? DengueAppbar() : null,
         body: Builder(
           builder: (context) {
             if (state is LoadingPermissionsState) {

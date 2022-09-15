@@ -9,4 +9,7 @@ class AppColors {
   static final bottomBarBlack = Colors.black.withOpacity(0.6);
   static const buttonBackground = Color.fromRGBO(0, 0, 0, 0.75);
   static const inputDecorationBackground = Color.fromRGBO(0, 0, 0, 0.40);
+  static final white = Colors.white.withOpacity(0.7);
+  static const purpleShadow = Color(0xFF7B78AA);
+  static const appBarBackgroundBlueColor = Color.fromRGBO(0, 32, 103, 1);
 }

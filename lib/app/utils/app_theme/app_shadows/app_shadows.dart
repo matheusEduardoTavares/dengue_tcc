@@ -18,4 +18,10 @@ class AppShadows {
           color: shadowColor ?? AppColors.selectedIconBlue,
         ),
       ];
+
+  static const drawerShador = Shadow(
+    color: AppColors.purpleShadow,
+    offset: Offset(0, 4),
+    blurRadius: 20,
+  );
 }

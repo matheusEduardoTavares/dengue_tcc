@@ -1,4 +1,4 @@
-import 'package:dengue_tcc/app/modules/tutorial/controller/tutorial_controller_interface.dart';
+import 'package:dengue_tcc/app/modules/home/modules/tutorial/controller/tutorial_controller_interface.dart';
 
 part 'tutorial_controller_state.dart';
 

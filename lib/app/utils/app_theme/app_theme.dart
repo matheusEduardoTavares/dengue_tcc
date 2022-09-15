@@ -12,6 +12,9 @@ class AppTheme {
         color: Colors.white,
       ),
     ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: AppColors.appBarBackgroundBlueColor,
+    ),
     fontFamily: 'Poppins',
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(18)),

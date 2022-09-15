@@ -1,7 +1,6 @@
 class ModulesRoute {
   ModulesRoute._();
 
-  static const tutorial = '/tutorial';
   static const home = '/home';
 
   //SIGN
@@ -13,4 +12,10 @@ class ModulesRoute {
   //FORGOT PASSWORD
   static const forgotPasswordModule = '/forgotPassword';
   static const forgotPasswordModuleNavigate = '$signModule/forgotPassword';
+  //TUTORIAL
+  static const tutorialModule = '/tutorial';
+  static const tutorialModuleNavigate = '$home/tutorial';
+  //INFORMATION
+  static const informationModule = '/information';
+  static const informationModuleNavigate = '$home/information';
 }

@@ -1,5 +1,4 @@
 import 'package:dengue_tcc/app/modules/core/models/permissions/permission_model.dart';
-import 'package:dengue_tcc/app/modules/core/widgets/custom_appbar/dengue_appbar.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_cubit.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_interface.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/custom_map.dart';
@@ -15,31 +14,28 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: DengueAppbar(),
-      body: MultiBlocProvider(
-        providers: [
-          BlocProvider<CustomMapControllerInterface>(
-            create: (_) => CustomMapControllerCubit(
-              environment: Modular.get(),
-              customLocation: Modular.get(),
-            ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CustomMapControllerInterface>(
+          create: (_) => CustomMapControllerCubit(
+            environment: Modular.get(),
+            customLocation: Modular.get(),
           ),
-          BlocProvider<PermissionsCubit>(
-            create: (context) => PermissionsCubit(
-              permissions: Modular.get(),
-            ),
+        ),
+        BlocProvider<PermissionsCubit>(
+          create: (context) => PermissionsCubit(
+            permissions: Modular.get(),
+          ),
+        ),
+      ],
+      child: PermissionsPage(
+        permissions: [
+          PermissionModel(
+            name: 'Localização',
+            permission: Permission.location,
           ),
         ],
-        child: PermissionsPage(
-          permissions: [
-            PermissionModel(
-              name: 'Localização',
-              permission: Permission.location,
-            ),
-          ],
-          builder: (_) => const CustomMap(),
-        ),
+        builder: (_) => const CustomMap(),
       ),
     );
   }

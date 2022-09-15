@@ -1,3 +1,5 @@
+import 'package:dengue_tcc/app/modules/core/widgets/custom_appbar/dengue_appbar.dart';
+import 'package:dengue_tcc/app/modules/core/widgets/custom_drawer/custom_drawer.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_cubit.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_interface.dart';
 import 'package:dengue_tcc/app/utils/app_definitions/app_definitions.dart';
@@ -31,63 +33,67 @@ class _CustomMapState extends State<CustomMap> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CustomMapControllerInterface, CustomMapState>(
-      bloc: _controller,
-      builder: (context, state) {
-        return Stack(
-          children: [
-            FlutterMap(
-              mapController: _mapController,
-              options: MapOptions(
-                center: LatLng(-22.47662684956675, -48.56361525904357),
-                zoom: 16,
-                maxZoom: 18,
-                minZoom: 13,
-              ),
-              nonRotatedChildren: [
-                TileLayer(
-                  urlTemplate: MapUtils.getUrl(state.selectedStyle.style),
-                  userAgentPackageName: AppDefinitions.appID,
-                  additionalOptions: {
-                    'accessToken': _controller.getMapKey(),
-                  },
+    return Scaffold(
+      drawer: const CustomDrawer(),
+      appBar: DengueAppbar(),
+      body: BlocBuilder<CustomMapControllerInterface, CustomMapState>(
+        bloc: _controller,
+        builder: (context, state) {
+          return Stack(
+            children: [
+              FlutterMap(
+                mapController: _mapController,
+                options: MapOptions(
+                  center: LatLng(-22.47662684956675, -48.56361525904357),
+                  zoom: 16,
+                  maxZoom: 18,
+                  minZoom: 13,
                 ),
-              ],
-            ),
-            ...MapStylesEnum.values
-                .asMap()
-                .map(
-                  (index, currentEnum) => MapEntry(
-                    index,
-                    Positioned(
-                      right: 20,
-                      top: 60.0 * (index + 1),
-                      child: FloatingActionButton(
-                        heroTag: index,
-                        mini: true,
-                        onPressed: () {
-                          _controller.changeMapStyle(currentEnum);
-                        },
-                        child: Icon(currentEnum.iconData),
+                nonRotatedChildren: [
+                  TileLayer(
+                    urlTemplate: MapUtils.getUrl(state.selectedStyle.style),
+                    userAgentPackageName: AppDefinitions.appID,
+                    additionalOptions: {
+                      'accessToken': _controller.getMapKey(),
+                    },
+                  ),
+                ],
+              ),
+              ...MapStylesEnum.values
+                  .asMap()
+                  .map(
+                    (index, currentEnum) => MapEntry(
+                      index,
+                      Positioned(
+                        right: 20,
+                        top: 60.0 * (index + 1),
+                        child: FloatingActionButton(
+                          heroTag: index,
+                          mini: true,
+                          onPressed: () {
+                            _controller.changeMapStyle(currentEnum);
+                          },
+                          child: Icon(currentEnum.iconData),
+                        ),
                       ),
                     ),
-                  ),
-                )
-                .values,
-            Positioned(
-              left: 20,
-              top: 60.0,
-              child: FloatingActionButton(
-                mini: true,
-                onPressed: () {
-                  _controller.goToUserLocation(_mapController);
-                },
-                child: const Icon(Icons.pin_drop),
+                  )
+                  .values,
+              Positioned(
+                left: 20,
+                top: 60.0,
+                child: FloatingActionButton(
+                  mini: true,
+                  onPressed: () {
+                    _controller.goToUserLocation(_mapController);
+                  },
+                  child: const Icon(Icons.pin_drop),
+                ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 }
