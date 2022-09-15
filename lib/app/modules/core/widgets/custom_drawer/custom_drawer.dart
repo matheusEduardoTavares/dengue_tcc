@@ -2,6 +2,7 @@ import 'package:dengue_tcc/app/modules/core/widgets/custom_drawer/custom_drawer_
 import 'package:dengue_tcc/app/modules/core/widgets/custom_drawer/custom_drawer_list_tile/custom_drawer_list_tile.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_drawer/custom_drawer_text/custom_drawer_text.dart';
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
+import 'package:dengue_tcc/app/utils/enums/information_enum/information_enum.dart';
 import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter/material.dart';
 
@@ -71,6 +72,7 @@ class CustomDrawer extends StatelessWidget {
                       icon: Icons.error_outline,
                       title: 'Denúncias',
                       routeToGo: ModulesRoute.informationModuleNavigate,
+                      arguments: InformationEnum.denunciation,
                     ),
                     CustomDrawerDivider(),
                     CustomDrawerListTile(
