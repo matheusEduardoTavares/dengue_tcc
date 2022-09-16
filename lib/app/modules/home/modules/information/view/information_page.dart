@@ -36,7 +36,6 @@ class _InformationPageState extends State<InformationPage> {
 
   @override
   Widget build(BuildContext context) {
-    //TODO!: ARRUMAR O VISUAL
     return Scaffold(
       appBar: DengueAppbar(),
       body: BlocBuilder<InformationControllerInterface,
@@ -59,6 +58,7 @@ class _InformationPageState extends State<InformationPage> {
           final model = (state as SuccessInformationControllerState).model;
 
           return Container(
+            margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(boxShadow: [
               AppShadows.informationContentShadow,
             ]),

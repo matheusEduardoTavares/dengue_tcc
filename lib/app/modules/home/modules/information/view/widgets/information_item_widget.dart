@@ -16,9 +16,10 @@ class InformationItemWidget extends StatelessWidget {
         boxShadow: const [
           AppShadows.informationItemShadow,
         ],
+        borderRadius: BorderRadius.circular(16),
         color: Colors.grey[400],
       ),
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(20),
       child: Text(
         message,
         style: const TextStyle(

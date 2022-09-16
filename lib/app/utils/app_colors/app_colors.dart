@@ -12,7 +12,7 @@ class AppColors {
   static final white = Colors.white.withOpacity(0.7);
   static const purpleShadow = Color(0xFF7B78AA);
   static const appBarBackgroundBlueColor = Color.fromRGBO(0, 32, 103, 1);
-  static final informationBackgroundColor = Colors.black.withOpacity(0.8);
+  static final informationBackgroundColor = Colors.black.withOpacity(0.75);
   static final informationItemBackgroundColor = Colors.white.withOpacity(0.5);
   static const informationItemShadowColor = Color(0xFF001E88);
 }

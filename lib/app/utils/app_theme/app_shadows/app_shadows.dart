@@ -27,8 +27,7 @@ class AppShadows {
 
   static const informationItemShadow = BoxShadow(
     color: AppColors.informationItemShadowColor,
-    blurRadius: 5,
-    spreadRadius: 5,
+    blurRadius: 10,
   );
 
   static final informationContentShadow = BoxShadow(
