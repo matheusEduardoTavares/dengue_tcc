@@ -6,6 +6,8 @@ abstract class AuthControllerInterface extends Cubit<AuthControllerState> {
   AuthControllerInterface(AuthControllerState initialState)
       : super(initialState);
 
+  Future<void> clearLocalData();
+  Future<void> logout();
   Future<void> loadData();
   Future<void> saveUserLocal(UserModel user);
   Future<void> updateUserModel(UserModel newModel);

@@ -1,5 +1,6 @@
 import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_interface.dart';
 import 'package:dengue_tcc/app/modules/core/models/user/user_model.dart';
+import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
 import 'package:dengue_tcc/app/utils/environment/environment.dart';
 import 'package:dengue_tcc/app/utils/images_precache/images_precache.dart';
@@ -13,14 +14,17 @@ class AuthControllerCubit extends AuthControllerInterface {
     required ImagesPrecache imagesPrecache,
     required LocalRepository localRepository,
     required Environment environment,
+    required AuthRepository authRepository,
   })  : _localRepository = localRepository,
         _imagesPrecache = imagesPrecache,
         _environment = environment,
+        _authRepository = authRepository,
         super(AuthControllerState());
 
   final ImagesPrecache _imagesPrecache;
   final LocalRepository _localRepository;
   final Environment _environment;
+  final AuthRepository _authRepository;
 
   @override
   Future<void> loadData() async {
@@ -55,5 +59,30 @@ class AuthControllerCubit extends AuthControllerInterface {
   @override
   Future<void> saveUserLocal(UserModel user) async {
     await _localRepository.saveUser(user);
+  }
+
+  @override
+  Future<void> logout() async {
+    emit(LoadingLogoutAuthControllerState(
+      userModel: state.userModel,
+    ));
+
+    final either = await _authRepository.logout();
+    either.fold(
+      (errorMessage) => emit(ErrorLogoutAuthControllerState(
+        userModel: state.userModel,
+        errorMessage: errorMessage,
+      )),
+      (_) {
+        emit(SuccessLogoutAuthControllerState(
+          userModel: state.userModel,
+        ));
+      },
+    );
+  }
+
+  @override
+  Future<void> clearLocalData() async {
+    await _localRepository.clearLocal();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AwesomeDialogsControl {
@@ -13,14 +14,16 @@ class AwesomeDialogsControl {
     VoidCallback? btnOkOnPress,
   }) {
     return AwesomeDialog(
-      title: title ?? 'SUCESSO',
-      desc: message,
-      context: context,
-      dialogType: dialogType,
-      btnOkOnPress: btnOkOnPress ??
-          () {
-            Navigator.of(context).pop();
-          },
-    ).show();
+            title: title ?? ((isError ?? false) ? 'ERRO' : 'SUCESSO'),
+            desc: message,
+            context: context,
+            dialogType: (isError ?? false) ? DialogType.error : dialogType,
+            btnOkOnPress: btnOkOnPress ??
+                () {
+                  Navigator.of(context).pop();
+                },
+            btnOkColor:
+                (isError ?? false) ? Colors.red : AppColors.selectedIconBlue)
+        .show();
   }
 }

@@ -1,4 +1,3 @@
-import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
 import 'package:dengue_tcc/app/utils/app_theme/app_shadows/app_shadows.dart';
 import 'package:flutter/material.dart';
 

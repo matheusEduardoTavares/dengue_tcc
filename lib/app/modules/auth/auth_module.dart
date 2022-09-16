@@ -16,9 +16,11 @@ class AuthModule extends Module {
     ),
     Bind.lazySingleton<AuthControllerInterface>(
       (i) => AuthControllerCubit(
-          imagesPrecache: Modular.get(),
-          localRepository: Modular.get(),
-          environment: Modular.get()),
+        imagesPrecache: Modular.get(),
+        localRepository: Modular.get(),
+        environment: Modular.get(),
+        authRepository: Modular.get(),
+      ),
     ),
   ];
 

@@ -7,25 +7,28 @@ class CustomDrawerListTile extends StatelessWidget {
   const CustomDrawerListTile({
     required this.icon,
     required this.title,
-    required this.routeToGo,
+    this.routeToGo,
+    this.onTap,
     this.arguments,
     super.key,
   });
 
   final IconData icon;
   final String title;
-  final String routeToGo;
+  final String? routeToGo;
   final Object? arguments;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {
-        Modular.to.pushNamed(
-          routeToGo,
-          arguments: arguments,
-        );
-      },
+      onTap: onTap ??
+          () {
+            Modular.to.pushNamed(
+              routeToGo!,
+              arguments: arguments,
+            );
+          },
       leading: Icon(
         icon,
         color: Colors.black,

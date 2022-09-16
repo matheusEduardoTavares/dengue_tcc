@@ -15,3 +15,32 @@ class AuthControllerState {
     );
   }
 }
+
+class LoadingLogoutAuthControllerState extends AuthControllerState {
+  LoadingLogoutAuthControllerState({
+    required super.userModel,
+  });
+}
+
+class ErrorLogoutAuthControllerState extends AuthControllerState {
+  ErrorLogoutAuthControllerState({
+    required super.userModel,
+    required this.errorMessage,
+  });
+
+  final String errorMessage;
+
+  @override
+  AuthControllerState copyWith({UserModel? userModel, String? errorMessage}) {
+    return ErrorLogoutAuthControllerState(
+      userModel: userModel ?? this.userModel,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+}
+
+class SuccessLogoutAuthControllerState extends AuthControllerState {
+  SuccessLogoutAuthControllerState({
+    required super.userModel,
+  });
+}

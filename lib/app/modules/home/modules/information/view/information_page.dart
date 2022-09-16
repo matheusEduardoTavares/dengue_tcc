@@ -4,7 +4,6 @@ import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widge
 import 'package:dengue_tcc/app/modules/home/modules/information/controller/information_controller_cubit.dart';
 import 'package:dengue_tcc/app/modules/home/modules/information/controller/information_controller_interface.dart';
 import 'package:dengue_tcc/app/modules/home/modules/information/view/widgets/information_item_widget.dart';
-import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
 import 'package:dengue_tcc/app/utils/app_theme/app_shadows/app_shadows.dart';
 import 'package:dengue_tcc/app/utils/enums/information_enum/information_enum.dart';
 import 'package:flutter/material.dart';

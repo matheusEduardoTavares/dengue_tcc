@@ -9,13 +9,13 @@ class LoginResponseModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'access_token': accessToken,
+      'acess_token': accessToken,
     };
   }
 
   factory LoginResponseModel.fromMap(Map<String, dynamic> map) {
     return LoginResponseModel(
-      accessToken: map['access_token'] ?? '',
+      accessToken: map['acess_token'] ?? '',
     );
   }
 
