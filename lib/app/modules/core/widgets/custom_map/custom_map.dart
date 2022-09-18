@@ -103,7 +103,7 @@ class _CustomMapState extends State<CustomMap> {
                         }
                       : null,
                 ),
-                nonRotatedChildren: [
+                children: [
                   TileLayer(
                     urlTemplate: MapUtils.getUrl(state.selectedStyle.style),
                     userAgentPackageName: AppDefinitions.appID,
