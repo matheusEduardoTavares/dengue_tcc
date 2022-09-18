@@ -15,4 +15,6 @@ class AppColors {
   static final informationBackgroundColor = Colors.black.withOpacity(0.75);
   static final informationItemBackgroundColor = Colors.white.withOpacity(0.5);
   static const informationItemShadowColor = Color(0xFF001E88);
+  static const markerFinished = Color(0xFF009F10);
+  static const markerUnfinished = Color(0xFFFF0000);
 }

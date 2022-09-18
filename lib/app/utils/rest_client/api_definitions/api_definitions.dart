@@ -3,6 +3,8 @@ class ApiDefinitions {
 
   static const baseUrl = 'http://54.197.62.203';
 
+  static const marker = '/alerts';
+  static const addMarker = '/create_alert';
   static const signin = '/login';
   static const signup = '/cadastro';
   static const logout = '/logout';

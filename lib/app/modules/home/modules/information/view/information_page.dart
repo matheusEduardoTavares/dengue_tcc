@@ -51,7 +51,7 @@ class _InformationPageState extends State<InformationPage> {
               retryCallback: () {
                 widget._controller.getInformations();
               },
-              title: 'Erro ao baixar as informações',
+              title: state.errorMessage,
             );
           }
 

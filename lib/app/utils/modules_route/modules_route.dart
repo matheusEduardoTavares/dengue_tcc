@@ -2,6 +2,8 @@ class ModulesRoute {
   ModulesRoute._();
 
   static const home = '/home';
+  static const homeMapMarker = '/mapMarker';
+  static const homeMapMarkerNavigate = '$home/mapMarker';
 
   //SIGN
   static const signModule = '/sign';
