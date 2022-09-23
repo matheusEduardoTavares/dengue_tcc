@@ -104,13 +104,18 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                 DefaultButton(
                   callback: () {
                     if (_formKey.currentState?.validate() ?? false) {
-                      _controller.createMarkerOnAPI(
-                        title: _titleEC.text,
-                        description: _descriptionEC.text,
-                      );
+                      if (widget.model.isCreatedMarker) {
+                        //TODO!: IMPLEMENTAR ATUALIZAÇÃO DE MARKER
+                      } else {
+                        _controller.createMarkerOnAPI(
+                          title: _titleEC.text,
+                          description: _descriptionEC.text,
+                        );
+                      }
                     }
                   },
-                  label: 'Criar ponto de dengue',
+                  label:
+                      '${widget.model.isCreatedMarker ? 'Atualizar' : 'Criar'} ponto de dengue',
                 )
               ],
             );

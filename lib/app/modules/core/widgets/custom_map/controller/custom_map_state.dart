@@ -34,6 +34,19 @@ class ErrorGetMarkersCustomMapState extends CustomMapState {
     required this.errorMessage,
   });
 
+  @override
+  CustomMapState copyWith({
+    MapStylesEnum? selectedStyle,
+    CustomLatLngModel? userPosition,
+    String? errorMessage,
+  }) {
+    return ErrorGetMarkersCustomMapState(
+      selectedStyle: selectedStyle ?? this.selectedStyle,
+      userPosition: userPosition ?? this.userPosition,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+
   final String errorMessage;
 }
 
@@ -43,6 +56,19 @@ class SuccessGetMarkersCustomMapState extends CustomMapStateWithMarkers {
     required super.userPosition,
     required super.markers,
   });
+
+  @override
+  CustomMapState copyWith({
+    MapStylesEnum? selectedStyle,
+    CustomLatLngModel? userPosition,
+    List<MapMarkerModel>? markers,
+  }) {
+    return SuccessGetMarkersCustomMapState(
+      selectedStyle: selectedStyle ?? this.selectedStyle,
+      userPosition: userPosition ?? this.userPosition,
+      markers: markers ?? this.markers,
+    );
+  }
 }
 
 abstract class CustomMapStateWithMarkers extends CustomMapState {
@@ -88,6 +114,21 @@ class LoadingCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
     required super.markers,
     required super.temporaryMarkers,
   });
+
+  @override
+  CustomMapState copyWith({
+    MapStylesEnum? selectedStyle,
+    CustomLatLngModel? userPosition,
+    List<MapMarkerModel>? markers,
+    List<MapMarkerModel>? temporaryMarkers,
+  }) {
+    return LoadingCustomMapAddingMarkerState(
+      selectedStyle: selectedStyle ?? this.selectedStyle,
+      userPosition: userPosition ?? this.userPosition,
+      markers: markers ?? this.markers,
+      temporaryMarkers: temporaryMarkers ?? this.temporaryMarkers,
+    );
+  }
 }
 
 class ErrorCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
@@ -100,6 +141,23 @@ class ErrorCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
   });
 
   final String errorMessage;
+
+  @override
+  CustomMapState copyWith({
+    MapStylesEnum? selectedStyle,
+    CustomLatLngModel? userPosition,
+    List<MapMarkerModel>? markers,
+    List<MapMarkerModel>? temporaryMarkers,
+    String? errorMessage,
+  }) {
+    return ErrorCustomMapAddingMarkerState(
+      selectedStyle: selectedStyle ?? this.selectedStyle,
+      userPosition: userPosition ?? this.userPosition,
+      markers: markers ?? this.markers,
+      temporaryMarkers: temporaryMarkers ?? this.temporaryMarkers,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
 }
 
 class SuccessCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
@@ -109,4 +167,19 @@ class SuccessCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
     required super.markers,
     required super.temporaryMarkers,
   });
+
+  @override
+  CustomMapState copyWith({
+    MapStylesEnum? selectedStyle,
+    CustomLatLngModel? userPosition,
+    List<MapMarkerModel>? markers,
+    List<MapMarkerModel>? temporaryMarkers,
+  }) {
+    return SuccessCustomMapAddingMarkerState(
+      selectedStyle: selectedStyle ?? this.selectedStyle,
+      userPosition: userPosition ?? this.userPosition,
+      markers: markers ?? this.markers,
+      temporaryMarkers: temporaryMarkers ?? this.temporaryMarkers,
+    );
+  }
 }

@@ -11,6 +11,7 @@ import 'package:dengue_tcc/app/utils/custom_location/models/custom_lat_lng_model
 import 'package:dengue_tcc/app/utils/enums/map_styles_enum.dart';
 import 'package:dengue_tcc/app/utils/icons_path/icons_path.dart';
 import 'package:dengue_tcc/app/utils/map_utils/map_utils.dart';
+import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -119,9 +120,17 @@ class _CustomMapState extends State<CustomMap> {
                             point: e.latLngModel.getIntoLatLongPackage,
                             height: 20,
                             width: 20,
-                            builder: (_) => SvgPicture.asset(
-                              IconsPath.mapMarker,
-                              color: e.status.getColorBasedStatus,
+                            builder: (_) => InkWell(
+                              onTap: () {
+                                Modular.to.pushNamed(
+                                  ModulesRoute.homeMapMarkerNavigate,
+                                  arguments: e,
+                                );
+                              },
+                              child: SvgPicture.asset(
+                                IconsPath.mapMarker,
+                                color: e.status.getColorBasedStatus,
+                              ),
                             ),
                           ),
                         )

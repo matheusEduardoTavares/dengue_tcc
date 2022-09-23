@@ -30,7 +30,10 @@ class DefaultButton extends StatelessWidget {
               ),
         ),
       ),
-      child: Text(label),
+      child: Text(
+        label,
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }

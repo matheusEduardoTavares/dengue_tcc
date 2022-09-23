@@ -18,6 +18,10 @@ class MapMarkerModel {
   final MapMarkerEnum status;
   final CustomLatLngModel latLngModel;
 
+  bool get isCreatedMarker =>
+      (title?.isNotEmpty ?? false) || (description?.isNotEmpty ?? false);
+  bool get isAPIMarker => id?.isNotEmpty ?? false;
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
