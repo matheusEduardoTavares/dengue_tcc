@@ -1,10 +1,13 @@
 import 'package:dengue_tcc/app/app_module.dart';
 import 'package:dengue_tcc/app/app_widget.dart';
+import 'package:dengue_tcc/app/utils/environment/environment_impl.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-void main() {
+Future<void> main() async {
+  await EnvironmentImpl().configureEnvironment();
+
   runApp(
     DevicePreview(
       builder: (_) => ModularApp(

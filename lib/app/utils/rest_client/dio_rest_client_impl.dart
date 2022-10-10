@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository_impl.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
+import 'package:dengue_tcc/app/utils/environment/environment.dart';
+import 'package:dengue_tcc/app/utils/environment/environment_impl.dart';
+import 'package:dengue_tcc/app/utils/environment/environment_keys.dart';
 import 'package:dengue_tcc/app/utils/rest_client/api_definitions/api_definitions.dart';
 import 'package:dengue_tcc/app/utils/rest_client/interceptors/auth_interceptor.dart';
 import 'package:dengue_tcc/app/utils/rest_client/rest_client.dart';
@@ -14,11 +17,15 @@ import 'package:dio/dio.dart';
 class DioRestClient implements RestClient {
   DioRestClient({
     required LocalRepository localRepository,
+    required Environment environment,
     AuthRepository? authRepository,
     bool? useHttpsSecurityProtocol,
     BaseOptions? options,
   }) {
-    _dio = Dio(options ?? _options);
+    _baseURL = environment.getVariable(
+      EnvironmentKeys.apiURL,
+    )!;
+    _dio = Dio(options ?? _getOptions());
 
     // ignore: no_leading_underscores_for_local_identifiers
     final _authRepository = authRepository ??
@@ -42,24 +49,32 @@ class DioRestClient implements RestClient {
         authRepository: _authRepository,
       ),
     ]);
+
+    _getOptions();
   }
 
+  late String _baseURL;
   late Dio _dio;
 
-  final _options = BaseOptions(
-    baseUrl: ApiDefinitions.baseUrl,
-    contentType: 'application/json',
-  );
+  static BaseOptions? _options;
+  BaseOptions _getOptions() {
+    return _options = BaseOptions(
+      baseUrl: ApiDefinitions.getBaseUrl(
+        url: _baseURL,
+      ),
+      contentType: 'application/json',
+    );
+  }
 
   @override
   RestClient auth() {
-    _options.extra['auth_required'] = true;
+    _options!.extra['auth_required'] = true;
     return this;
   }
 
   @override
   RestClient unauth() {
-    _options.extra['auth_required'] = false;
+    _options!.extra['auth_required'] = false;
     return this;
   }
 

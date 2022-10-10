@@ -43,6 +43,7 @@ class AppModule extends Module {
     Bind.lazySingleton<RestClient>(
       (i) => DioRestClient(
         localRepository: Modular.get(),
+        environment: Modular.get(),
       ),
     ),
     Bind.lazySingleton<AuthRepository>(

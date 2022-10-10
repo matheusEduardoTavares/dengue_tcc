@@ -1,7 +1,10 @@
 class ApiDefinitions {
   ApiDefinitions._();
 
-  static const baseUrl = 'http://54.197.62.203';
+  static String getBaseUrl({
+    required String url,
+  }) =>
+      'http://$url';
 
   static const marker = '/alerts';
   static const addMarker = '/create_alert';

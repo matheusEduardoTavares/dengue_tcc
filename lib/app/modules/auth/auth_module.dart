@@ -18,7 +18,6 @@ class AuthModule extends Module {
       (i) => AuthControllerCubit(
         imagesPrecache: Modular.get(),
         localRepository: Modular.get(),
-        environment: Modular.get(),
         authRepository: Modular.get(),
       ),
     ),

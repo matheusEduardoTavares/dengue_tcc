@@ -2,7 +2,6 @@ import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_interface
 import 'package:dengue_tcc/app/modules/core/models/user/user_model.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
-import 'package:dengue_tcc/app/utils/environment/environment.dart';
 import 'package:dengue_tcc/app/utils/images_precache/images_precache.dart';
 import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -13,17 +12,14 @@ class AuthControllerCubit extends AuthControllerInterface {
   AuthControllerCubit({
     required ImagesPrecache imagesPrecache,
     required LocalRepository localRepository,
-    required Environment environment,
     required AuthRepository authRepository,
   })  : _localRepository = localRepository,
         _imagesPrecache = imagesPrecache,
-        _environment = environment,
         _authRepository = authRepository,
         super(AuthControllerState());
 
   final ImagesPrecache _imagesPrecache;
   final LocalRepository _localRepository;
-  final Environment _environment;
   final AuthRepository _authRepository;
 
   @override
@@ -32,7 +28,6 @@ class AuthControllerCubit extends AuthControllerInterface {
 
     final loadDatas = await Future.wait([
       _localRepository.getUser(),
-      _environment.configureEnvironment(),
       Future.delayed(const Duration(seconds: 2)),
     ]);
 
