@@ -1,7 +1,7 @@
 //TODO!: QUANDO TIVER OS ENDPOINTS VIM FAZER AQUI
 enum InformationEnum {
   nextCampaigns(
-    title: 'Próximas campanhas',
+    title: 'Campanhas',
     endpoint: '',
   ),
   denunciation(

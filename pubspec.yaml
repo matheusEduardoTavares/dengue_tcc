@@ -9,7 +9,7 @@ environment:
   sdk: ">=2.18.0 <3.0.0"
 
 dependencies:
-  another_flushbar: ^1.12.29 
+  another_flushbar: ^1.12.29
   awesome_dialog: ^3.0.0
   bloc: ^8.1.0
   cupertino_icons: ^1.0.2
@@ -24,12 +24,13 @@ dependencies:
   flutter_map: ^3.0.0
   flutter_modular: ^5.0.3
   flutter_svg: ^1.1.0
-  geolocator: ^9.0.1 
+  geolocator: ^9.0.1
   latlong2: ^0.8.1
   mask_text_input_formatter: ^2.4.0
-  permission_handler: ^10.0.0 
+  permission_handler: ^10.0.0
+  shared_preferences: ^2.0.15
+  url_launcher: ^6.1.6
   validatorless: ^1.2.1
-  shared_preferences: ^2.0.15 
 
 dev_dependencies:
   flutter_launcher_icons: ^0.9.3

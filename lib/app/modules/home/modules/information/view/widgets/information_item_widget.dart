@@ -1,6 +1,7 @@
 import 'package:dengue_tcc/app/modules/core/models/information/information_model.dart';
 import 'package:dengue_tcc/app/modules/core/models/next_campaigns/next_campaigns_model.dart';
 import 'package:dengue_tcc/app/utils/app_theme/app_shadows/app_shadows.dart';
+import 'package:dengue_tcc/app/utils/webview_control/webview_control.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -58,7 +59,14 @@ class InformationItemWidget extends StatelessWidget {
                   children: [
                     TextSpan(
                       //TODO!: ADICIONAR AÇÃO AO CLICAR NO LINK
-                      recognizer: TapGestureRecognizer()..onTap = () {},
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          WebviewControl.openWebviewLink(
+                            context: context,
+                            linkToOpen:
+                                (model as NextCampaignModel).urlCampaign,
+                          );
+                        },
                       text: (model as NextCampaignModel).urlCampaign,
                       style: const TextStyle(
                         color: Colors.white,
