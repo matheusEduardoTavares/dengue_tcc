@@ -29,9 +29,13 @@ class _InformationPageState extends State<InformationPage> {
   void initState() {
     super.initState();
 
-    widget._controller
-      ..initialize(widget.pageType)
-      ..getInformations();
+    widget._controller.initialize(widget.pageType);
+
+    if (widget.pageType == InformationEnum.denunciation) {
+      widget._controller.getDenunciations();
+    } else {
+      widget._controller.getNextCampaigns();
+    }
   }
 
   @override
@@ -49,7 +53,7 @@ class _InformationPageState extends State<InformationPage> {
           if (state is ErrorInformationControllerState) {
             return GeneralErrorWidget(
               retryCallback: () {
-                widget._controller.getInformations();
+                widget._controller.getDenunciations();
               },
               title: state.errorMessage,
             );
@@ -86,14 +90,12 @@ class _InformationPageState extends State<InformationPage> {
                     child: ListView.builder(
                       itemCount: model.informations.length,
                       itemBuilder: (context, index) {
-                        final message = model.informations[index];
-
                         return Padding(
                           padding: const EdgeInsets.only(
                             bottom: 22.0,
                           ),
                           child: InformationItemWidget(
-                            message: message,
+                            model: model.informations[index],
                           ),
                         );
                       },

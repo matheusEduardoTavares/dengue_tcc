@@ -8,5 +8,6 @@ abstract class InformationControllerInterface
       : super(initialState);
 
   void initialize(InformationEnum? type);
-  Future<void> getInformations();
+  Future<void> getDenunciations();
+  Future<void> getNextCampaigns();
 }

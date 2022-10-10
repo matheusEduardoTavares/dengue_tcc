@@ -1,4 +1,3 @@
-import 'package:dengue_tcc/app/modules/core/widgets/custom_appbar/dengue_appbar.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_drawer/custom_drawer.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_cubit.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_interface.dart';
@@ -31,11 +30,13 @@ class CustomMap extends StatefulWidget {
 class _CustomMapState extends State<CustomMap> {
   late CustomMapControllerInterface _controller;
   late MapController _mapController;
+  late GlobalKey<ScaffoldState> _scaffoldKey;
 
   @override
   void initState() {
     super.initState();
 
+    _scaffoldKey = GlobalKey<ScaffoldState>();
     _controller = context.read()..getMarkersFromAPI();
     _mapController = MapControllerImpl();
   }
@@ -43,8 +44,8 @@ class _CustomMapState extends State<CustomMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       drawer: const CustomDrawer(),
-      appBar: DengueAppbar(),
       body: BlocConsumer<CustomMapControllerInterface, CustomMapState>(
         bloc: _controller,
         listenWhen: (_, currentState) =>
@@ -204,6 +205,18 @@ class _CustomMapState extends State<CustomMap> {
                   heroTag: 'map-1',
                   mini: true,
                   onPressed: () {
+                    _scaffoldKey.currentState?.openDrawer();
+                  },
+                  child: const Icon(Icons.more_vert),
+                ),
+              ),
+              Positioned(
+                left: 20,
+                top: 120.0,
+                child: FloatingActionButton(
+                  heroTag: 'map-2',
+                  mini: true,
+                  onPressed: () {
                     _controller.goToUserLocation(_mapController);
                   },
                   child: const Icon(Icons.pin_drop),
@@ -213,7 +226,7 @@ class _CustomMapState extends State<CustomMap> {
                 left: 20,
                 bottom: 60.0,
                 child: FloatingActionButton(
-                  heroTag: 'map-2',
+                  heroTag: 'map-3',
                   onPressed: () {
                     if (state is CustomMapAddingMarkerState) {
                       _controller.goToMarkerPage();
@@ -233,7 +246,7 @@ class _CustomMapState extends State<CustomMap> {
                   left: 20,
                   bottom: 120.0,
                   child: FloatingActionButton(
-                    heroTag: 'map-3',
+                    heroTag: 'map-4',
                     onPressed: () {
                       _controller.removeTemporaryMarker();
                     },

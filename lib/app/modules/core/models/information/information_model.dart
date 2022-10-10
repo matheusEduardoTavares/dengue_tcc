@@ -2,20 +2,24 @@ import 'dart:convert';
 
 class InformationModel {
   InformationModel({
-    required this.informations,
+    required this.information,
+    required this.date,
   });
 
-  final List<String> informations;
+  final String information;
+  final String date;
 
   Map<String, dynamic> toMap() {
     return {
-      'informations': informations,
+      'text': information,
+      'data': date,
     };
   }
 
   factory InformationModel.fromMap(Map<String, dynamic> map) {
     return InformationModel(
-      informations: List<String>.from(map['informations']),
+      date: map['data'],
+      information: map['text'],
     );
   }
 

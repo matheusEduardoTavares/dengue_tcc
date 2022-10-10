@@ -36,5 +36,5 @@ class SuccessInformationControllerState extends InformationControllerState {
     super.pageType,
   });
 
-  final InformationModel model;
+  final InformationsModel model;
 }
