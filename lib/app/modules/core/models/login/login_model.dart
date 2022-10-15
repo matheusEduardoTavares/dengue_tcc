@@ -16,18 +16,18 @@ class LoginModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'login': login,
-      'password': password,
-      'admCode': admCode,
-      'adm': isAdm,
+      'email': login,
+      'senha': password,
+      'cod_admin': admCode,
+      'eh_admin': isAdm,
     };
   }
 
   factory LoginModel.fromMap(Map<String, dynamic> map) {
     return LoginModel(
-      login: map['login'] ?? '',
-      password: map['password'] ?? '',
-      admCode: map['admCode'],
+      login: map['email'] ?? '',
+      password: map['senha'] ?? '',
+      admCode: map['cod_admin'],
     );
   }
 

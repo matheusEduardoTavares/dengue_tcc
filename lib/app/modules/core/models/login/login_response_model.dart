@@ -3,19 +3,27 @@ import 'dart:convert';
 class LoginResponseModel {
   LoginResponseModel({
     required this.accessToken,
+    required this.name,
+    required this.phone,
   });
 
   final String accessToken;
+  final String name;
+  final String phone;
 
   Map<String, dynamic> toMap() {
     return {
-      'acess_token': accessToken,
+      'access_token': accessToken,
+      'nome': name,
+      'telefone': phone,
     };
   }
 
   factory LoginResponseModel.fromMap(Map<String, dynamic> map) {
     return LoginResponseModel(
-      accessToken: map['acess_token'] ?? '',
+      accessToken: map['access_token'] ?? '',
+      name: map['nome'],
+      phone: map['telefone'],
     );
   }
 

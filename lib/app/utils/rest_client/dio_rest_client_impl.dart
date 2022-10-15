@@ -4,7 +4,6 @@ import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_re
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository_impl.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
 import 'package:dengue_tcc/app/utils/environment/environment.dart';
-import 'package:dengue_tcc/app/utils/environment/environment_impl.dart';
 import 'package:dengue_tcc/app/utils/environment/environment_keys.dart';
 import 'package:dengue_tcc/app/utils/rest_client/api_definitions/api_definitions.dart';
 import 'package:dengue_tcc/app/utils/rest_client/interceptors/auth_interceptor.dart';
@@ -55,10 +54,10 @@ class DioRestClient implements RestClient {
 
   late String _baseURL;
   late Dio _dio;
-
   static BaseOptions? _options;
+
   BaseOptions _getOptions() {
-    return _options = BaseOptions(
+    return _options ??= BaseOptions(
       baseUrl: ApiDefinitions.getBaseUrl(
         url: _baseURL,
       ),
@@ -311,7 +310,7 @@ class DioRestClient implements RestClient {
     final responseMap = response?.data;
     String? apiResponseErrorMessage;
     if (responseMap is Map) {
-      apiResponseErrorMessage = responseMap['Message'];
+      apiResponseErrorMessage = responseMap['detail'];
     }
 
     return apiResponseErrorMessage ?? response?.statusMessage;

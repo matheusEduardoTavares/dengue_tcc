@@ -27,6 +27,6 @@ enum MapMarkerEnum {
       });
     }
 
-    return allOptions[value]!;
+    return allOptions[value] ?? MapMarkerEnum.active;
   }
 }

@@ -25,14 +25,14 @@ class SignControllerCubit extends SignControllerInterface {
       email: state.email,
       isAdmin: state.isAdmin,
       password: state.password,
-      admCode: state.admCode,
+      admCode: state.isAdmin ? state.admCode : null,
       name: state.name,
     ));
 
     final model = LoginModel(
       login: state.email,
       password: state.password,
-      admCode: state.admCode,
+      admCode: state.isAdmin ? state.admCode : null,
     );
 
     final either = await _authRepository.login(model: model);
@@ -42,17 +42,17 @@ class SignControllerCubit extends SignControllerInterface {
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
-        admCode: state.admCode,
+        admCode: state.isAdmin ? state.admCode : null,
         name: state.name,
         errorMessage: errorMessage,
       )),
       (loginResponseModel) => emit(SuccessSignINControllerState(
-        phone: state.phone,
+        phone: loginResponseModel.phone,
+        name: loginResponseModel.name,
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
-        admCode: state.admCode,
-        name: state.name,
+        admCode: state.isAdmin ? state.admCode : null,
         loginResponseModel: loginResponseModel,
       )),
     );
@@ -65,14 +65,14 @@ class SignControllerCubit extends SignControllerInterface {
       email: state.email,
       isAdmin: state.isAdmin,
       password: state.password,
-      admCode: state.admCode,
+      admCode: state.isAdmin ? state.admCode : null,
       name: state.name,
     ));
 
     final model = CreateAccountModel(
       login: state.email,
       password: state.password,
-      admCode: state.admCode,
+      admCode: state.isAdmin ? state.admCode : null,
       name: state.name!,
       phone: state.phone!,
     );
@@ -84,7 +84,7 @@ class SignControllerCubit extends SignControllerInterface {
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
-        admCode: state.admCode,
+        admCode: state.isAdmin ? state.admCode : null,
         name: state.name,
         errorMessage: errorMessage,
       )),
@@ -93,7 +93,7 @@ class SignControllerCubit extends SignControllerInterface {
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
-        admCode: state.admCode,
+        admCode: state.isAdmin ? state.admCode : null,
         name: state.name,
       )),
     );
@@ -137,7 +137,7 @@ class SignControllerCubit extends SignControllerInterface {
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
-        admCode: state.admCode,
+        admCode: state.isAdmin ? state.admCode : null,
         name: state.name,
       ));
     } else {
@@ -146,7 +146,7 @@ class SignControllerCubit extends SignControllerInterface {
         email: state.email,
         isAdmin: state.isAdmin,
         password: state.password,
-        admCode: state.admCode,
+        admCode: state.isAdmin ? state.admCode : null,
         name: state.name,
       ));
     }
@@ -162,7 +162,7 @@ class SignControllerCubit extends SignControllerInterface {
   @override
   void updateAdmCode(String admCode) {
     emit(state.copyWith(
-      admCode: admCode,
+      admCode: state.isAdmin ? state.admCode : null,
     ));
   }
 
@@ -173,7 +173,7 @@ class SignControllerCubit extends SignControllerInterface {
       email: state.email,
       isAdmin: state.isAdmin,
       password: state.password,
-      admCode: state.admCode,
+      admCode: state.isAdmin ? state.admCode : null,
       name: state.name,
     ));
   }
@@ -185,7 +185,7 @@ class SignControllerCubit extends SignControllerInterface {
       email: state.email,
       isAdmin: state.isAdmin,
       password: state.password,
-      admCode: state.admCode,
+      admCode: state.isAdmin ? state.admCode : null,
       name: state.name,
     ));
   }

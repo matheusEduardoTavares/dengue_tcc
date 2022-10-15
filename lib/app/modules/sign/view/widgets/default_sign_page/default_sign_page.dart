@@ -59,7 +59,6 @@ class DefaultSignPage extends StatelessWidget {
       },
       child: Scaffold(
         body: DefaultPageWithScrollWidget(
-          key: _formKey,
           child:
               BlocConsumer<SignControllerInterface, InitialSignControllerState>(
             bloc: _controller,

@@ -9,12 +9,14 @@ class UserModel {
     required this.authToken,
     required this.refreshToken,
     this.isAdm = false,
+    this.id,
   });
 
+  final int? id;
   //Email
   final String login;
   final String? name;
-  final String password;
+  final String? password;
   final String? phone;
   final bool? isAdm;
   final String? authToken;
@@ -22,11 +24,12 @@ class UserModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'login': login,
-      'password': password,
-      'phone': phone,
-      'name': name,
-      'adm': isAdm,
+      'id': id,
+      'email': login,
+      'senha': password,
+      'telefone': phone,
+      'nome': name,
+      'eh_admin': isAdm,
       'authToken': authToken,
       'refreshToken': refreshToken,
     };
@@ -34,11 +37,12 @@ class UserModel {
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      login: map['login'] ?? '',
-      password: map['password'] ?? '',
-      phone: map['phone'],
-      name: map['name'],
-      isAdm: map['adm'] ?? false,
+      id: map['id'],
+      login: map['email'],
+      password: map['senha'],
+      phone: map['telefone'],
+      name: map['nome'],
+      isAdm: map['eh_admin'] ?? false,
       authToken: map['authToken'],
       refreshToken: map['refreshToken'],
     );

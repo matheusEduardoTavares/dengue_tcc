@@ -10,6 +10,7 @@ class MapMarkerModel {
     this.title,
     this.description,
     this.id,
+    this.userID,
   });
 
   final String? id;
@@ -17,6 +18,7 @@ class MapMarkerModel {
   final String? description;
   final MapMarkerEnum status;
   final CustomLatLngModel latLngModel;
+  final int? userID;
 
   bool get isCreatedMarker =>
       (title?.isNotEmpty ?? false) || (description?.isNotEmpty ?? false);
@@ -25,20 +27,22 @@ class MapMarkerModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'title': title,
-      'description': description,
+      'titulo': title,
+      'descricao': description,
       'status': status.status,
       'latitude': latLngModel.lat,
       'longitude': latLngModel.lon,
+      'usuario_id': userID,
     };
   }
 
   factory MapMarkerModel.fromMap(Map<String, dynamic> map) {
     return MapMarkerModel(
       id: map['id'],
-      title: map['title'] ?? '',
-      description: map['description'] ?? '',
+      title: map['titulo'],
+      description: map['descricao'],
       status: MapMarkerEnum.getByType(map['status']),
+      userID: map['usuario_id'],
       latLngModel: CustomLatLngModel(
         lat: double.parse(map['latitude']),
         lon: double.parse(map['longitude']),

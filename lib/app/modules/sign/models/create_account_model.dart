@@ -20,22 +20,22 @@ class CreateAccountModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'login': login,
-      'password': password,
-      'phone': phone,
-      'admCode': admCode,
-      'name': name,
-      'adm': isAdm,
+      'email': login,
+      'senha': password,
+      'telefone': phone,
+      'cod_admin': admCode,
+      'nome': name,
+      'eh_admin': isAdm,
     };
   }
 
   factory CreateAccountModel.fromMap(Map<String, dynamic> map) {
     return CreateAccountModel(
-      login: map['login'] ?? '',
-      password: map['password'] ?? '',
-      phone: map['phone'] ?? '',
-      name: map['name'] ?? '',
-      admCode: map['admCode'],
+      login: map['email'] ?? '',
+      password: map['senha'] ?? '',
+      phone: map['telefone'] ?? '',
+      name: map['nome'] ?? '',
+      admCode: map['cod_admin'],
     );
   }
 
