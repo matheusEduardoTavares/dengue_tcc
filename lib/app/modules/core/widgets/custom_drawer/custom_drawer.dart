@@ -6,9 +6,8 @@ import 'package:dengue_tcc/app/modules/core/widgets/custom_drawer/custom_drawer_
 import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widget.dart';
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
 import 'package:dengue_tcc/app/utils/awesome_dialogs_control/awesome_dialogs_control.dart';
-import 'package:dengue_tcc/app/utils/enums/information_enum/information_enum.dart';
-import 'package:dengue_tcc/app/utils/icons_path/icons_path.dart';
 import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
+import 'package:dengue_tcc/app/utils/whatsapp/whatsapp_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -133,10 +132,18 @@ class _CustomDrawerState extends State<CustomDrawer> {
                           ),
                           const CustomDrawerDivider(),
                           CustomDrawerListTile(
-                            iconPath: IconsPath.mapMarker,
+                            icon: Icons.flag_outlined,
                             title: 'Alertas',
                             routeToGo: ModulesRoute.markersListModuleNavigate,
                             arguments: widget._mapController,
+                          ),
+                          const CustomDrawerDivider(),
+                          CustomDrawerListTile(
+                            icon: Icons.whatsapp,
+                            title: 'Suporte',
+                            onTap: () {
+                              WhatsappUtils.openWhatsAppWithNumber();
+                            },
                           ),
                           const CustomDrawerDivider(),
                         ],

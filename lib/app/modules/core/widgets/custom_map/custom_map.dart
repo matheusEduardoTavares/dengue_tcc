@@ -6,7 +6,6 @@ import 'package:dengue_tcc/app/modules/core/widgets/general_error/general_error_
 import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widget.dart';
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
 import 'package:dengue_tcc/app/utils/app_definitions/app_definitions.dart';
-import 'package:dengue_tcc/app/utils/awesome_dialogs_control/awesome_dialogs_control.dart';
 import 'package:dengue_tcc/app/utils/custom_location/models/custom_lat_lng_model.dart';
 import 'package:dengue_tcc/app/utils/enums/map_styles_enum.dart';
 import 'package:dengue_tcc/app/utils/map_utils/map_utils.dart';

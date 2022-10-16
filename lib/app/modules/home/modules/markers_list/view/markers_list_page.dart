@@ -1,7 +1,6 @@
 import 'package:dengue_tcc/app/modules/core/widgets/custom_appbar/dengue_appbar.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_cubit.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_interface.dart';
-import 'package:dengue_tcc/app/modules/core/widgets/default_page_with_scroll/default_page_with_scroll_widget.dart';
 import 'package:dengue_tcc/app/modules/sign/view/widgets/sign_background/sign_background.dart';
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
 import 'package:flutter/material.dart';
