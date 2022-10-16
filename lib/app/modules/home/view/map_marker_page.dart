@@ -59,11 +59,13 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
               currentState is ErrorCustomMapAddingMarkerState,
           listener: (_, state) {
             AwesomeDialogsControl.showAwesomeDialogs(
-              message: 'Erro ao adicionar o novo ponto',
+              message: (state as ErrorCustomMapAddingMarkerState).errorMessage,
               context: context,
               isError: true,
               btnOkOnPress: () {},
             );
+
+            _controller.clearCreateMarkerOnAPIError();
           },
           builder: (_, state) {
             if (state is LoadingCustomMapAddingMarkerState) {
@@ -127,6 +129,7 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
 
   @override
   void dispose() {
+    _controller.clearTitleAndDescriptionFromTemporaryMarker();
     _titleEC.dispose();
     _descriptionEC.dispose();
 

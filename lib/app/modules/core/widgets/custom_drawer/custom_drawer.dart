@@ -7,15 +7,20 @@ import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widge
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
 import 'package:dengue_tcc/app/utils/awesome_dialogs_control/awesome_dialogs_control.dart';
 import 'package:dengue_tcc/app/utils/enums/information_enum/information_enum.dart';
+import 'package:dengue_tcc/app/utils/icons_path/icons_path.dart';
 import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_modular/flutter_modular.dart' show Modular;
 
 class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
+    required MapController mapController,
     super.key,
-  });
+  }) : _mapController = mapController;
+
+  final MapController _mapController;
 
   @override
   State<CustomDrawer> createState() => _CustomDrawerState();
@@ -92,41 +97,48 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Expanded(
                     child: ListView(
                       children: [
-                        ...const [
-                          CustomDrawerListTile(
+                        ...[
+                          const CustomDrawerListTile(
                             icon: Icons.local_hospital_outlined,
                             title: 'Sintomas',
                             routeToGo: ModulesRoute.tutorialModuleNavigate,
                             arguments: 0,
                           ),
-                          CustomDrawerDivider(),
-                          CustomDrawerListTile(
+                          const CustomDrawerDivider(),
+                          const CustomDrawerListTile(
                             icon: Icons.heart_broken_outlined,
                             title: 'Como Tratar',
                             routeToGo: ModulesRoute.tutorialModuleNavigate,
                             arguments: 1,
                           ),
-                          CustomDrawerDivider(),
-                          CustomDrawerListTile(
+                          const CustomDrawerDivider(),
+                          const CustomDrawerListTile(
                             icon: Icons.bar_chart_outlined,
                             title: 'Gráfico',
                             routeToGo: ModulesRoute.tutorialModuleNavigate,
                             arguments: 2,
                           ),
-                          CustomDrawerDivider(),
-                          CustomDrawerListTile(
-                            icon: Icons.error_outline,
-                            title: 'Denúncias',
-                            routeToGo: ModulesRoute.informationModuleNavigate,
-                            arguments: InformationEnum.denunciation,
-                          ),
-                          CustomDrawerDivider(),
-                          CustomDrawerListTile(
+                          // const CustomDrawerDivider(),
+                          // const CustomDrawerListTile(
+                          //   icon: Icons.error_outline,
+                          //   title: 'Denúncias',
+                          //   routeToGo: ModulesRoute.informationModuleNavigate,
+                          //   arguments: InformationEnum.denunciation,
+                          // ),
+                          const CustomDrawerDivider(),
+                          const CustomDrawerListTile(
                             icon: Icons.campaign_outlined,
                             title: 'Campanhas',
                             routeToGo: ModulesRoute.informationModuleNavigate,
                           ),
-                          CustomDrawerDivider(),
+                          const CustomDrawerDivider(),
+                          CustomDrawerListTile(
+                            iconPath: IconsPath.mapMarker,
+                            title: 'Alertas',
+                            routeToGo: ModulesRoute.markersListModuleNavigate,
+                            arguments: widget._mapController,
+                          ),
+                          const CustomDrawerDivider(),
                         ],
                         CustomDrawerListTile(
                           icon: Icons.logout,
@@ -135,6 +147,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             _controller.logout();
                           },
                         ),
+                        const SizedBox(height: 40),
                       ],
                     ),
                   ),

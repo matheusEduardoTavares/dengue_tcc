@@ -8,6 +8,7 @@ import 'package:dengue_tcc/app/utils/enums/map_styles_enum.dart';
 import 'package:dengue_tcc/app/utils/environment/environment.dart';
 import 'package:dengue_tcc/app/utils/environment/environment_keys.dart';
 import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -203,5 +204,163 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
       ModulesRoute.homeMapMarkerNavigate,
       arguments: currentState.temporaryMarkers[0],
     );
+  }
+
+  @override
+  List<MapMarkerModel> filterAllMarkers() {
+    final currentState = state as CustomMapStateWithMarkers;
+
+    return currentState.markers;
+  }
+
+  @override
+  List<MapMarkerModel> filterFinishedMarkers() {
+    final currentState = state as CustomMapStateWithMarkers;
+    return _filterMarkersBasedOnStatus(
+      allMarkers: currentState.markers,
+      status: MapMarkerEnum.finished,
+    );
+  }
+
+  @override
+  List<MapMarkerModel> filterUnfinishedMarkers() {
+    final currentState = state as CustomMapStateWithMarkers;
+    return _filterMarkersBasedOnStatus(
+      allMarkers: currentState.markers,
+      status: MapMarkerEnum.active,
+    );
+  }
+
+  List<MapMarkerModel> _filterMarkersBasedOnStatus({
+    required MapMarkerEnum status,
+    required List<MapMarkerModel> allMarkers,
+  }) {
+    return allMarkers.fold<List<MapMarkerModel>>([], (previousValue, element) {
+      if (element.status == status) {
+        previousValue.add(element);
+      }
+
+      return previousValue;
+    });
+  }
+
+  @override
+  void toggleFinishedMarkers() {
+    final currentState = state as CustomMapStateWithMarkers;
+
+    if (currentState.showFinishedMarkers &&
+        currentState.showUnfinishedMarkers) {
+      final unfinishedMarkers = filterUnfinishedMarkers();
+      emit(currentState.copyWith(
+        showFinishedMarkers: false,
+        showUnfinishedMarkers: true,
+        filteredMarkers: unfinishedMarkers,
+      ));
+    } else if (currentState.showFinishedMarkers == false &&
+        currentState.showUnfinishedMarkers) {
+      final allMarkers = filterAllMarkers();
+      emit(currentState.copyWith(
+        showFinishedMarkers: true,
+        showUnfinishedMarkers: true,
+        filteredMarkers: allMarkers,
+      ));
+    } else if (currentState.showFinishedMarkers == false &&
+        currentState.showUnfinishedMarkers == false) {
+      final finishedMarkers = filterFinishedMarkers();
+      emit(currentState.copyWith(
+        showFinishedMarkers: true,
+        showUnfinishedMarkers: false,
+        filteredMarkers: finishedMarkers,
+      ));
+    } else {
+      emit(currentState.copyWith(
+        showFinishedMarkers: false,
+        showUnfinishedMarkers: false,
+        filteredMarkers: [],
+      ));
+    }
+  }
+
+  @override
+  void toggleUnfinishedMarkers() {
+    final currentState = state as CustomMapStateWithMarkers;
+
+    if (currentState.showFinishedMarkers &&
+        currentState.showUnfinishedMarkers) {
+      final finishedMarkers = filterFinishedMarkers();
+      emit(currentState.copyWith(
+        showFinishedMarkers: true,
+        showUnfinishedMarkers: false,
+        filteredMarkers: finishedMarkers,
+      ));
+    } else if (currentState.showFinishedMarkers == false &&
+        currentState.showUnfinishedMarkers) {
+      emit(currentState.copyWith(
+        showFinishedMarkers: false,
+        showUnfinishedMarkers: false,
+        filteredMarkers: [],
+      ));
+    } else if (currentState.showFinishedMarkers == false &&
+        currentState.showUnfinishedMarkers == false) {
+      final unfinishedMarkers = filterUnfinishedMarkers();
+      emit(currentState.copyWith(
+        showFinishedMarkers: false,
+        showUnfinishedMarkers: true,
+        filteredMarkers: unfinishedMarkers,
+      ));
+    } else {
+      final allMarkers = filterAllMarkers();
+      emit(currentState.copyWith(
+        showFinishedMarkers: true,
+        showUnfinishedMarkers: true,
+        filteredMarkers: allMarkers,
+      ));
+    }
+  }
+
+  @override
+  void flyToMarker({
+    required MapMarkerModel marker,
+    required MapController mapController,
+    required VoidCallback closePage,
+  }) {
+    mapController.move(
+      marker.latLngModel.getIntoLatLongPackage,
+      mapController.zoom,
+    );
+
+    closePage();
+  }
+
+  @override
+  void clearTitleAndDescriptionFromTemporaryMarker() {
+    if (state is CustomMapAddingMarkerState) {
+      final currentState = state as CustomMapAddingMarkerState;
+      final updatedMarker = currentState.temporaryMarkers[0].nullify(
+        description: true,
+        title: true,
+      );
+      final newList = [updatedMarker];
+
+      emit(
+        currentState.copyWith(
+          temporaryMarkers: newList,
+        ),
+      );
+    }
+  }
+
+  @override
+  void clearCreateMarkerOnAPIError() {
+    final currentState = state as CustomMapAddingMarkerState;
+    emit(CustomMapAddingMarkerState(
+      markers: currentState.markers,
+      selectedStyle: currentState.selectedStyle,
+      temporaryMarkers: currentState.temporaryMarkers,
+      userPosition: currentState.userPosition,
+      filteredMarkers: currentState.filteredMarkers,
+      showFinishedMarkers: currentState.showFinishedMarkers,
+      showUnfinishedMarkers: currentState.showUnfinishedMarkers,
+    ));
   }
 }

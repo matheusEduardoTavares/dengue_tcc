@@ -7,7 +7,7 @@ class ApiDefinitions {
       'http://$url/api/v1';
 
   static const marker = '/alertas';
-  static const addMarker = '/create_alert';
+  static const addMarker = '/alertas';
   static const signin = '/usuarios/login';
   static const signup = '/usuarios/signup';
   static const logout = '/logout';

@@ -70,4 +70,18 @@ class MapMarkerModel {
       latLngModel: latLngModel ?? this.latLngModel,
     );
   }
+
+  MapMarkerModel nullify({
+    bool? id,
+    bool? title,
+    bool? description,
+  }) {
+    return MapMarkerModel(
+      id: id ?? false ? null : this.id,
+      title: title ?? false ? null : this.title,
+      description: description ?? false ? null : this.description,
+      status: status,
+      latLngModel: latLngModel,
+    );
+  }
 }

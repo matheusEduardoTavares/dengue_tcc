@@ -5,6 +5,7 @@ class AppTheme {
   AppTheme._();
 
   static final themeData = ThemeData(
+    unselectedWidgetColor: Colors.white,
     appBarTheme: const AppBarTheme(
       elevation: 0,
       centerTitle: true,

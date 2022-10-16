@@ -5,11 +5,15 @@ class DefaultPageWithScrollWidget extends StatelessWidget {
   const DefaultPageWithScrollWidget({
     required this.child,
     this.formKey,
+    this.hasScrollBody = false,
+    this.appBar,
     Key? key,
   }) : super(key: key);
 
   final Widget child;
   final GlobalKey<FormState>? formKey;
+  final bool hasScrollBody;
+  final PreferredSizeWidget? appBar;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,7 @@ class DefaultPageWithScrollWidget extends StatelessWidget {
             backgroundColor: Colors.transparent,
           ),
           SliverFillRemaining(
-            hasScrollBody: false,
+            hasScrollBody: hasScrollBody,
             child: child,
           ),
         ],
@@ -28,6 +32,7 @@ class DefaultPageWithScrollWidget extends StatelessWidget {
     );
 
     return Scaffold(
+      appBar: appBar,
       body: formKey != null
           ? Form(
               key: formKey,

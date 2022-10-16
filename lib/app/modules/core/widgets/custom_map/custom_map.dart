@@ -1,6 +1,7 @@
 import 'package:dengue_tcc/app/modules/core/widgets/custom_drawer/custom_drawer.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_cubit.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_interface.dart';
+import 'package:dengue_tcc/app/modules/core/widgets/custom_map/map_marker/map_marker_widget.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/general_error/general_error_widget.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widget.dart';
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
@@ -8,14 +9,12 @@ import 'package:dengue_tcc/app/utils/app_definitions/app_definitions.dart';
 import 'package:dengue_tcc/app/utils/awesome_dialogs_control/awesome_dialogs_control.dart';
 import 'package:dengue_tcc/app/utils/custom_location/models/custom_lat_lng_model.dart';
 import 'package:dengue_tcc/app/utils/enums/map_styles_enum.dart';
-import 'package:dengue_tcc/app/utils/icons_path/icons_path.dart';
 import 'package:dengue_tcc/app/utils/map_utils/map_utils.dart';
 import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_modular/flutter_modular.dart' show Modular;
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:latlong2/latlong.dart';
 
 class CustomMap extends StatefulWidget {
@@ -45,12 +44,13 @@ class _CustomMapState extends State<CustomMap> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      drawer: const CustomDrawer(),
+      drawer: CustomDrawer(
+        mapController: _mapController,
+      ),
       body: BlocConsumer<CustomMapControllerInterface, CustomMapState>(
         bloc: _controller,
         listenWhen: (_, currentState) =>
-            currentState is SuccessCustomMapAddingMarkerState ||
-            currentState is ErrorCustomMapAddingMarkerState,
+            currentState is SuccessCustomMapAddingMarkerState,
         listener: (context, state) async {
           if (state is SuccessCustomMapAddingMarkerState) {
             _controller
@@ -58,13 +58,6 @@ class _CustomMapState extends State<CustomMap> {
               ..getMarkersFromAPI();
 
             Modular.to.pop();
-          } else if (state is ErrorCustomMapAddingMarkerState) {
-            await AwesomeDialogsControl.showAwesomeDialogs(
-              message: state.errorMessage,
-              context: context,
-              isError: true,
-              btnOkOnPress: () {},
-            );
           }
         },
         builder: (context, state) {
@@ -115,7 +108,7 @@ class _CustomMapState extends State<CustomMap> {
                   ),
                   MarkerLayer(
                     markers: (state as CustomMapStateWithMarkers)
-                        .markers
+                        .getFilteredOrAllMarkers
                         .map(
                           (e) => Marker(
                             point: e.latLngModel.getIntoLatLongPackage,
@@ -128,9 +121,8 @@ class _CustomMapState extends State<CustomMap> {
                                   arguments: e,
                                 );
                               },
-                              child: SvgPicture.asset(
-                                IconsPath.mapMarker,
-                                color: e.status.getColorBasedStatus,
+                              child: MapMarkerWidget(
+                                marker: e,
                               ),
                             ),
                           ),
@@ -152,8 +144,8 @@ class _CustomMapState extends State<CustomMap> {
                                   borderRadius: BorderRadius.circular(16),
                                 ),
                                 child: Column(
-                                  children: [
-                                    const Text(
+                                  children: const [
+                                    Text(
                                       'novo',
                                       style: TextStyle(
                                         fontSize: 10,
@@ -162,9 +154,8 @@ class _CustomMapState extends State<CustomMap> {
                                     ),
                                     Expanded(
                                       child: Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: SvgPicture.asset(
-                                          IconsPath.mapMarker,
+                                        padding: EdgeInsets.all(2.0),
+                                        child: MapMarkerWidget(
                                           color: AppColors.purpleShadow,
                                         ),
                                       ),

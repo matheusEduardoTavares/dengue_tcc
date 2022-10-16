@@ -29,4 +29,6 @@ enum MapMarkerEnum {
 
     return allOptions[value] ?? MapMarkerEnum.active;
   }
+
+  String get getDescription => this == active ? 'Ativo' : 'Finalizado';
 }

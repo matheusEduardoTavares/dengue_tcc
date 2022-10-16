@@ -4,6 +4,7 @@ import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_interface.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/permissions/cubit/permissions_cubit.dart';
 import 'package:dengue_tcc/app/modules/home/modules/information/information_module.dart';
+import 'package:dengue_tcc/app/modules/home/modules/markers_list/markers_list_module.dart';
 import 'package:dengue_tcc/app/modules/home/modules/tutorial/tutorial_module.dart';
 import 'package:dengue_tcc/app/modules/home/view/home_page.dart';
 import 'package:dengue_tcc/app/modules/home/view/map_marker_page.dart';
@@ -61,6 +62,10 @@ class HomeModule extends Module {
     ModuleRoute(
       ModulesRoute.informationModule,
       module: InformationModule(),
+    ),
+    ModuleRoute(
+      ModulesRoute.markersListModule,
+      module: MarkersListModule(),
     ),
   ];
 }

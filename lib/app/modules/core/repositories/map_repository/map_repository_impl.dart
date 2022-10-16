@@ -1,6 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dengue_tcc/app/modules/core/models/map_marker/map_marker_model.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/map_repository/map_repository.dart';
+import 'package:dengue_tcc/app/utils/custom_location/models/custom_lat_lng_model.dart';
+import 'package:dengue_tcc/app/utils/enums/map_marker/map_marker_enum.dart';
 import 'package:dengue_tcc/app/utils/rest_client/api_definitions/api_definitions.dart';
 import 'package:dengue_tcc/app/utils/rest_client/rest_client.dart';
 import 'package:dengue_tcc/app/utils/rest_client/rest_client_exception.dart';
@@ -31,6 +33,32 @@ class MapRepositoryImpl implements MapRepository {
 
   @override
   Future<Either<String, List<MapMarkerModel>>> getMarkers() async {
+    //TODO!: REMOVER O MOCK ABAIXO QUANDO FUNCIONAR A CRIAÇÃO DE MARKERS
+    await Future.delayed(const Duration(seconds: 1));
+    final markers = [
+      MapMarkerModel(
+        status: MapMarkerEnum.active,
+        id: '1',
+        title: 'title 1',
+        description: 'description 1',
+        latLngModel: CustomLatLngModel(
+          lat: -22.47662684956675,
+          lon: -48.56361525904357,
+        ),
+      ),
+      MapMarkerModel(
+        status: MapMarkerEnum.finished,
+        id: '2',
+        title: 'title 2',
+        description: 'description 2',
+        latLngModel: CustomLatLngModel(
+          lat: -22.478,
+          lon: -48.561,
+        ),
+      ),
+    ];
+
+    return Right(markers);
     const genericErrorMessage = 'Ocorreu um erro ao baixar os pontos';
     try {
       final response = await _client.auth().get(

@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
+import 'package:dengue_tcc/app/modules/core/models/map_marker/map_marker_model.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_cubit.dart';
 import 'package:dengue_tcc/app/utils/custom_location/models/custom_lat_lng_model.dart';
 import 'package:dengue_tcc/app/utils/enums/map_styles_enum.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_map/plugin_api.dart';
 
 abstract class CustomMapControllerInterface extends Cubit<CustomMapState> {
@@ -21,6 +23,18 @@ abstract class CustomMapControllerInterface extends Cubit<CustomMapState> {
     required String title,
     required String description,
   });
+  void clearCreateMarkerOnAPIError();
   Future<void> getMarkersFromAPI();
   String getMapKey();
+  List<MapMarkerModel> filterFinishedMarkers();
+  void toggleFinishedMarkers();
+  List<MapMarkerModel> filterUnfinishedMarkers();
+  void toggleUnfinishedMarkers();
+  List<MapMarkerModel> filterAllMarkers();
+  void flyToMarker({
+    required MapMarkerModel marker,
+    required MapController mapController,
+    required VoidCallback closePage,
+  });
+  void clearTitleAndDescriptionFromTemporaryMarker();
 }

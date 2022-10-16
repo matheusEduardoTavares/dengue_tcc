@@ -25,6 +25,12 @@ class AppShadows {
     blurRadius: 20,
   );
 
+  static const boxShadow = BoxShadow(
+    color: AppColors.purpleShadow,
+    offset: Offset(0, 4),
+    blurRadius: 20,
+  );
+
   static const informationItemShadow = BoxShadow(
     color: AppColors.informationItemShadowColor,
     blurRadius: 10,

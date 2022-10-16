@@ -20,4 +20,7 @@ class ModulesRoute {
   //INFORMATION
   static const informationModule = '/information';
   static const informationModuleNavigate = '$home/information';
+  //MARKERS LIST
+  static const markersListModule = '/markersList';
+  static const markersListModuleNavigate = '$home/markersList';
 }
