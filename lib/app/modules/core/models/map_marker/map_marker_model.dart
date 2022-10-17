@@ -7,22 +7,25 @@ class MapMarkerModel {
   MapMarkerModel({
     required this.status,
     required this.latLngModel,
+    this.counter = 1,
     this.title,
     this.description,
     this.id,
     this.userID,
+    this.finishedDate,
   });
 
-  final String? id;
+  final int? id;
   final String? title;
   final String? description;
   final MapMarkerEnum status;
   final CustomLatLngModel latLngModel;
   final int? userID;
+  final int counter;
+  final DateTime? finishedDate;
 
-  bool get isCreatedMarker =>
-      (title?.isNotEmpty ?? false) || (description?.isNotEmpty ?? false);
-  bool get isAPIMarker => id?.isNotEmpty ?? false;
+  bool get isCreatedMarker => id != null;
+  bool get isAPIMarker => id != null;
 
   Map<String, dynamic> toMap() {
     return {
@@ -33,6 +36,8 @@ class MapMarkerModel {
       'latitude': latLngModel.lat,
       'longitude': latLngModel.lon,
       'usuario_id': userID,
+      'qtd_alertas': counter,
+      'data_finalizado': finishedDate?.toIso8601String(),
     };
   }
 
@@ -43,9 +48,11 @@ class MapMarkerModel {
       description: map['descricao'],
       status: MapMarkerEnum.getByType(map['status']),
       userID: map['usuario_id'],
+      counter: map['qtd_alertas'] ?? 1,
+      finishedDate: DateTime.tryParse(map['data_finalizado']?.toString() ?? ''),
       latLngModel: CustomLatLngModel(
-        lat: double.parse(map['latitude']),
-        lon: double.parse(map['longitude']),
+        lat: double.parse(map['latitude'].toString()),
+        lon: double.parse(map['longitude'].toString()),
       ),
     );
   }
@@ -56,11 +63,14 @@ class MapMarkerModel {
       MapMarkerModel.fromMap(json.decode(source));
 
   MapMarkerModel copyWith({
-    String? id,
+    int? id,
     String? title,
     String? description,
     MapMarkerEnum? status,
     CustomLatLngModel? latLngModel,
+    int? counter,
+    int? userID,
+    DateTime? finishedDate,
   }) {
     return MapMarkerModel(
       id: id ?? this.id,
@@ -68,6 +78,9 @@ class MapMarkerModel {
       description: description ?? this.description,
       status: status ?? this.status,
       latLngModel: latLngModel ?? this.latLngModel,
+      counter: counter ?? this.counter,
+      userID: userID ?? this.userID,
+      finishedDate: finishedDate ?? this.finishedDate,
     );
   }
 
@@ -75,13 +88,17 @@ class MapMarkerModel {
     bool? id,
     bool? title,
     bool? description,
+    bool? finishedDate,
   }) {
     return MapMarkerModel(
       id: id ?? false ? null : this.id,
       title: title ?? false ? null : this.title,
       description: description ?? false ? null : this.description,
+      finishedDate: finishedDate ?? false ? null : this.finishedDate,
       status: status,
       latLngModel: latLngModel,
+      counter: counter,
+      userID: userID,
     );
   }
 }

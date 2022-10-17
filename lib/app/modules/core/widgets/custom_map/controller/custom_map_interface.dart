@@ -13,12 +13,17 @@ abstract class CustomMapControllerInterface extends Cubit<CustomMapState> {
   void changeMapStyle(MapStylesEnum newStyle);
   Future<void> updateUserPosition(MapController mapController);
   Future<void> goToUserLocation(MapController mapController);
-  void goToMarkerPage();
+  void openMarkerPage({
+    required bool isCreatingMarker,
+    MapMarkerModel? markerToUpdate,
+  });
   void addTemporaryMarker(MapController mapController);
   void removeTemporaryMarker();
   void updateTemporaryMarkerTitle(String title);
   void updateTemporaryMarkerPosition(CustomLatLngModel latLngModel);
   void updateTemporaryMarkerDescription(String description);
+  void incrementTemporaryMarkerCounter();
+  void decrementTemporaryMarkerCounter();
   Future<void> createMarkerOnAPI({
     required String title,
     required String description,

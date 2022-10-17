@@ -61,6 +61,8 @@ class DioRestClient implements RestClient {
       baseUrl: ApiDefinitions.getBaseUrl(
         url: _baseURL,
       ),
+      connectTimeout: 15000,
+      receiveTimeout: 15000,
       contentType: 'application/json',
     );
   }
@@ -118,6 +120,8 @@ class DioRestClient implements RestClient {
         queryParameters: queryParameters,
         options: Options(
           headers: headers,
+          receiveTimeout: 15000,
+          sendTimeout: 15000,
         ),
       );
 

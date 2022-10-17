@@ -4,12 +4,13 @@ import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/map_marker/map_marker_widget.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/general_error/general_error_widget.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widget.dart';
+import 'package:dengue_tcc/app/modules/sign/view/widgets/sign_background/sign_background.dart';
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
 import 'package:dengue_tcc/app/utils/app_definitions/app_definitions.dart';
+import 'package:dengue_tcc/app/utils/awesome_dialogs_control/awesome_dialogs_control.dart';
 import 'package:dengue_tcc/app/utils/custom_location/models/custom_lat_lng_model.dart';
 import 'package:dengue_tcc/app/utils/enums/map_styles_enum.dart';
 import 'package:dengue_tcc/app/utils/map_utils/map_utils.dart';
-import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -52,11 +53,16 @@ class _CustomMapState extends State<CustomMap> {
             currentState is SuccessCustomMapAddingMarkerState,
         listener: (context, state) async {
           if (state is SuccessCustomMapAddingMarkerState) {
+            Modular.to.pop();
+
+            await AwesomeDialogsControl.showAwesomeDialogs(
+              message: 'Ponto cadastrado com sucesso',
+              context: context,
+            );
+
             _controller
               ..removeTemporaryMarker()
               ..getMarkersFromAPI();
-
-            Modular.to.pop();
           }
         },
         builder: (context, state) {
@@ -66,11 +72,13 @@ class _CustomMapState extends State<CustomMap> {
           }
 
           if (state is ErrorGetMarkersCustomMapState) {
-            return GeneralErrorWidget(
-              retryCallback: () {
-                _controller.getMarkersFromAPI();
-              },
-              title: 'Erro ao baixar os pontos',
+            return SignBackground(
+              child: GeneralErrorWidget(
+                retryCallback: () {
+                  _controller.getMarkersFromAPI();
+                },
+                title: 'Erro ao baixar os pontos',
+              ),
             );
           }
 
@@ -115,9 +123,9 @@ class _CustomMapState extends State<CustomMap> {
                             width: 20,
                             builder: (_) => InkWell(
                               onTap: () {
-                                Modular.to.pushNamed(
-                                  ModulesRoute.homeMapMarkerNavigate,
-                                  arguments: e,
+                                _controller.openMarkerPage(
+                                  isCreatingMarker: false,
+                                  markerToUpdate: e,
                                 );
                               },
                               child: MapMarkerWidget(
@@ -219,7 +227,9 @@ class _CustomMapState extends State<CustomMap> {
                   heroTag: 'map-3',
                   onPressed: () {
                     if (state is CustomMapAddingMarkerState) {
-                      _controller.goToMarkerPage();
+                      _controller.openMarkerPage(
+                        isCreatingMarker: true,
+                      );
                     } else {
                       _controller.addTemporaryMarker(_mapController);
                     }

@@ -198,15 +198,6 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   }
 
   @override
-  void goToMarkerPage() {
-    final currentState = state as CustomMapAddingMarkerState;
-    Modular.to.pushNamed(
-      ModulesRoute.homeMapMarkerNavigate,
-      arguments: currentState.temporaryMarkers[0],
-    );
-  }
-
-  @override
   List<MapMarkerModel> filterAllMarkers() {
     final currentState = state as CustomMapStateWithMarkers;
 
@@ -348,6 +339,9 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
         ),
       );
     }
+
+    final currentState = state as CustomMapStateWithMarkers;
+    emit(currentState.clearSelectedMarker());
   }
 
   @override
@@ -362,5 +356,49 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
       showFinishedMarkers: currentState.showFinishedMarkers,
       showUnfinishedMarkers: currentState.showUnfinishedMarkers,
     ));
+  }
+
+  @override
+  void incrementTemporaryMarkerCounter() {
+    final currentState = state as CustomMapStateWithMarkers;
+    emit(currentState.copyWith(
+      selectedMarker: currentState.selectedMarker!.copyWith(
+        counter: currentState.selectedMarker!.counter + 1,
+      ),
+      hasIncrementedMarkerCounter: true,
+    ));
+  }
+
+  @override
+  void decrementTemporaryMarkerCounter() {
+    final currentState = state as CustomMapStateWithMarkers;
+    emit(currentState.copyWith(
+      selectedMarker: currentState.selectedMarker!.copyWith(
+        counter: currentState.selectedMarker!.counter - 1,
+      ),
+      hasIncrementedMarkerCounter: false,
+    ));
+  }
+
+  @override
+  void openMarkerPage({
+    required bool isCreatingMarker,
+    MapMarkerModel? markerToUpdate,
+  }) {
+    if (isCreatingMarker) {
+      final currentState = state as CustomMapAddingMarkerState;
+      emit(currentState.copyWith(
+        selectedMarker: currentState.temporaryMarkers[0],
+      ));
+    } else {
+      final currentState = state as CustomMapStateWithMarkers;
+      emit(currentState.copyWith(
+        selectedMarker: markerToUpdate,
+      ));
+    }
+
+    Modular.to.pushNamed(
+      ModulesRoute.homeMapMarkerNavigate,
+    );
   }
 }

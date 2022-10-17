@@ -50,9 +50,7 @@ class HomeModule extends Module {
       ModulesRoute.homeMapMarker,
       child: (context, __) => BlocProvider.value(
         value: Modular.get<CustomMapControllerInterface>(),
-        child: MapMarkerPage(
-          model: Modular.args.data,
-        ),
+        child: const MapMarkerPage(),
       ),
     ),
     ModuleRoute(
