@@ -28,7 +28,13 @@ abstract class CustomMapControllerInterface extends Cubit<CustomMapState> {
     required String title,
     required String description,
   });
+  Future<void> updateMarkerOnAPI({
+    required String title,
+    required String description,
+  });
   void clearCreateMarkerOnAPIError();
+  void markSelectedMarkerWithinFinished();
+  void clearUpdateMarkerOnAPIError();
   Future<void> getMarkersFromAPI();
   String getMapKey();
   List<MapMarkerModel> filterFinishedMarkers();
@@ -41,5 +47,5 @@ abstract class CustomMapControllerInterface extends Cubit<CustomMapState> {
     required MapController mapController,
     required VoidCallback closePage,
   });
-  void clearTitleAndDescriptionFromTemporaryMarker();
+  void clearSelectedMarkerCounter();
 }

@@ -77,13 +77,12 @@ class SuccessGetMarkersCustomMapState extends CustomMapStateWithMarkers {
       selectedStyle: selectedStyle ?? this.selectedStyle,
       userPosition: userPosition ?? this.userPosition,
       markers: markers ?? this.markers,
-      selectedMarker: selectedMarker ?? this.selectedMarker,
+      selectedMarker: selectedMarker,
       filteredMarkers: filteredMarkers ?? this.filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter:
-          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
     );
   }
 }
@@ -136,13 +135,12 @@ class CustomMapStateWithMarkers extends CustomMapState {
       selectedStyle: selectedStyle ?? this.selectedStyle,
       userPosition: userPosition ?? this.userPosition,
       markers: markers ?? this.markers,
-      selectedMarker: selectedMarker ?? this.selectedMarker,
+      selectedMarker: selectedMarker,
       filteredMarkers: filteredMarkers ?? this.filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter:
-          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
     );
   }
 }
@@ -179,11 +177,126 @@ class CustomMapAddingMarkerState extends CustomMapStateWithMarkers {
       userPosition: userPosition ?? this.userPosition,
       temporaryMarkers: temporaryMarkers ?? this.temporaryMarkers,
       markers: markers ?? this.markers,
-      selectedMarker: selectedMarker ?? this.selectedMarker,
+      selectedMarker: selectedMarker,
       filteredMarkers: filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
-      hasIncrementedMarkerCounter:
-          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      showUnfinishedMarkers:
+          showUnfinishedMarkers ?? this.showUnfinishedMarkers,
+    );
+  }
+}
+
+class CustomMapUpdateMarkerSuccess extends CustomMapStateWithMarkers {
+  CustomMapUpdateMarkerSuccess({
+    required super.selectedStyle,
+    required super.userPosition,
+    required super.markers,
+    super.filteredMarkers,
+    super.showFinishedMarkers,
+    super.showUnfinishedMarkers,
+    super.hasIncrementedMarkerCounter,
+    super.selectedMarker,
+  });
+
+  @override
+  CustomMapState copyWith({
+    MapStylesEnum? selectedStyle,
+    CustomLatLngModel? userPosition,
+    List<MapMarkerModel>? markers,
+    List<MapMarkerModel>? filteredMarkers,
+    bool? showFinishedMarkers,
+    bool? showUnfinishedMarkers,
+    bool? hasIncrementedMarkerCounter,
+    MapMarkerModel? selectedMarker,
+  }) {
+    return CustomMapStateWithMarkers(
+      selectedStyle: selectedStyle ?? this.selectedStyle,
+      userPosition: userPosition ?? this.userPosition,
+      markers: markers ?? this.markers,
+      selectedMarker: selectedMarker,
+      filteredMarkers: filteredMarkers,
+      showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
+      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      showUnfinishedMarkers:
+          showUnfinishedMarkers ?? this.showUnfinishedMarkers,
+    );
+  }
+}
+
+class CustomMapUpdateMarkerLoading extends CustomMapStateWithMarkers {
+  CustomMapUpdateMarkerLoading({
+    required super.selectedStyle,
+    required super.userPosition,
+    required super.markers,
+    super.filteredMarkers,
+    super.showFinishedMarkers,
+    super.showUnfinishedMarkers,
+    super.hasIncrementedMarkerCounter,
+    super.selectedMarker,
+  });
+
+  @override
+  CustomMapState copyWith({
+    MapStylesEnum? selectedStyle,
+    CustomLatLngModel? userPosition,
+    List<MapMarkerModel>? markers,
+    List<MapMarkerModel>? filteredMarkers,
+    bool? showFinishedMarkers,
+    bool? showUnfinishedMarkers,
+    bool? hasIncrementedMarkerCounter,
+    MapMarkerModel? selectedMarker,
+  }) {
+    return CustomMapStateWithMarkers(
+      selectedStyle: selectedStyle ?? this.selectedStyle,
+      userPosition: userPosition ?? this.userPosition,
+      markers: markers ?? this.markers,
+      selectedMarker: selectedMarker,
+      filteredMarkers: filteredMarkers,
+      showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
+      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      showUnfinishedMarkers:
+          showUnfinishedMarkers ?? this.showUnfinishedMarkers,
+    );
+  }
+}
+
+class CustomMapUpdateMarkerError extends CustomMapStateWithMarkers {
+  CustomMapUpdateMarkerError({
+    required super.selectedStyle,
+    required super.userPosition,
+    required super.markers,
+    required this.errorMessage,
+    super.filteredMarkers,
+    super.showFinishedMarkers,
+    super.showUnfinishedMarkers,
+    super.hasIncrementedMarkerCounter,
+    super.selectedMarker,
+  });
+
+  final String errorMessage;
+
+  @override
+  CustomMapState copyWith({
+    MapStylesEnum? selectedStyle,
+    CustomLatLngModel? userPosition,
+    List<MapMarkerModel>? markers,
+    List<MapMarkerModel>? filteredMarkers,
+    bool? showFinishedMarkers,
+    bool? showUnfinishedMarkers,
+    bool? hasIncrementedMarkerCounter,
+    MapMarkerModel? selectedMarker,
+    String? errorMessage,
+  }) {
+    return CustomMapUpdateMarkerError(
+      errorMessage: errorMessage ?? this.errorMessage,
+      selectedStyle: selectedStyle ?? this.selectedStyle,
+      userPosition: userPosition ?? this.userPosition,
+      markers: markers ?? this.markers,
+      selectedMarker: selectedMarker,
+      filteredMarkers: filteredMarkers,
+      showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
+      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
     );
@@ -219,14 +332,13 @@ class LoadingCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
       selectedStyle: selectedStyle ?? this.selectedStyle,
       userPosition: userPosition ?? this.userPosition,
       markers: markers ?? this.markers,
-      selectedMarker: selectedMarker ?? this.selectedMarker,
+      selectedMarker: selectedMarker,
       temporaryMarkers: temporaryMarkers ?? this.temporaryMarkers,
       filteredMarkers: filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter:
-          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
     );
   }
 }
@@ -264,15 +376,14 @@ class ErrorCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
       selectedStyle: selectedStyle ?? this.selectedStyle,
       userPosition: userPosition ?? this.userPosition,
       markers: markers ?? this.markers,
-      selectedMarker: selectedMarker ?? this.selectedMarker,
+      selectedMarker: selectedMarker,
       temporaryMarkers: temporaryMarkers ?? this.temporaryMarkers,
       errorMessage: errorMessage ?? this.errorMessage,
       filteredMarkers: filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter:
-          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
     );
   }
 }
@@ -306,14 +417,13 @@ class SuccessCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
       selectedStyle: selectedStyle ?? this.selectedStyle,
       userPosition: userPosition ?? this.userPosition,
       markers: markers ?? this.markers,
-      selectedMarker: selectedMarker ?? this.selectedMarker,
+      selectedMarker: selectedMarker,
       temporaryMarkers: temporaryMarkers ?? this.temporaryMarkers,
       filteredMarkers: filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter:
-          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
     );
   }
 }

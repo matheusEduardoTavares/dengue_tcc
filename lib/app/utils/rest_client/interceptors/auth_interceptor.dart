@@ -38,6 +38,13 @@ class AuthInterceptor extends Interceptor {
 
       final accessToken = localData.authToken;
       options.headers['Authorization'] = 'Bearer $accessToken';
+
+      if ((options.method == 'POST') && options.data is Map<String, dynamic>) {
+        options.data = {
+          ...options.data as Map<String, dynamic>,
+          'usuario_id': localData.id,
+        };
+      }
     }
 
     return handler.next(options);

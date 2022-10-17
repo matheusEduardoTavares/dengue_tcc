@@ -53,8 +53,10 @@ class MapRepositoryImpl implements MapRepository {
   Future<Either<String, void>> updateMarker(MapMarkerModel model) async {
     const genericErrorMessage = 'Ocorreu um erro ao atualizar o ponto';
     try {
-      await _client.auth().patch(
-            '${ApiDefinitions.marker}/${model.id}',
+      await _client.auth().put(
+            ApiDefinitions.updateMarker(
+              markerID: model.id!,
+            ),
             data: model.toMap(),
           );
 

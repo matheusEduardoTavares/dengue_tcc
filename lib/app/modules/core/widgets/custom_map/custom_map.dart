@@ -49,25 +49,31 @@ class _CustomMapState extends State<CustomMap> {
       ),
       body: BlocConsumer<CustomMapControllerInterface, CustomMapState>(
         bloc: _controller,
-        listenWhen: (_, currentState) =>
-            currentState is SuccessCustomMapAddingMarkerState,
+        listenWhen: (oldState, currentState) =>
+            (oldState is! SuccessCustomMapAddingMarkerState &&
+                currentState is SuccessCustomMapAddingMarkerState) ||
+            (oldState is! CustomMapUpdateMarkerSuccess &&
+                currentState is CustomMapUpdateMarkerSuccess),
         listener: (context, state) async {
+          Modular.to.pop();
+
+          await AwesomeDialogsControl.showAwesomeDialogs(
+            message:
+                'Ponto ${state is CustomMapUpdateMarkerSuccess ? 'atualizado' : 'cadastrado'} com sucesso',
+            context: context,
+            btnOkOnPress: () {},
+          );
+
           if (state is SuccessCustomMapAddingMarkerState) {
-            Modular.to.pop();
-
-            await AwesomeDialogsControl.showAwesomeDialogs(
-              message: 'Ponto cadastrado com sucesso',
-              context: context,
-            );
-
-            _controller
-              ..removeTemporaryMarker()
-              ..getMarkersFromAPI();
+            _controller.removeTemporaryMarker();
           }
+
+          _controller.getMarkersFromAPI();
         },
         builder: (context, state) {
           if (state is LoadingGetMarkersCustomMapState ||
-              state is LoadingCustomMapAddingMarkerState) {
+              state is LoadingCustomMapAddingMarkerState ||
+              state is CustomMapUpdateMarkerLoading) {
             return const LoadingWidget();
           }
 
