@@ -6,7 +6,7 @@ class DefaultButton extends StatelessWidget {
   const DefaultButton({required this.callback, required this.label, super.key});
 
   final String label;
-  final VoidCallback callback;
+  final VoidCallback? callback;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,11 @@ class DefaultButton extends StatelessWidget {
           ),
         ),
         minimumSize: MaterialStateProperty.all(const Size(160, 60)),
-        foregroundColor: MaterialStateProperty.all(AppColors.selectedIconBlue),
+        foregroundColor: MaterialStateProperty.all(
+          callback == null
+              ? AppColors.inputDecorationForeground
+              : AppColors.selectedIconBlue,
+        ),
         textStyle: MaterialStateProperty.all(
           Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontSize: 22,

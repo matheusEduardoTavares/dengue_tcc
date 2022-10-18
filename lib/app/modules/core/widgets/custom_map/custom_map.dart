@@ -54,24 +54,48 @@ class _CustomMapState extends State<CustomMap> {
             (oldState is! SuccessCustomMapAddingMarkerState &&
                 currentState is SuccessCustomMapAddingMarkerState) ||
             (oldState is! CustomMapUpdateMarkerSuccess &&
-                currentState is CustomMapUpdateMarkerSuccess),
+                currentState is CustomMapUpdateMarkerSuccess) ||
+            (oldState is! ErrorCustomMapAddingMarkerState &&
+                currentState is ErrorCustomMapAddingMarkerState) ||
+            (oldState is! CustomMapUpdateMarkerError &&
+                currentState is CustomMapUpdateMarkerError),
         listener: (context, state) async {
-          if (Modular.to.canPop()) {
-            Modular.to.pop();
+          if (state is CustomMapUpdateMarkerError) {
+            AwesomeDialogsControl.showAwesomeDialogs(
+              message: state.errorMessage,
+              context: context,
+              isError: true,
+              btnOkOnPress: () {},
+            );
+
+            _controller.clearUpdateMarkerOnAPIError();
+          } else if (state is ErrorCustomMapAddingMarkerState) {
+            AwesomeDialogsControl.showAwesomeDialogs(
+              message: state.errorMessage,
+              context: context,
+              isError: true,
+              btnOkOnPress: () {},
+            );
+
+            _controller.clearCreateMarkerOnAPIError();
+          } else {
+            if (Modular.to.canPop()) {
+              Modular.to.pop();
+            }
+
+            await AwesomeDialogsControl.showAwesomeDialogs(
+              message:
+                  'Ponto ${state is CustomMapUpdateMarkerSuccess ? 'atualizado' : 'cadastrado'} com sucesso',
+              context: context,
+              btnOkOnPress: () {},
+            );
+
+            if (state is SuccessCustomMapAddingMarkerState) {
+              _controller.removeTemporaryMarker();
+            }
+
+            _controller.getMarkersFromAPI();
           }
-
-          await AwesomeDialogsControl.showAwesomeDialogs(
-            message:
-                'Ponto ${state is CustomMapUpdateMarkerSuccess ? 'atualizado' : 'cadastrado'} com sucesso',
-            context: context,
-            btnOkOnPress: () {},
-          );
-
-          if (state is SuccessCustomMapAddingMarkerState) {
-            _controller.removeTemporaryMarker();
-          }
-
-          _controller.getMarkersFromAPI();
         },
         builder: (context, state) {
           if (state is LoadingGetMarkersCustomMapState ||

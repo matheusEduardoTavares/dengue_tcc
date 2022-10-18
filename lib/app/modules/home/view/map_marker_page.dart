@@ -1,5 +1,6 @@
 import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_cubit.dart';
 import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_interface.dart';
+import 'package:dengue_tcc/app/modules/core/models/map_marker/map_marker_model.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_cubit.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_interface.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/default_button/default_button.dart';
@@ -28,6 +29,7 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
   late TextEditingController _titleEC;
   late TextEditingController _descriptionEC;
   late AuthControllerInterface _globalCubit;
+  late MapMarkerModel initialMapMarkerModel;
 
   @override
   void initState() {
@@ -47,6 +49,10 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
         text: selectedMarker.description ?? '',
       ),
     );
+
+    initialMapMarkerModel = (_controller.state as CustomMapStateWithMarkers)
+        .selectedMarker!
+        .copyWith();
   }
 
   @override
@@ -59,32 +65,8 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
         ),
         child: BlocBuilder<AuthControllerInterface, AuthControllerState>(
           builder: (context, globalState) {
-            return BlocConsumer<CustomMapControllerInterface, CustomMapState>(
+            return BlocBuilder<CustomMapControllerInterface, CustomMapState>(
               bloc: _controller,
-              listenWhen: (_, currentState) =>
-                  currentState is ErrorCustomMapAddingMarkerState ||
-                  currentState is CustomMapUpdateMarkerError,
-              listener: (_, state) {
-                if (state is CustomMapUpdateMarkerError) {
-                  AwesomeDialogsControl.showAwesomeDialogs(
-                    message: state.errorMessage,
-                    context: context,
-                    isError: true,
-                    btnOkOnPress: () {},
-                  );
-
-                  _controller.clearUpdateMarkerOnAPIError();
-                } else if (state is ErrorCustomMapAddingMarkerState) {
-                  AwesomeDialogsControl.showAwesomeDialogs(
-                    message: state.errorMessage,
-                    context: context,
-                    isError: true,
-                    btnOkOnPress: () {},
-                  );
-
-                  _controller.clearCreateMarkerOnAPIError();
-                }
-              },
               builder: (_, state) {
                 if (state is LoadingCustomMapAddingMarkerState ||
                     state is CustomMapUpdateMarkerLoading ||
@@ -194,21 +176,23 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                       height: 43,
                     ),
                     DefaultButton(
-                      callback: () {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          if (state.selectedMarker!.isCreatedMarker) {
-                            _controller.updateMarkerOnAPI(
-                              title: _titleEC.text,
-                              description: _descriptionEC.text,
-                            );
-                          } else {
-                            _controller.createMarkerOnAPI(
-                              title: _titleEC.text,
-                              description: _descriptionEC.text,
-                            );
-                          }
-                        }
-                      },
+                      callback: initialMapMarkerModel == state.selectedMarker!
+                          ? null
+                          : () {
+                              if (_formKey.currentState?.validate() ?? false) {
+                                if (state.selectedMarker!.isCreatedMarker) {
+                                  _controller.updateMarkerOnAPI(
+                                    title: _titleEC.text,
+                                    description: _descriptionEC.text,
+                                  );
+                                } else {
+                                  _controller.createMarkerOnAPI(
+                                    title: _titleEC.text,
+                                    description: _descriptionEC.text,
+                                  );
+                                }
+                              }
+                            },
                       label:
                           '${state.selectedMarker!.isCreatedMarker ? 'Atualizar' : 'Criar'} ponto de dengue',
                     ),
