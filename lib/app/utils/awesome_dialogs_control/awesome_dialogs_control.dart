@@ -12,12 +12,15 @@ class AwesomeDialogsControl {
     bool? isError,
     DialogType dialogType = DialogType.success,
     VoidCallback? btnOkOnPress,
+    VoidCallback? btnCancelOnPress,
   }) {
     return AwesomeDialog(
             title: title ?? ((isError ?? false) ? 'ERRO' : 'SUCESSO'),
             desc: message,
             context: context,
             dialogType: (isError ?? false) ? DialogType.error : dialogType,
+            btnCancelText: btnCancelOnPress != null ? 'Cancelar' : null,
+            btnCancelOnPress: btnCancelOnPress,
             btnOkOnPress: btnOkOnPress ??
                 () {
                   Navigator.of(context).pop();

@@ -98,6 +98,26 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                     const SizedBox(
                       height: 43,
                     ),
+                    if ((state as CustomMapStateWithMarkers)
+                        .selectedMarker!
+                        .isAPIMarker)
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 28.0),
+                              child: Text(
+                                'Ponto #${state.selectedMarker!.id}',
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 22,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     Column(
                       children: [
                         DefaultTextFormField(
@@ -120,9 +140,10 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                           onChanged:
                               _controller.updateTemporaryMarkerDescription,
                         ),
-                        if ((state as CustomMapStateWithMarkers)
-                            .selectedMarker!
-                            .isAPIMarker)
+                        //TODO!: VALIDAR SE DEVE MANTER A REGRA PARA O FINALIZADO
+                        if (state.selectedMarker!.isAPIMarker &&
+                            state.selectedMarker!.status !=
+                                MapMarkerEnum.finished)
                           Padding(
                             padding: const EdgeInsets.only(top: 28),
                             child: Container(

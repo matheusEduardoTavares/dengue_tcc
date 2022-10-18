@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_drawer/custom_drawer.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_cubit.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_interface.dart';
@@ -55,7 +56,9 @@ class _CustomMapState extends State<CustomMap> {
             (oldState is! CustomMapUpdateMarkerSuccess &&
                 currentState is CustomMapUpdateMarkerSuccess),
         listener: (context, state) async {
-          Modular.to.pop();
+          if (Modular.to.canPop()) {
+            Modular.to.pop();
+          }
 
           await AwesomeDialogsControl.showAwesomeDialogs(
             message:
@@ -231,11 +234,33 @@ class _CustomMapState extends State<CustomMap> {
                 bottom: 60.0,
                 child: FloatingActionButton(
                   heroTag: 'map-3',
-                  onPressed: () {
+                  onPressed: () async {
                     if (state is CustomMapAddingMarkerState) {
-                      _controller.openMarkerPage(
-                        isCreatingMarker: true,
+                      final approximatedMarker =
+                          MapUtils.getMarkerIntoLessFiftyMeters(
+                        markers: state.markers,
+                        markerBase: state.temporaryMarkers[0],
                       );
+
+                      if (approximatedMarker != null) {
+                        await AwesomeDialogsControl.showAwesomeDialogs(
+                          title: 'OBS',
+                          message:
+                              'O ponto selecionado está há menos de 50 metros de distância do ponto #${approximatedMarker.id}. Deseja incrementar um no contador do ponto #${approximatedMarker.id}?',
+                          context: context,
+                          dialogType: DialogType.info,
+                          btnOkOnPress: () {
+                            _controller.updateApproximatedMarkerCounter(
+                              approximatedMarker: approximatedMarker,
+                            );
+                          },
+                          btnCancelOnPress: () {},
+                        );
+                      } else {
+                        _controller.openMarkerPage(
+                          isCreatingMarker: true,
+                        );
+                      }
                     } else {
                       _controller.addTemporaryMarker(_mapController);
                     }

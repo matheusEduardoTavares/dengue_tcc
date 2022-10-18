@@ -101,4 +101,31 @@ class MapMarkerModel {
       userID: userID,
     );
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is MapMarkerModel &&
+        other.id == id &&
+        other.title == title &&
+        other.description == description &&
+        other.status == status &&
+        other.latLngModel == latLngModel &&
+        other.userID == userID &&
+        other.counter == counter &&
+        other.finishedDate == finishedDate;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        title.hashCode ^
+        description.hashCode ^
+        status.hashCode ^
+        latLngModel.hashCode ^
+        userID.hashCode ^
+        counter.hashCode ^
+        finishedDate.hashCode;
+  }
 }

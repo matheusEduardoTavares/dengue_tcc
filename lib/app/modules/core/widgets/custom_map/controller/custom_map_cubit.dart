@@ -485,4 +485,24 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
       selectedMarker: null,
     ));
   }
+
+  @override
+  Future<void> updateApproximatedMarkerCounter({
+    required MapMarkerModel approximatedMarker,
+  }) async {
+    try {
+      final currentState = state as CustomMapStateWithMarkers;
+      emit(currentState.copyWith(
+          selectedMarker: approximatedMarker.copyWith(
+        counter: approximatedMarker.counter + 1,
+      )));
+
+      await updateMarkerOnAPI(
+        title: approximatedMarker.title!,
+        description: approximatedMarker.description!,
+      );
+    } finally {
+      clearSelectedMarkerCounter();
+    }
+  }
 }

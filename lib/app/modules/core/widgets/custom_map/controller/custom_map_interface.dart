@@ -17,6 +17,9 @@ abstract class CustomMapControllerInterface extends Cubit<CustomMapState> {
     required bool isCreatingMarker,
     MapMarkerModel? markerToUpdate,
   });
+  Future<void> updateApproximatedMarkerCounter({
+    required MapMarkerModel approximatedMarker,
+  });
   void addTemporaryMarker(MapController mapController);
   void removeTemporaryMarker();
   void updateTemporaryMarkerTitle(String title);
