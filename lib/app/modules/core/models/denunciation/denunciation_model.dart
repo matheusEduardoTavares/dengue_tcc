@@ -1,35 +1,26 @@
 import 'dart:convert';
 
 import 'package:dengue_tcc/app/modules/core/models/information/information_model.dart';
+import 'package:dengue_tcc/app/utils/enums/map_marker/map_marker_enum.dart';
 
 class DenunciationModel extends InformationModel {
   DenunciationModel({
-    required super.information,
+    required super.title,
     required super.date,
-    required this.isResolved,
+    required super.description,
+    required super.status,
+    super.id,
   });
-
-  final bool isResolved;
-
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'texto': information,
-      'data': date,
-      'resolvido': isResolved,
-    };
-  }
 
   factory DenunciationModel.fromMap(Map<String, dynamic> map) {
     return DenunciationModel(
-      isResolved: map['resolvido'] ?? false,
-      date: map['data'],
-      information: map['texto'],
+      id: map['id'],
+      title: map['titulo'],
+      description: map['descricao'],
+      status: MapMarkerEnum.getByType(map['status']),
+      date: DateTime.parse(map['data_postagem'].toString()),
     );
   }
-
-  @override
-  String toJson() => json.encode(toMap());
 
   factory DenunciationModel.fromJson(String source) =>
       DenunciationModel.fromMap(json.decode(source));

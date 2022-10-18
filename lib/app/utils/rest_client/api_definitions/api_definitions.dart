@@ -16,4 +16,5 @@ class ApiDefinitions {
   static const signup = '/usuarios/signup';
   static const logout = '/logout/';
   static const refreshToken = '/logout/';
+  static const getNextCampaigns = '/campanhas/';
 }

@@ -1,35 +1,26 @@
 import 'dart:convert';
 
 import 'package:dengue_tcc/app/modules/core/models/information/information_model.dart';
+import 'package:dengue_tcc/app/utils/enums/map_marker/map_marker_enum.dart';
 
 class NextCampaignModel extends InformationModel {
   NextCampaignModel({
-    required super.information,
+    required super.description,
+    required super.title,
     required super.date,
-    required this.urlCampaign,
+    required super.status,
+    super.id,
   });
-
-  final String urlCampaign;
-
-  @override
-  Map<String, dynamic> toMap() {
-    return {
-      'texto': information,
-      'data': date,
-      'url': urlCampaign,
-    };
-  }
 
   factory NextCampaignModel.fromMap(Map<String, dynamic> map) {
     return NextCampaignModel(
-      urlCampaign: map['url'] ?? false,
-      date: map['data'],
-      information: map['texto'],
+      id: (map['id'] as int?)?.toInt(),
+      title: map['titulo'] ?? '',
+      description: map['descricao'] ?? '',
+      status: MapMarkerEnum.getByType(map['status']),
+      date: DateTime.parse(map['data_postagem'].toString()),
     );
   }
-
-  @override
-  String toJson() => json.encode(toMap());
 
   factory NextCampaignModel.fromJson(String source) =>
       NextCampaignModel.fromMap(json.decode(source));

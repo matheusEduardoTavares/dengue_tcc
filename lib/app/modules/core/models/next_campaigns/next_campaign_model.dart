@@ -17,9 +17,11 @@ class NextCampaignsModel extends InformationsModel {
     return campaigns.map((x) => x.toMap()).toList();
   }
 
-  factory NextCampaignsModel.fromMap(List<Map<String, dynamic>> map) {
+  factory NextCampaignsModel.fromMap(List map) {
+    final formattedList = List<Map<String, dynamic>>.from(map);
     return NextCampaignsModel(
-      campaigns: map.map((x) => NextCampaignModel.fromMap(x)).toList(),
+      campaigns:
+          formattedList.map((x) => NextCampaignModel.fromMap(x)).toList(),
     );
   }
 

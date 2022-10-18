@@ -66,44 +66,65 @@ class _InformationPageState extends State<InformationPage> {
             decoration: BoxDecoration(boxShadow: [
               AppShadows.informationContentShadow,
             ]),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 23,
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    state.pageType.title,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
+            child: model.informations.isEmpty
+                ? Center(
+                    child: Row(
+                      children: const [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom: 28.0),
+                            child: Text(
+                              'Não há campanhas disponíveis',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 22,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 23,
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          state.pageType.title,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                            itemCount: model.informations.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 22.0,
+                                ),
+                                child: InformationItemWidget(
+                                  model: model.informations[index],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: model.informations.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            bottom: 22.0,
-                          ),
-                          child: InformationItemWidget(
-                            model: model.informations[index],
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
           );
         },
       ),
