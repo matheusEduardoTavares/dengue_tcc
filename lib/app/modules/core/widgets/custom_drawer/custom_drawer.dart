@@ -142,7 +142,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             icon: Icons.whatsapp,
                             title: 'Suporte',
                             onTap: () {
-                              WhatsappUtils.openWhatsAppWithNumber();
+                              WhatsappUtils.openWhatsAppWithNumber(
+                                context: context,
+                              );
                             },
                           ),
                           const CustomDrawerDivider(),

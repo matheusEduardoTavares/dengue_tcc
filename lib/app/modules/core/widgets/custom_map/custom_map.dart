@@ -12,6 +12,8 @@ import 'package:dengue_tcc/app/utils/awesome_dialogs_control/awesome_dialogs_con
 import 'package:dengue_tcc/app/utils/custom_location/models/custom_lat_lng_model.dart';
 import 'package:dengue_tcc/app/utils/enums/map_styles_enum.dart';
 import 'package:dengue_tcc/app/utils/map_utils/map_utils.dart';
+import 'package:dengue_tcc/app/utils/remote_config_utils/remote_config_keys.dart';
+import 'package:dengue_tcc/app/utils/remote_config_utils/remote_config_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -121,8 +123,12 @@ class _CustomMapState extends State<CustomMap> {
                 mapController: _mapController,
                 options: MapOptions(
                   center: LatLng(
-                    MapUtils.barraBonitaCityCenterLat,
-                    MapUtils.barraBonitaCityCenterLon,
+                    RemoteConfigUtils.getDoubleValue(
+                      key: RemoteConfigKeys.centerMapLat,
+                    )!,
+                    RemoteConfigUtils.getDoubleValue(
+                      key: RemoteConfigKeys.centerMapLon,
+                    )!,
                   ),
                   zoom: 16,
                   maxZoom: 18,
