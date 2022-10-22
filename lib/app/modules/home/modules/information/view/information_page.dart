@@ -1,3 +1,5 @@
+import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_cubit.dart';
+import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_interface.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/custom_appbar/dengue_appbar.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/general_error/general_error_widget.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widget.dart';
@@ -6,8 +8,10 @@ import 'package:dengue_tcc/app/modules/home/modules/information/controller/infor
 import 'package:dengue_tcc/app/modules/home/modules/information/view/widgets/information_item_widget.dart';
 import 'package:dengue_tcc/app/utils/app_theme/app_shadows/app_shadows.dart';
 import 'package:dengue_tcc/app/utils/enums/information_enum/information_enum.dart';
+import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart' show Modular;
 
 class InformationPage extends StatefulWidget {
   const InformationPage({
@@ -25,16 +29,23 @@ class InformationPage extends StatefulWidget {
 }
 
 class _InformationPageState extends State<InformationPage> {
+  late AuthControllerInterface _userCubit;
+
   @override
   void initState() {
     super.initState();
 
+    _userCubit = context.read<AuthControllerInterface>();
     widget._controller.initialize(widget.pageType);
 
+    _executeGetRequests();
+  }
+
+  Future<void> _executeGetRequests() {
     if (widget.pageType == InformationEnum.denunciation) {
-      widget._controller.getDenunciations();
+      return widget._controller.getDenunciations();
     } else {
-      widget._controller.getNextCampaigns();
+      return widget._controller.getNextCampaigns();
     }
   }
 
@@ -42,6 +53,28 @@ class _InformationPageState extends State<InformationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: DengueAppbar(),
+      floatingActionButton:
+          BlocBuilder<AuthControllerInterface, AuthControllerState>(
+        bloc: _userCubit,
+        builder: (context, state) {
+          if (state.userModel != null && (state.userModel!.isAdm ?? false)) {
+            return FloatingActionButton(
+              onPressed: () async {
+                final isUpdatePage = await Modular.to.pushNamed<bool?>(
+                  ModulesRoute.addNextCampaignModuleNavigate,
+                );
+
+                if (isUpdatePage == true) {
+                  _executeGetRequests();
+                }
+              },
+              child: const Icon(Icons.add),
+            );
+          }
+
+          return const SizedBox.shrink();
+        },
+      ),
       body: BlocBuilder<InformationControllerInterface,
           InformationControllerState>(
         bloc: widget._controller,
@@ -53,7 +86,7 @@ class _InformationPageState extends State<InformationPage> {
           if (state is ErrorInformationControllerState) {
             return GeneralErrorWidget(
               retryCallback: () {
-                widget._controller.getDenunciations();
+                _executeGetRequests();
               },
               title: state.errorMessage,
             );

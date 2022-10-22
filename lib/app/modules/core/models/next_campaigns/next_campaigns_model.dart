@@ -22,6 +22,17 @@ class NextCampaignModel extends InformationModel {
     );
   }
 
+  @override
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'titulo': title,
+      'descricao': description,
+      'status': status.status,
+      'data_postagem': date.toIso8601String(),
+    };
+  }
+
   factory NextCampaignModel.fromJson(String source) =>
       NextCampaignModel.fromMap(json.decode(source));
 }

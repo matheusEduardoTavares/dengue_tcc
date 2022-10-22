@@ -20,6 +20,10 @@ class ModulesRoute {
   //INFORMATION
   static const informationModule = '/information';
   static const informationModuleNavigate = '$home/information';
+  //ADD NEXT CAMPAIGN
+  static const addNextCampaignModule = '/addNextCampaign';
+  static const addNextCampaignModuleNavigate =
+      '$informationModuleNavigate/addNextCampaign';
   //MARKERS LIST
   static const markersListModule = '/markersList';
   static const markersListModuleNavigate = '$home/markersList';
