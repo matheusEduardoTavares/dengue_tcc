@@ -1,6 +1,9 @@
 import 'package:dengue_tcc/app/modules/core/models/information/information_model.dart';
+import 'package:dengue_tcc/app/modules/core/models/next_campaigns/next_campaigns_model.dart';
 import 'package:dengue_tcc/app/utils/app_theme/app_shadows/app_shadows.dart';
 import 'package:dengue_tcc/app/utils/extensions/datetime_extension.dart';
+import 'package:dengue_tcc/app/utils/webview_control/webview_control.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class InformationItemWidget extends StatelessWidget {
@@ -53,39 +56,38 @@ class InformationItemWidget extends StatelessWidget {
               fontSize: 13,
             ),
           ),
-          //TODO!: DESCOMENTAR LINHAS ABAIXO QUANDO A API ADICIONAR O CAMPO DA URL
-          // if (model is NextCampaignModel)
-          //   Padding(
-          //     padding: const EdgeInsets.only(top: 5.0),
-          //     child: RichText(
-          //       text: TextSpan(
-          //         text: 'Acessar: ',
-          //         style: const TextStyle(
-          //           color: Colors.white,
-          //           fontSize: 13,
-          //           fontWeight: FontWeight.normal,
-          //         ),
-          //         children: [
-          //           TextSpan(
-          //             recognizer: TapGestureRecognizer()
-          //               ..onTap = () {
-          //                 WebviewControl.openWebviewLink(
-          //                   context: context,
-          //                   linkToOpen:
-          //                       (model as NextCampaignModel).urlCampaign,
-          //                 );
-          //               },
-          //             text: (model as NextCampaignModel).urlCampaign,
-          //             style: const TextStyle(
-          //               color: Colors.white,
-          //               fontSize: 13,
-          //               fontWeight: FontWeight.bold,
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     ),
-          //   ),
+          if (model is NextCampaignModel &&
+              (model as NextCampaignModel).url != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 5.0),
+              child: RichText(
+                text: TextSpan(
+                  text: 'Acessar: ',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 13,
+                    fontWeight: FontWeight.normal,
+                  ),
+                  children: [
+                    TextSpan(
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          WebviewControl.openWebviewLink(
+                            context: context,
+                            linkToOpen: (model as NextCampaignModel).url!,
+                          );
+                        },
+                      text: (model as NextCampaignModel).url!,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 13,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
         ],
       ),
     );

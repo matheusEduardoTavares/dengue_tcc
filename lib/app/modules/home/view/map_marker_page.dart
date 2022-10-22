@@ -8,7 +8,6 @@ import 'package:dengue_tcc/app/modules/core/widgets/default_page_with_scroll/def
 import 'package:dengue_tcc/app/modules/core/widgets/default_text_form_field/default_text_form_field.dart';
 import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widget.dart';
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
-import 'package:dengue_tcc/app/utils/awesome_dialogs_control/awesome_dialogs_control.dart';
 import 'package:dengue_tcc/app/utils/enums/map_marker/map_marker_enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

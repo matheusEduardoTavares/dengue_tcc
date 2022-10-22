@@ -5,6 +5,7 @@ import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widge
 import 'package:dengue_tcc/app/modules/home/modules/information/modules/controller/add_next_campaing_controller_cubit.dart';
 import 'package:dengue_tcc/app/modules/home/modules/information/modules/controller/add_next_campaing_controller_interface.dart';
 import 'package:dengue_tcc/app/utils/awesome_dialogs_control/awesome_dialogs_control.dart';
+import 'package:dengue_tcc/app/utils/custom_validations/custom_validations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart' show Modular;
@@ -24,6 +25,7 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _titleEC;
   late TextEditingController _descriptionEC;
+  late TextEditingController _linkEC;
 
   @override
   void initState() {
@@ -32,6 +34,7 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
     _controller = context.read<AddNextCampaingControllerInterface>();
     _titleEC = TextEditingController();
     _descriptionEC = TextEditingController();
+    _linkEC = TextEditingController();
   }
 
   @override
@@ -98,6 +101,15 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
                       ),
                       onChanged: (_) {},
                     ),
+                    const SizedBox(
+                      height: 28,
+                    ),
+                    DefaultTextFormField(
+                      controller: _linkEC,
+                      hintText: 'Link da campanha',
+                      validator: CustomValidations.url('Link inválido'),
+                      onChanged: (_) {},
+                    ),
                   ],
                 ),
                 const SizedBox(
@@ -109,6 +121,7 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
                       _controller.addNextCampaign(
                         title: _titleEC.text,
                         description: _descriptionEC.text,
+                        url: _linkEC.text,
                       );
                     }
                   },
@@ -126,6 +139,7 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
   void dispose() {
     _titleEC.dispose();
     _descriptionEC.dispose();
+    _linkEC.dispose();
 
     super.dispose();
   }

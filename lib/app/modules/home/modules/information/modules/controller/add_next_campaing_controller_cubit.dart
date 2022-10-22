@@ -18,6 +18,7 @@ class AddNextCampaingControllerCubit
   Future<void> addNextCampaign({
     required String title,
     required String description,
+    required String url,
   }) async {
     emit(LoadingAddNextCampaingControllerState());
 
