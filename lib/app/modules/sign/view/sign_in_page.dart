@@ -66,21 +66,21 @@ class _SignINPageState extends State<SignINPage> {
           Modular.initialRoute,
         );
       },
-      titlePage: 'Login',
+      titlePage: 'Email',
       errorState: ErrorSignINControllerState,
       loadingState: LoadingSignINControllerState,
       successState: SuccessSignINControllerState,
-      childAfterForm: TextButton(
-        onPressed: () {
-          Modular.to.pushNamed(
-            ModulesRoute.forgotPasswordModuleNavigate,
-          );
-        },
-        child: Text(
-          'Esqueci minha senha',
-          style: context.getDisplaySmall,
-        ),
-      ),
+      // childAfterForm: TextButton(
+      //   onPressed: () {
+      //     Modular.to.pushNamed(
+      //       ModulesRoute.forgotPasswordModuleNavigate,
+      //     );
+      //   },
+      //   child: Text(
+      //     'Esqueci minha senha',
+      //     style: context.getDisplaySmall,
+      //   ),
+      // ),
       confirmButton: LoginButton(
         callback: () {
           if (_formKey.currentState?.validate() ?? false) {

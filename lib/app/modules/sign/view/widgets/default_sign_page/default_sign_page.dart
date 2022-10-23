@@ -104,9 +104,9 @@ class DefaultSignPage extends StatelessWidget {
                             ),
                             DefaultTextFormField(
                               controller: _loginEC,
-                              hintText: 'Login',
+                              hintText: 'Email',
                               validator: Validatorless.required(
-                                'Login inválido',
+                                'Email inválido',
                               ),
                               onChanged: _controller.updateEmail,
                             ),
