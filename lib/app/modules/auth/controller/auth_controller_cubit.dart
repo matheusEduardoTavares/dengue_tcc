@@ -2,10 +2,9 @@ import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_interface
 import 'package:dengue_tcc/app/modules/core/models/user/user_model.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
+import 'package:dengue_tcc/app/utils/firebase_utils/firebase_utils.dart';
 import 'package:dengue_tcc/app/utils/images_precache/images_precache.dart';
 import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 part 'auth_controller_state.dart';
@@ -30,12 +29,12 @@ class AuthControllerCubit extends AuthControllerInterface {
     final loadDatas = await Future.wait([
       _localRepository.getUser(),
       Future.delayed(const Duration(seconds: 2)),
-      Firebase.initializeApp(),
     ]);
 
     final UserModel? user = loadDatas[0];
     var routeToGo = ModulesRoute.signModule;
     if (user != null) {
+      FirebaseUtils.setUserToCrashlytics(userId: user.id);
       emit(state.copyWith(userModel: user));
       routeToGo = ModulesRoute.home;
     }

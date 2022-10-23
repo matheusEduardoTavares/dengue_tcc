@@ -2,9 +2,11 @@ import 'dart:async';
 
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
+import 'package:dengue_tcc/app/utils/firebase_utils/firebase_utils.dart';
 import 'package:dengue_tcc/app/utils/rest_client/rest_client.dart';
 import 'package:dengue_tcc/app/utils/rest_client/rest_client_exception.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AuthInterceptor extends Interceptor {
@@ -57,6 +59,13 @@ class AuthInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+    if (!kDebugMode) {
+      FirebaseUtils.sendToCrashlytics(
+        error: err,
+        stackTrace: err.stackTrace,
+      );
+    }
+
     if (err.requestOptions.extra['auth_required'] == true) {
       final statusCode = err.response?.statusCode;
       if (statusCode == 403 || statusCode == 401) {

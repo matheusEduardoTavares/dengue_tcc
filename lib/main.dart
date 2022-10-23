@@ -1,24 +1,31 @@
+import 'dart:async';
+
 import 'package:dengue_tcc/app/app_module.dart';
 import 'package:dengue_tcc/app/app_widget.dart';
 import 'package:dengue_tcc/app/utils/environment/environment_impl.dart';
+import 'package:dengue_tcc/app/utils/firebase_utils/firebase_utils.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 Future<void> main() async {
-  await EnvironmentImpl().configureEnvironment();
+  runZonedGuarded(() async {
+    await EnvironmentImpl().configureEnvironment();
+    await FirebaseUtils.initialize();
 
-  runApp(
-    DevicePreview(
-      builder: (_) => ModularApp(
-        module: AppModule(),
-        child: const AppWidget(),
+    runApp(
+      DevicePreview(
+        builder: (_) => ModularApp(
+          module: AppModule(),
+          child: const AppWidget(),
+        ),
+        //TODO sempre que precisar testar responsividade, trocar o enabled para true e após usar voltar para false (nunca commitar com enabled true)
+        enabled: false,
+        availableLocales: const [
+          Locale('pt', 'BR'),
+        ],
       ),
-      //TODO sempre que precisar testar responsividade, trocar o enabled para true e após usar voltar para false (nunca commitar com enabled true)
-      enabled: false,
-      availableLocales: const [
-        Locale('pt', 'BR'),
-      ],
-    ),
-  );
+    );
+  }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
 }
