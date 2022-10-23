@@ -2,6 +2,7 @@ import 'package:dengue_tcc/app/modules/auth/controller/auth_controller_interface
 import 'package:dengue_tcc/app/modules/core/models/user/user_model.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
+import 'package:dengue_tcc/app/utils/environment/environment_impl.dart';
 import 'package:dengue_tcc/app/utils/firebase_utils/firebase_utils.dart';
 import 'package:dengue_tcc/app/utils/images_precache/images_precache.dart';
 import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
@@ -25,6 +26,7 @@ class AuthControllerCubit extends AuthControllerInterface {
 
   @override
   Future<void> loadData() async {
+    await EnvironmentImpl().configureEnvironment();
     _imagesPrecache.makeLocalImagesPrecache();
     final loadDatas = await Future.wait([
       _localRepository.getUser(),

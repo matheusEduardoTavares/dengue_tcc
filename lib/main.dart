@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:dengue_tcc/app/app_module.dart';
 import 'package:dengue_tcc/app/app_widget.dart';
-import 'package:dengue_tcc/app/utils/environment/environment_impl.dart';
 import 'package:dengue_tcc/app/utils/firebase_utils/firebase_utils.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -11,7 +10,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 Future<void> main() async {
   runZonedGuarded(() async {
-    await EnvironmentImpl().configureEnvironment();
+    WidgetsFlutterBinding.ensureInitialized();
     await FirebaseUtils.initialize();
 
     runApp(

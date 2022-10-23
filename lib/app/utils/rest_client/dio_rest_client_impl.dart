@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository_impl.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
-import 'package:dengue_tcc/app/utils/environment/environment.dart';
-import 'package:dengue_tcc/app/utils/environment/environment_keys.dart';
+import 'package:dengue_tcc/app/utils/remote_config_utils/remote_config_keys.dart';
+import 'package:dengue_tcc/app/utils/remote_config_utils/remote_config_utils.dart';
 import 'package:dengue_tcc/app/utils/rest_client/api_definitions/api_definitions.dart';
 import 'package:dengue_tcc/app/utils/rest_client/interceptors/auth_interceptor.dart';
 import 'package:dengue_tcc/app/utils/rest_client/rest_client.dart';
@@ -16,13 +16,12 @@ import 'package:dio/dio.dart';
 class DioRestClient implements RestClient {
   DioRestClient({
     required LocalRepository localRepository,
-    required Environment environment,
     AuthRepository? authRepository,
     bool? useHttpsSecurityProtocol,
     BaseOptions? options,
   }) {
-    _baseURL = environment.getVariable(
-      EnvironmentKeys.apiURL,
+    _baseURL = RemoteConfigUtils.getStringValue(
+      key: RemoteConfigKeys.apiURL,
     )!;
     _dio = Dio(options ?? _getOptions());
 
