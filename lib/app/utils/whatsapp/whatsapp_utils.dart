@@ -9,7 +9,7 @@ class WhatsappUtils {
 
   static Future<void> openWhatsAppWithNumber({
     required BuildContext context,
-    String? text,
+    String? text = 'Olá, suporte aplicativo dengue de Barra Bonita / SP!',
   }) async {
     try {
       final number =
