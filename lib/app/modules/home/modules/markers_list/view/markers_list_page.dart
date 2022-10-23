@@ -41,11 +41,7 @@ class _MarkersListPageState extends State<MarkersListPage> {
           color: AppColors.bottomBarBlack,
           borderRadius: BorderRadius.circular(20),
         );
-        if ((state as CustomMapStateWithMarkers)
-                .getFilteredOrAllMarkers
-                .isEmpty &&
-            !(state.showFinishedMarkers == false &&
-                state.showUnfinishedMarkers == false)) {
+        if ((state as CustomMapStateWithMarkers).markers.isEmpty) {
           return Scaffold(
             appBar: DengueAppbar(),
             body: SignBackground(
@@ -96,8 +92,8 @@ class _MarkersListPageState extends State<MarkersListPage> {
                                   value: state.showFinishedMarkers,
                                   onChanged: (_) =>
                                       _mapCubit.toggleFinishedMarkers(),
-                                  title: const Text(
-                                    'Finalizados',
+                                  title: Text(
+                                    'Finalizados (${_mapCubit.filterFinishedMarkers().length})',
                                     style: defaultTextStyle,
                                   ),
                                 ),
@@ -106,8 +102,8 @@ class _MarkersListPageState extends State<MarkersListPage> {
                                   value: state.showUnfinishedMarkers,
                                   onChanged: (_) =>
                                       _mapCubit.toggleUnfinishedMarkers(),
-                                  title: const Text(
-                                    'Ativos',
+                                  title: Text(
+                                    'Ativos (${_mapCubit.filterUnfinishedMarkers().length})',
                                     style: defaultTextStyle,
                                   ),
                                 ),
