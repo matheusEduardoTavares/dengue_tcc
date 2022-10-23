@@ -6,6 +6,7 @@ import 'package:dengue_tcc/app/modules/home/modules/information/modules/controll
 import 'package:dengue_tcc/app/modules/home/modules/information/modules/controller/add_next_campaing_controller_interface.dart';
 import 'package:dengue_tcc/app/utils/awesome_dialogs_control/awesome_dialogs_control.dart';
 import 'package:dengue_tcc/app/utils/custom_validations/custom_validations.dart';
+import 'package:dengue_tcc/app/utils/extensions/text_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart' show Modular;
@@ -82,6 +83,13 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
                 ),
                 Column(
                   children: [
+                    Text(
+                      'Nova campanha',
+                      style: context.getTitle,
+                    ),
+                    const SizedBox(
+                      height: 43,
+                    ),
                     DefaultTextFormField(
                       controller: _titleEC,
                       hintText: 'Título',
