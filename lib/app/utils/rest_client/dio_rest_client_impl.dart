@@ -101,7 +101,10 @@ class DioRestClient implements RestClient {
     } on DioError catch (e) {
       throw RestClientException(
         error: e.error,
-        message: _getErrorMessage(e.response),
+        message: _getErrorMessage(
+          response: e.response,
+          error: e.error,
+        ),
         statusCode: e.response?.statusCode,
         response: _dioErrorConverter(e.response),
         completeError: e,
@@ -132,7 +135,10 @@ class DioRestClient implements RestClient {
     } on DioError catch (e) {
       throw RestClientException(
         error: e.error,
-        message: _getErrorMessage(e.response),
+        message: _getErrorMessage(
+          response: e.response,
+          error: e.error,
+        ),
         statusCode: e.response?.statusCode,
         response: _dioErrorConverter(e.response),
         completeError: e,
@@ -163,7 +169,10 @@ class DioRestClient implements RestClient {
     } on DioError catch (e) {
       throw RestClientException(
         error: e.error,
-        message: _getErrorMessage(e.response),
+        message: _getErrorMessage(
+          response: e.response,
+          error: e.error,
+        ),
         statusCode: e.response?.statusCode,
         response: _dioErrorConverter(e.response),
         completeError: e,
@@ -194,7 +203,10 @@ class DioRestClient implements RestClient {
     } on DioError catch (e) {
       throw RestClientException(
         error: e.error,
-        message: _getErrorMessage(e.response),
+        message: _getErrorMessage(
+          response: e.response,
+          error: e.error,
+        ),
         statusCode: e.response?.statusCode,
         response: _dioErrorConverter(e.response),
         completeError: e,
@@ -225,7 +237,10 @@ class DioRestClient implements RestClient {
     } on DioError catch (e) {
       throw RestClientException(
         error: e.error,
-        message: _getErrorMessage(e.response),
+        message: _getErrorMessage(
+          response: e.response,
+          error: e.error,
+        ),
         statusCode: e.response?.statusCode,
         response: _dioErrorConverter(e.response),
         completeError: e,
@@ -260,7 +275,10 @@ class DioRestClient implements RestClient {
     } on DioError catch (e) {
       throw RestClientException(
         error: e.error,
-        message: _getErrorMessage(e.response),
+        message: _getErrorMessage(
+          response: e.response,
+          error: e.error,
+        ),
         statusCode: e.response?.statusCode,
         response: _dioErrorConverter(e.response),
         completeError: e,
@@ -293,7 +311,10 @@ class DioRestClient implements RestClient {
     } on DioError catch (e) {
       throw RestClientException(
         error: e.error,
-        message: _getErrorMessage(e.response),
+        message: _getErrorMessage(
+          response: e.response,
+          error: e.error,
+        ),
         statusCode: e.response?.statusCode,
         response: _dioErrorConverter(e.response),
         completeError: e,
@@ -309,7 +330,14 @@ class DioRestClient implements RestClient {
     );
   }
 
-  String? _getErrorMessage(Response? response) {
+  String? _getErrorMessage({
+    required Response? response,
+    required dynamic error,
+  }) {
+    if (error is SocketException) {
+      return 'Necessário conexão com a internet';
+    }
+
     final responseMap = response?.data;
     String? apiResponseErrorMessage;
     if (responseMap is Map) {
