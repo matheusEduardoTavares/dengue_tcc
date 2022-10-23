@@ -11,6 +11,7 @@ class MapUtils {
 
   static const barraBonitaCityCenterLat = -22.47662684956675;
   static const barraBonitaCityCenterLon = -48.56361525904357;
+  static const phone = '+5514981677393';
 
   static MapMarkerModel? getMarkerIntoLessFiftyMeters({
     required List<MapMarkerModel> markers,

@@ -1,5 +1,6 @@
 import 'dart:isolate';
 
+import 'package:dengue_tcc/app/utils/environment/environment_impl.dart';
 import 'package:dengue_tcc/app/utils/remote_config_utils/remote_config_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,7 +30,9 @@ class FirebaseUtils {
       }).sendPort);
     }
 
-    await RemoteConfigUtils.initialize();
+    await RemoteConfigUtils.initialize(
+      environment: EnvironmentImpl(),
+    );
   }
 
   static Future<void> sendToCrashlytics({
