@@ -75,11 +75,13 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                   return const LoadingWidget();
                 }
 
+                final isAdm = globalState.userModel!.isAdm ?? false;
                 final isAdmUpdatingMarker = (state as CustomMapStateWithMarkers)
                             .selectedMarker!
                             .isCreatedMarker ==
                         true &&
-                    (globalState.userModel!.isAdm ?? false);
+                    isAdm;
+
                 final isNewMarker =
                     state.selectedMarker!.isCreatedMarker == false;
                 final isAdmOrNewMarker = isAdmUpdatingMarker || isNewMarker;
@@ -154,34 +156,37 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                                       ),
                                     ),
                                   ),
-                                  IconButton(
-                                    onPressed: () {
-                                      if (state.hasIncrementedMarkerCounter ==
-                                              null ||
-                                          state.hasIncrementedMarkerCounter ==
-                                              false) {
-                                        _controller
-                                            .incrementTemporaryMarkerCounter();
-                                      } else {
-                                        _controller
-                                            .decrementTemporaryMarkerCounter();
-                                      }
-                                    },
-                                    icon: Icon(
-                                      (state.hasIncrementedMarkerCounter ==
-                                              true)
-                                          ? Icons.remove
-                                          : Icons.add,
-                                      color: Colors.white,
-                                    ),
-                                  )
+                                  if (state.selectedMarker!.status ==
+                                      MapMarkerEnum.active)
+                                    IconButton(
+                                      onPressed: () {
+                                        if (state.hasIncrementedMarkerCounter ==
+                                                null ||
+                                            state.hasIncrementedMarkerCounter ==
+                                                false) {
+                                          _controller
+                                              .incrementTemporaryMarkerCounter();
+                                        } else {
+                                          _controller
+                                              .decrementTemporaryMarkerCounter();
+                                        }
+                                      },
+                                      icon: Icon(
+                                        (state.hasIncrementedMarkerCounter ==
+                                                true)
+                                            ? Icons.remove
+                                            : Icons.add,
+                                        color: Colors.white,
+                                      ),
+                                    )
                                 ],
                               ),
                             ),
                           )
                       ],
                     ),
-                    if (isAdmOrNewMarker)
+                    if (!(!isAdm &&
+                        state.selectedMarker!.status == MapMarkerEnum.finished))
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 43.0),
                         child: DefaultButton(
