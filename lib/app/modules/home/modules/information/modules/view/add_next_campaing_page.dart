@@ -77,6 +77,7 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
             }
 
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 43,
