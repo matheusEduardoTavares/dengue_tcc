@@ -26,6 +26,7 @@ class AddNextCampaingControllerCubit
       nextCampaignModel: NextCampaignModel(
         description: description,
         title: title,
+        url: url,
         date: DateTime.now(),
         status: MapMarkerEnum.active,
       ),
