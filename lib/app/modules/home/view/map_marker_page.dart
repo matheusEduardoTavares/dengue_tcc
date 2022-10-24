@@ -171,30 +171,33 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                           )
                       ],
                     ),
-                    const SizedBox(
-                      height: 43,
-                    ),
-                    DefaultButton(
-                      callback: initialMapMarkerModel == state.selectedMarker!
-                          ? null
-                          : () {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                if (state.selectedMarker!.isCreatedMarker) {
-                                  _controller.updateMarkerOnAPI(
-                                    title: _titleEC.text,
-                                    description: _descriptionEC.text,
-                                  );
-                                } else {
-                                  _controller.createMarkerOnAPI(
-                                    title: _titleEC.text,
-                                    description: _descriptionEC.text,
-                                  );
-                                }
-                              }
-                            },
-                      label:
-                          '${state.selectedMarker!.isCreatedMarker ? 'Atualizar' : 'Criar'} ponto de dengue',
-                    ),
+                    if (globalState.userModel!.isAdm ?? false)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 43.0),
+                        child: DefaultButton(
+                          callback: initialMapMarkerModel ==
+                                  state.selectedMarker!
+                              ? null
+                              : () {
+                                  if (_formKey.currentState?.validate() ??
+                                      false) {
+                                    if (state.selectedMarker!.isCreatedMarker) {
+                                      _controller.updateMarkerOnAPI(
+                                        title: _titleEC.text,
+                                        description: _descriptionEC.text,
+                                      );
+                                    } else {
+                                      _controller.createMarkerOnAPI(
+                                        title: _titleEC.text,
+                                        description: _descriptionEC.text,
+                                      );
+                                    }
+                                  }
+                                },
+                          label:
+                              '${state.selectedMarker!.isCreatedMarker ? 'Atualizar' : 'Criar'} ponto de dengue',
+                        ),
+                      ),
                     if (state.selectedMarker!.isCreatedMarker &&
                         state.selectedMarker!.status == MapMarkerEnum.active &&
                         (globalState.userModel!.isAdm ?? false))
