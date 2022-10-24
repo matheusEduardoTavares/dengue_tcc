@@ -148,7 +148,7 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      'Quantidade de pontos: ${state.selectedMarker!.counter}',
+                                      'Quantidade de alertas: ${state.selectedMarker!.counter}',
                                       style: const TextStyle(
                                         color: Colors.white,
                                       ),
@@ -206,7 +206,7 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                                   }
                                 },
                           label:
-                              '${state.selectedMarker!.isCreatedMarker ? 'Atualizar' : 'Criar'} ponto de dengue',
+                              '${state.selectedMarker!.isCreatedMarker ? 'Atualizar' : 'Criar'} alerta de dengue',
                         ),
                       ),
                     if (isAdmUpdatingMarker &&
@@ -222,7 +222,7 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                                 description: _descriptionEC.text,
                               );
                           },
-                          label: 'Marcar ponto de dengue como finalizado',
+                          label: 'Marcar alerta de dengue como finalizado',
                         ),
                       )
                   ],

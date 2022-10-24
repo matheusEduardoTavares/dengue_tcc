@@ -14,7 +14,7 @@ class MapRepositoryImpl implements MapRepository {
 
   @override
   Future<Either<String, void>> addMarker(MapMarkerModel model) async {
-    const genericErrorMessage = 'Ocorreu um erro ao adicionar o ponto';
+    const genericErrorMessage = 'Ocorreu um erro ao adicionar o alerta';
     try {
       await _client.auth().post(
             ApiDefinitions.addMarker,
@@ -31,7 +31,7 @@ class MapRepositoryImpl implements MapRepository {
 
   @override
   Future<Either<String, List<MapMarkerModel>>> getMarkers() async {
-    const genericErrorMessage = 'Ocorreu um erro ao baixar os pontos';
+    const genericErrorMessage = 'Ocorreu um erro ao baixar os alertas';
     try {
       final response = await _client.auth().get(
             ApiDefinitions.marker,
@@ -51,7 +51,7 @@ class MapRepositoryImpl implements MapRepository {
 
   @override
   Future<Either<String, void>> updateMarker(MapMarkerModel model) async {
-    const genericErrorMessage = 'Ocorreu um erro ao atualizar o ponto';
+    const genericErrorMessage = 'Ocorreu um erro ao atualizar o alerta';
     try {
       await _client.auth().put(
             ApiDefinitions.updateMarker(

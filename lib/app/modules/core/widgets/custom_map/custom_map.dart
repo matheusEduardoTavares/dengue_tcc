@@ -112,7 +112,7 @@ class _CustomMapState extends State<CustomMap> {
                 retryCallback: () {
                   _controller.getMarkersFromAPI();
                 },
-                title: 'Erro ao baixar os pontos',
+                title: 'Erro ao baixar os alertas',
               ),
             );
           }
@@ -276,7 +276,7 @@ class _CustomMapState extends State<CustomMap> {
                         await AwesomeDialogsControl.showAwesomeDialogs(
                           title: 'OBS',
                           message:
-                              'O ponto selecionado está há menos de 50 metros de distância do ponto #${approximatedMarker.id}. Deseja incrementar um no contador do ponto #${approximatedMarker.id}?',
+                              'O alerta selecionado está há menos de 50 metros de distância do alerta #${approximatedMarker.id}. Deseja incrementar um no contador do alerta #${approximatedMarker.id}?',
                           context: context,
                           dialogType: DialogType.info,
                           btnOkOnPress: () {

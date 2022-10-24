@@ -53,7 +53,7 @@ class _MarkersListPageState extends State<MarkersListPage> {
                     decoration: defaultBoxDecoration,
                     padding: const EdgeInsets.all(5),
                     child: Text(
-                      'Não há nenhum ponto de foco de dengue',
+                      'Não há nenhum alerta de foco de dengue',
                       style: defaultTextStyle.copyWith(fontSize: 18),
                       textAlign: TextAlign.center,
                     ),
@@ -79,7 +79,7 @@ class _MarkersListPageState extends State<MarkersListPage> {
                       child: Column(
                         children: [
                           Text(
-                            'Filtrar pontos de foco de dengue',
+                            'Filtrar alertas de foco de dengue',
                             style: context.getTitle.copyWith(
                               fontSize: 18,
                             ),
