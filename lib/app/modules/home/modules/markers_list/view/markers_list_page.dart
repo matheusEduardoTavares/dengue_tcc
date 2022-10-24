@@ -3,6 +3,7 @@ import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom
 import 'package:dengue_tcc/app/modules/core/widgets/custom_map/controller/custom_map_interface.dart';
 import 'package:dengue_tcc/app/modules/sign/view/widgets/sign_background/sign_background.dart';
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
+import 'package:dengue_tcc/app/utils/extensions/text_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/plugin_api.dart';
@@ -79,7 +80,7 @@ class _MarkersListPageState extends State<MarkersListPage> {
                         children: [
                           Text(
                             'Filtrar pontos de foco de dengue',
-                            style: defaultTextStyle.copyWith(
+                            style: context.getTitle.copyWith(
                               fontSize: 18,
                             ),
                           ),
@@ -120,7 +121,7 @@ class _MarkersListPageState extends State<MarkersListPage> {
                                   state.getFilteredOrAllMarkers[index];
                               return ListTile(
                                 leading: Text(
-                                  'Ponto #${currentModel.id}',
+                                  'Alerta #${currentModel.id}',
                                   style: defaultTextStyle,
                                 ),
                                 title: Text(

@@ -25,7 +25,6 @@ class MapMarkerModel {
   final DateTime? finishedDate;
 
   bool get isCreatedMarker => id != null;
-  bool get isAPIMarker => id != null;
 
   Map<String, dynamic> toMap() {
     return {

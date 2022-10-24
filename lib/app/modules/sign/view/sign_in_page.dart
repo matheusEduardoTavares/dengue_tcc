@@ -4,8 +4,6 @@ import 'package:dengue_tcc/app/modules/sign/controller/sign_controller_cubit.dar
 import 'package:dengue_tcc/app/modules/sign/controller/sign_controller_interface.dart';
 import 'package:dengue_tcc/app/modules/sign/view/widgets/buttons/login_button.dart';
 import 'package:dengue_tcc/app/modules/sign/view/widgets/default_sign_page/default_sign_page.dart';
-import 'package:dengue_tcc/app/utils/extensions/text_extension.dart';
-import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart' show Modular;
@@ -66,7 +64,7 @@ class _SignINPageState extends State<SignINPage> {
           Modular.initialRoute,
         );
       },
-      titlePage: 'Email',
+      titlePage: 'Login',
       errorState: ErrorSignINControllerState,
       loadingState: LoadingSignINControllerState,
       successState: SuccessSignINControllerState,

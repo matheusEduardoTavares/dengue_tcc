@@ -93,7 +93,6 @@ class DefaultSignPage extends StatelessWidget {
                       Form(
                         key: _formKey,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               titlePage,

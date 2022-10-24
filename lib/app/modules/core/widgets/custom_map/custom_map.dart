@@ -87,7 +87,7 @@ class _CustomMapState extends State<CustomMap> {
 
             await AwesomeDialogsControl.showAwesomeDialogs(
               message:
-                  'Ponto ${state is CustomMapUpdateMarkerSuccess ? 'atualizado' : 'cadastrado'} com sucesso',
+                  'Alerta ${state is CustomMapUpdateMarkerSuccess ? 'atualizado' : 'cadastrado'} com sucesso',
               context: context,
               btnOkOnPress: () {},
             );

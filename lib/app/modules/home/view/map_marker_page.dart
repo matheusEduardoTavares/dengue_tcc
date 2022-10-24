@@ -9,6 +9,7 @@ import 'package:dengue_tcc/app/modules/core/widgets/default_text_form_field/defa
 import 'package:dengue_tcc/app/modules/core/widgets/loading_widget/loading_widget.dart';
 import 'package:dengue_tcc/app/utils/app_colors/app_colors.dart';
 import 'package:dengue_tcc/app/utils/enums/map_marker/map_marker_enum.dart';
+import 'package:dengue_tcc/app/utils/extensions/text_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:validatorless/validatorless.dart';
@@ -74,34 +75,41 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                   return const LoadingWidget();
                 }
 
+                final isAdmUpdatingMarker = (state as CustomMapStateWithMarkers)
+                            .selectedMarker!
+                            .isCreatedMarker ==
+                        true &&
+                    (globalState.userModel!.isAdm ?? false);
+                final isNewMarker =
+                    state.selectedMarker!.isCreatedMarker == false;
+                final isAdmOrNewMarker = isAdmUpdatingMarker || isNewMarker;
+
                 return Column(
                   children: [
                     const SizedBox(
                       height: 43,
                     ),
-                    if ((state as CustomMapStateWithMarkers)
-                        .selectedMarker!
-                        .isAPIMarker)
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(bottom: 28.0),
-                              child: Text(
-                                'Ponto #${state.selectedMarker!.id}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 22,
-                                ),
-                              ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 28.0),
+                            child: Text(
+                              state.selectedMarker!.isCreatedMarker
+                                  ? 'Alerta #${state.selectedMarker!.id}'
+                                  : 'Criar alerta',
+                              style: context.getTitle,
+                              textAlign: TextAlign.center,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
+                    ),
                     Column(
                       children: [
                         DefaultTextFormField(
+                          enabled: isAdmOrNewMarker,
                           controller: _titleEC,
                           hintText: 'Título',
                           validator: Validatorless.required(
@@ -113,7 +121,9 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                           height: 28,
                         ),
                         DefaultTextFormField(
+                          enabled: isAdmOrNewMarker,
                           controller: _descriptionEC,
+                          isDescription: true,
                           hintText: 'Descrição',
                           validator: Validatorless.required(
                             'Descrição inválida',
@@ -122,7 +132,7 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                               _controller.updateTemporaryMarkerDescription,
                         ),
                         //TODO!: VALIDAR SE DEVE MANTER A REGRA PARA O FINALIZADO
-                        if (state.selectedMarker!.isAPIMarker &&
+                        if (state.selectedMarker!.isCreatedMarker &&
                             state.selectedMarker!.status !=
                                 MapMarkerEnum.finished)
                           Padding(
@@ -171,12 +181,13 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                           )
                       ],
                     ),
-                    if (globalState.userModel!.isAdm ?? false)
+                    if (isAdmOrNewMarker)
                       Padding(
-                        padding: const EdgeInsets.only(top: 43.0),
+                        padding: const EdgeInsets.symmetric(vertical: 43.0),
                         child: DefaultButton(
                           callback: initialMapMarkerModel ==
-                                  state.selectedMarker!
+                                      state.selectedMarker! &&
+                                  !isNewMarker
                               ? null
                               : () {
                                   if (_formKey.currentState?.validate() ??
@@ -198,11 +209,10 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                               '${state.selectedMarker!.isCreatedMarker ? 'Atualizar' : 'Criar'} ponto de dengue',
                         ),
                       ),
-                    if (state.selectedMarker!.isCreatedMarker &&
-                        state.selectedMarker!.status == MapMarkerEnum.active &&
-                        (globalState.userModel!.isAdm ?? false))
+                    if (isAdmUpdatingMarker &&
+                        state.selectedMarker!.status == MapMarkerEnum.active)
                       Padding(
-                        padding: const EdgeInsets.only(top: 43.0),
+                        padding: const EdgeInsets.only(bottom: 43.0),
                         child: DefaultButton(
                           callback: () {
                             _controller

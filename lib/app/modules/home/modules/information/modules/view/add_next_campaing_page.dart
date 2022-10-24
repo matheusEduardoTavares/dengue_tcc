@@ -77,7 +77,6 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
             }
 
             return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 43,
@@ -105,6 +104,7 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
                     DefaultTextFormField(
                       controller: _descriptionEC,
                       hintText: 'Descrição',
+                      isDescription: true,
                       validator: Validatorless.required(
                         'Descrição inválida',
                       ),
@@ -121,20 +121,20 @@ class _AddNextCampaignPageState extends State<AddNextCampaignPage> {
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 43,
-                ),
-                DefaultButton(
-                  callback: () {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      _controller.addNextCampaign(
-                        title: _titleEC.text,
-                        description: _descriptionEC.text,
-                        url: _linkEC.text,
-                      );
-                    }
-                  },
-                  label: 'Criar nova campanha',
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 43.0),
+                  child: DefaultButton(
+                    callback: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        _controller.addNextCampaign(
+                          title: _titleEC.text,
+                          description: _descriptionEC.text,
+                          url: _linkEC.text,
+                        );
+                      }
+                    },
+                    label: 'Criar nova campanha',
+                  ),
                 ),
               ],
             );
