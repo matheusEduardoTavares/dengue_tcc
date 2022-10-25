@@ -4,18 +4,22 @@ class CustomMapState {
   CustomMapState({
     this.selectedStyle = MapStylesEnum.STREET,
     this.userPosition,
+    this.mapPosition,
   });
 
   final MapStylesEnum selectedStyle;
   final CustomLatLngModel? userPosition;
+  final CustomLatLngModel? mapPosition;
 
   CustomMapState copyWith({
     MapStylesEnum? selectedStyle,
     CustomLatLngModel? userPosition,
+    CustomLatLngModel? mapPosition,
   }) {
     return CustomMapState(
       selectedStyle: selectedStyle ?? this.selectedStyle,
       userPosition: userPosition ?? this.userPosition,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }
@@ -24,6 +28,7 @@ class LoadingGetMarkersCustomMapState extends CustomMapState {
   LoadingGetMarkersCustomMapState({
     required super.selectedStyle,
     required super.userPosition,
+    super.mapPosition,
   });
 }
 
@@ -32,6 +37,7 @@ class ErrorGetMarkersCustomMapState extends CustomMapState {
     required super.selectedStyle,
     required super.userPosition,
     required this.errorMessage,
+    super.mapPosition,
   });
 
   @override
@@ -39,11 +45,13 @@ class ErrorGetMarkersCustomMapState extends CustomMapState {
     MapStylesEnum? selectedStyle,
     CustomLatLngModel? userPosition,
     String? errorMessage,
+    CustomLatLngModel? mapPosition,
   }) {
     return ErrorGetMarkersCustomMapState(
       selectedStyle: selectedStyle ?? this.selectedStyle,
       userPosition: userPosition ?? this.userPosition,
       errorMessage: errorMessage ?? this.errorMessage,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 
@@ -60,6 +68,7 @@ class SuccessGetMarkersCustomMapState extends CustomMapStateWithMarkers {
     super.showUnfinishedMarkers,
     super.hasIncrementedMarkerCounter,
     super.selectedMarker,
+    super.mapPosition,
   });
 
   @override
@@ -72,6 +81,7 @@ class SuccessGetMarkersCustomMapState extends CustomMapStateWithMarkers {
     bool? showUnfinishedMarkers,
     bool? hasIncrementedMarkerCounter,
     MapMarkerModel? selectedMarker,
+    CustomLatLngModel? mapPosition,
   }) {
     return SuccessGetMarkersCustomMapState(
       selectedStyle: selectedStyle ?? this.selectedStyle,
@@ -83,6 +93,7 @@ class SuccessGetMarkersCustomMapState extends CustomMapStateWithMarkers {
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
       hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }
@@ -97,6 +108,7 @@ class CustomMapStateWithMarkers extends CustomMapState {
     this.filteredMarkers,
     this.hasIncrementedMarkerCounter,
     this.selectedMarker,
+    super.mapPosition,
   });
 
   final List<MapMarkerModel> markers;
@@ -118,6 +130,7 @@ class CustomMapStateWithMarkers extends CustomMapState {
         filteredMarkers: filteredMarkers,
         showFinishedMarkers: showFinishedMarkers,
         showUnfinishedMarkers: showUnfinishedMarkers,
+        mapPosition: mapPosition,
       );
 
   @override
@@ -130,6 +143,7 @@ class CustomMapStateWithMarkers extends CustomMapState {
     bool? showFinishedMarkers,
     bool? showUnfinishedMarkers,
     bool? hasIncrementedMarkerCounter,
+    CustomLatLngModel? mapPosition,
   }) {
     return CustomMapStateWithMarkers(
       selectedStyle: selectedStyle ?? this.selectedStyle,
@@ -141,6 +155,7 @@ class CustomMapStateWithMarkers extends CustomMapState {
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
       hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }
@@ -156,6 +171,7 @@ class CustomMapAddingMarkerState extends CustomMapStateWithMarkers {
     super.showUnfinishedMarkers,
     super.hasIncrementedMarkerCounter,
     super.selectedMarker,
+    super.mapPosition,
   });
 
   final List<MapMarkerModel> temporaryMarkers;
@@ -171,6 +187,7 @@ class CustomMapAddingMarkerState extends CustomMapStateWithMarkers {
     bool? showUnfinishedMarkers,
     bool? hasIncrementedMarkerCounter,
     MapMarkerModel? selectedMarker,
+    CustomLatLngModel? mapPosition,
   }) {
     return CustomMapAddingMarkerState(
       selectedStyle: selectedStyle ?? this.selectedStyle,
@@ -183,6 +200,7 @@ class CustomMapAddingMarkerState extends CustomMapStateWithMarkers {
       hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }
@@ -197,6 +215,7 @@ class CustomMapUpdateMarkerSuccess extends CustomMapStateWithMarkers {
     super.showUnfinishedMarkers,
     super.hasIncrementedMarkerCounter,
     super.selectedMarker,
+    super.mapPosition,
   });
 
   @override
@@ -209,6 +228,7 @@ class CustomMapUpdateMarkerSuccess extends CustomMapStateWithMarkers {
     bool? showUnfinishedMarkers,
     bool? hasIncrementedMarkerCounter,
     MapMarkerModel? selectedMarker,
+    CustomLatLngModel? mapPosition,
   }) {
     return CustomMapStateWithMarkers(
       selectedStyle: selectedStyle ?? this.selectedStyle,
@@ -220,6 +240,7 @@ class CustomMapUpdateMarkerSuccess extends CustomMapStateWithMarkers {
       hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }
@@ -234,6 +255,7 @@ class CustomMapUpdateMarkerLoading extends CustomMapStateWithMarkers {
     super.showUnfinishedMarkers,
     super.hasIncrementedMarkerCounter,
     super.selectedMarker,
+    super.mapPosition,
   });
 
   @override
@@ -246,6 +268,7 @@ class CustomMapUpdateMarkerLoading extends CustomMapStateWithMarkers {
     bool? showUnfinishedMarkers,
     bool? hasIncrementedMarkerCounter,
     MapMarkerModel? selectedMarker,
+    CustomLatLngModel? mapPosition,
   }) {
     return CustomMapStateWithMarkers(
       selectedStyle: selectedStyle ?? this.selectedStyle,
@@ -257,6 +280,7 @@ class CustomMapUpdateMarkerLoading extends CustomMapStateWithMarkers {
       hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }
@@ -272,6 +296,7 @@ class CustomMapUpdateMarkerError extends CustomMapStateWithMarkers {
     super.showUnfinishedMarkers,
     super.hasIncrementedMarkerCounter,
     super.selectedMarker,
+    super.mapPosition,
   });
 
   final String errorMessage;
@@ -287,6 +312,7 @@ class CustomMapUpdateMarkerError extends CustomMapStateWithMarkers {
     bool? hasIncrementedMarkerCounter,
     MapMarkerModel? selectedMarker,
     String? errorMessage,
+    CustomLatLngModel? mapPosition,
   }) {
     return CustomMapUpdateMarkerError(
       errorMessage: errorMessage ?? this.errorMessage,
@@ -299,6 +325,7 @@ class CustomMapUpdateMarkerError extends CustomMapStateWithMarkers {
       hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }
@@ -314,6 +341,7 @@ class LoadingCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
     super.showUnfinishedMarkers,
     super.hasIncrementedMarkerCounter,
     super.selectedMarker,
+    super.mapPosition,
   });
 
   @override
@@ -327,6 +355,7 @@ class LoadingCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
     bool? showUnfinishedMarkers,
     bool? hasIncrementedMarkerCounter,
     MapMarkerModel? selectedMarker,
+    CustomLatLngModel? mapPosition,
   }) {
     return LoadingCustomMapAddingMarkerState(
       selectedStyle: selectedStyle ?? this.selectedStyle,
@@ -339,6 +368,7 @@ class LoadingCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
       hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }
@@ -355,6 +385,7 @@ class ErrorCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
     super.showUnfinishedMarkers,
     super.hasIncrementedMarkerCounter,
     super.selectedMarker,
+    super.mapPosition,
   });
 
   final String errorMessage;
@@ -371,6 +402,7 @@ class ErrorCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
     bool? showUnfinishedMarkers,
     bool? hasIncrementedMarkerCounter,
     MapMarkerModel? selectedMarker,
+    CustomLatLngModel? mapPosition,
   }) {
     return ErrorCustomMapAddingMarkerState(
       selectedStyle: selectedStyle ?? this.selectedStyle,
@@ -384,6 +416,7 @@ class ErrorCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
       hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }
@@ -399,6 +432,7 @@ class SuccessCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
     super.showUnfinishedMarkers,
     super.hasIncrementedMarkerCounter,
     super.selectedMarker,
+    super.mapPosition,
   });
 
   @override
@@ -412,6 +446,7 @@ class SuccessCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
     bool? showUnfinishedMarkers,
     bool? hasIncrementedMarkerCounter,
     MapMarkerModel? selectedMarker,
+    CustomLatLngModel? mapPosition,
   }) {
     return SuccessCustomMapAddingMarkerState(
       selectedStyle: selectedStyle ?? this.selectedStyle,
@@ -424,6 +459,7 @@ class SuccessCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
       hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      mapPosition: mapPosition ?? this.mapPosition,
     );
   }
 }

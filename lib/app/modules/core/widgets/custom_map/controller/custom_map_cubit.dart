@@ -32,7 +32,10 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
 
   @override
   void changeMapStyle(MapStylesEnum newStyle) {
-    emit(state.copyWith(selectedStyle: newStyle));
+    emit(state.copyWith(
+      selectedStyle: newStyle,
+      mapPosition: state.mapPosition,
+    ));
   }
 
   @override
@@ -44,6 +47,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   Future<void> updateUserPosition(MapController mapController) async {
     final userPosition = await _customLocation.getUserLocation();
     emit(state.copyWith(
+      mapPosition: state.mapPosition,
       userPosition: userPosition,
     ));
   }
@@ -64,6 +68,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   void addTemporaryMarker(MapController mapController) {
     final currentState = state as CustomMapStateWithMarkers;
     emit(CustomMapAddingMarkerState(
+      mapPosition: state.mapPosition,
       selectedStyle: state.selectedStyle,
       userPosition: state.userPosition,
       temporaryMarkers: [
@@ -83,6 +88,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   void removeTemporaryMarker() {
     final currentState = state as CustomMapStateWithMarkers;
     emit(CustomMapStateWithMarkers(
+      mapPosition: state.mapPosition,
       selectedStyle: state.selectedStyle,
       userPosition: state.userPosition,
       markers: currentState.markers,
@@ -101,6 +107,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   }) async {
     final currentState = state as CustomMapAddingMarkerState;
     emit(LoadingCustomMapAddingMarkerState(
+      mapPosition: state.mapPosition,
       selectedStyle: state.selectedStyle,
       userPosition: state.userPosition,
       markers: currentState.markers,
@@ -121,6 +128,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
 
     either.fold(
       (errorMessage) => emit(ErrorCustomMapAddingMarkerState(
+        mapPosition: state.mapPosition,
         selectedStyle: state.selectedStyle,
         userPosition: state.userPosition,
         markers: currentState.markers,
@@ -134,6 +142,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
       )),
       (markers) {
         emit(SuccessCustomMapAddingMarkerState(
+          mapPosition: state.mapPosition,
           selectedStyle: state.selectedStyle,
           userPosition: state.userPosition,
           markers: currentState.markers,
@@ -151,6 +160,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   @override
   Future<void> getMarkersFromAPI() async {
     emit(LoadingGetMarkersCustomMapState(
+      mapPosition: state.mapPosition,
       selectedStyle: state.selectedStyle,
       userPosition: state.userPosition,
     ));
@@ -158,12 +168,14 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
     final either = await _repository.getMarkers();
     either.fold(
       (errorMessage) => emit(ErrorGetMarkersCustomMapState(
+        mapPosition: state.mapPosition,
         selectedStyle: state.selectedStyle,
         userPosition: state.userPosition,
         errorMessage: errorMessage,
       )),
       (markers) {
         emit(SuccessGetMarkersCustomMapState(
+          mapPosition: state.mapPosition,
           selectedStyle: state.selectedStyle,
           userPosition: state.userPosition,
           markers: markers,
@@ -181,6 +193,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
 
     emit(
       currentState.copyWith(
+        mapPosition: state.mapPosition,
         selectedMarker: updatedMarker,
       ),
     );
@@ -195,6 +208,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
 
     emit(
       currentState.copyWith(
+        mapPosition: state.mapPosition,
         selectedMarker: updatedMarker,
       ),
     );
@@ -210,6 +224,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
 
     emit(
       currentState.copyWith(
+        mapPosition: state.mapPosition,
         temporaryMarkers: newList,
       ),
     );
@@ -261,6 +276,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
         currentState.showUnfinishedMarkers) {
       final unfinishedMarkers = filterUnfinishedMarkers();
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         showFinishedMarkers: false,
         showUnfinishedMarkers: true,
         filteredMarkers: unfinishedMarkers,
@@ -269,6 +285,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
         currentState.showUnfinishedMarkers) {
       final allMarkers = filterAllMarkers();
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         showFinishedMarkers: true,
         showUnfinishedMarkers: true,
         filteredMarkers: allMarkers,
@@ -277,12 +294,14 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
         currentState.showUnfinishedMarkers == false) {
       final finishedMarkers = filterFinishedMarkers();
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         showFinishedMarkers: true,
         showUnfinishedMarkers: false,
         filteredMarkers: finishedMarkers,
       ));
     } else {
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         showFinishedMarkers: false,
         showUnfinishedMarkers: false,
         filteredMarkers: [],
@@ -298,6 +317,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
         currentState.showUnfinishedMarkers) {
       final finishedMarkers = filterFinishedMarkers();
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         showFinishedMarkers: true,
         showUnfinishedMarkers: false,
         filteredMarkers: finishedMarkers,
@@ -305,6 +325,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
     } else if (currentState.showFinishedMarkers == false &&
         currentState.showUnfinishedMarkers) {
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         showFinishedMarkers: false,
         showUnfinishedMarkers: false,
         filteredMarkers: [],
@@ -313,6 +334,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
         currentState.showUnfinishedMarkers == false) {
       final unfinishedMarkers = filterUnfinishedMarkers();
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         showFinishedMarkers: false,
         showUnfinishedMarkers: true,
         filteredMarkers: unfinishedMarkers,
@@ -320,6 +342,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
     } else {
       final allMarkers = filterAllMarkers();
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         showFinishedMarkers: true,
         showUnfinishedMarkers: true,
         filteredMarkers: allMarkers,
@@ -345,6 +368,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   void clearCreateMarkerOnAPIError() {
     final currentState = state as CustomMapAddingMarkerState;
     emit(CustomMapAddingMarkerState(
+      mapPosition: state.mapPosition,
       markers: currentState.markers,
       selectedStyle: currentState.selectedStyle,
       temporaryMarkers: currentState.temporaryMarkers,
@@ -361,6 +385,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   void incrementTemporaryMarkerCounter() {
     final currentState = state as CustomMapStateWithMarkers;
     emit(currentState.copyWith(
+      mapPosition: state.mapPosition,
       selectedMarker: currentState.selectedMarker!.copyWith(
         counter: currentState.selectedMarker!.counter + 1,
       ),
@@ -372,6 +397,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   void decrementTemporaryMarkerCounter() {
     final currentState = state as CustomMapStateWithMarkers;
     emit(currentState.copyWith(
+      mapPosition: state.mapPosition,
       selectedMarker: currentState.selectedMarker!.copyWith(
         counter: currentState.selectedMarker!.counter - 1,
       ),
@@ -387,11 +413,13 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
     if (isCreatingMarker) {
       final currentState = state as CustomMapAddingMarkerState;
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         selectedMarker: currentState.temporaryMarkers[0],
       ));
     } else {
       final currentState = state as CustomMapStateWithMarkers;
       emit(currentState.copyWith(
+        mapPosition: state.mapPosition,
         selectedMarker: markerToUpdate,
       ));
     }
@@ -405,6 +433,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   void clearUpdateMarkerOnAPIError() {
     final currentState = state as CustomMapStateWithMarkers;
     emit(CustomMapStateWithMarkers(
+      mapPosition: state.mapPosition,
       markers: currentState.markers,
       selectedStyle: currentState.selectedStyle,
       userPosition: currentState.userPosition,
@@ -423,6 +452,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   }) async {
     final currentState = state as CustomMapStateWithMarkers;
     emit(CustomMapUpdateMarkerLoading(
+      mapPosition: state.mapPosition,
       selectedStyle: state.selectedStyle,
       userPosition: state.userPosition,
       markers: currentState.markers,
@@ -442,6 +472,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
 
     either.fold(
       (errorMessage) => emit(CustomMapUpdateMarkerError(
+        mapPosition: state.mapPosition,
         selectedStyle: state.selectedStyle,
         userPosition: state.userPosition,
         markers: currentState.markers,
@@ -454,6 +485,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
       )),
       (markers) {
         emit(CustomMapUpdateMarkerSuccess(
+          mapPosition: state.mapPosition,
           selectedStyle: state.selectedStyle,
           userPosition: state.userPosition,
           markers: currentState.markers,
@@ -471,6 +503,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   void markSelectedMarkerWithinFinished() {
     final currentState = state as CustomMapStateWithMarkers;
     emit(currentState.copyWith(
+      mapPosition: state.mapPosition,
       selectedMarker: currentState.selectedMarker!.copyWith(
         status: MapMarkerEnum.finished,
       ),
@@ -481,6 +514,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   void clearSelectedMarkerCounter() {
     final currentState = state as CustomMapStateWithMarkers;
     emit(currentState.copyWith(
+      mapPosition: state.mapPosition,
       hasIncrementedMarkerCounter: null,
       selectedMarker: null,
     ));
@@ -493,9 +527,10 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
     try {
       final currentState = state as CustomMapStateWithMarkers;
       emit(currentState.copyWith(
+          mapPosition: state.mapPosition,
           selectedMarker: approximatedMarker.copyWith(
-        counter: approximatedMarker.counter + 1,
-      )));
+            counter: approximatedMarker.counter + 1,
+          )));
 
       await updateMarkerOnAPI(
         title: approximatedMarker.title!,
@@ -504,5 +539,12 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
     } finally {
       clearSelectedMarkerCounter();
     }
+  }
+
+  @override
+  void updateMapPosition({required CustomLatLngModel latLng}) {
+    emit(state.copyWith(
+      mapPosition: latLng,
+    ));
   }
 }

@@ -81,6 +81,12 @@ class _CustomMapState extends State<CustomMap> {
 
             _controller.clearCreateMarkerOnAPIError();
           } else {
+            _controller.updateMapPosition(
+              latLng: CustomLatLngModel(
+                lat: _mapController.center.latitude,
+                lon: _mapController.center.longitude,
+              ),
+            );
             if (Modular.to.canPop()) {
               Modular.to.pop();
             }
@@ -89,7 +95,14 @@ class _CustomMapState extends State<CustomMap> {
               message:
                   'Alerta ${state is CustomMapUpdateMarkerSuccess ? 'atualizado' : 'cadastrado'} com sucesso',
               context: context,
-              btnOkOnPress: () {},
+              btnOkOnPress: () {
+                WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                  _mapController.move(
+                    _controller.state.mapPosition!.getIntoLatLongPackage,
+                    _mapController.zoom,
+                  );
+                });
+              },
             );
 
             if (state is SuccessCustomMapAddingMarkerState) {
@@ -122,14 +135,16 @@ class _CustomMapState extends State<CustomMap> {
               FlutterMap(
                 mapController: _mapController,
                 options: MapOptions(
-                  center: LatLng(
-                    RemoteConfigUtils.getDoubleValue(
-                      key: RemoteConfigKeys.centerMapLat,
-                    )!,
-                    RemoteConfigUtils.getDoubleValue(
-                      key: RemoteConfigKeys.centerMapLon,
-                    )!,
-                  ),
+                  center: state.mapPosition != null
+                      ? _controller.state.mapPosition!.getIntoLatLongPackage
+                      : LatLng(
+                          RemoteConfigUtils.getDoubleValue(
+                            key: RemoteConfigKeys.centerMapLat,
+                          )!,
+                          RemoteConfigUtils.getDoubleValue(
+                            key: RemoteConfigKeys.centerMapLon,
+                          )!,
+                        ),
                   zoom: 16,
                   maxZoom: 18,
                   minZoom: 13,

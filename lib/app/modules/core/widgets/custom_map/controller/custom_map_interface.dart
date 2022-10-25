@@ -36,6 +36,9 @@ abstract class CustomMapControllerInterface extends Cubit<CustomMapState> {
     required String description,
   });
   void clearCreateMarkerOnAPIError();
+  void updateMapPosition({
+    required CustomLatLngModel latLng,
+  });
   void markSelectedMarkerWithinFinished();
   void clearUpdateMarkerOnAPIError();
   Future<void> getMarkersFromAPI();
