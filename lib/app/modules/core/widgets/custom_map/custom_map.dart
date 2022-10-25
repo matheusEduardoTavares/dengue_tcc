@@ -85,6 +85,7 @@ class _CustomMapState extends State<CustomMap> {
               latLng: CustomLatLngModel(
                 lat: _mapController.center.latitude,
                 lon: _mapController.center.longitude,
+                zoom: _mapController.zoom,
               ),
             );
             if (Modular.to.canPop()) {
@@ -99,7 +100,7 @@ class _CustomMapState extends State<CustomMap> {
                 WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
                   _mapController.move(
                     _controller.state.mapPosition!.getIntoLatLongPackage,
-                    _mapController.zoom,
+                    _controller.state.mapPosition!.zoom ?? _mapController.zoom,
                   );
                 });
               },
@@ -145,7 +146,7 @@ class _CustomMapState extends State<CustomMap> {
                             key: RemoteConfigKeys.centerMapLon,
                           )!,
                         ),
-                  zoom: 16,
+                  zoom: _controller.state.mapPosition?.zoom ?? 16,
                   maxZoom: 18,
                   minZoom: 13,
                   onTap: state is CustomMapAddingMarkerState

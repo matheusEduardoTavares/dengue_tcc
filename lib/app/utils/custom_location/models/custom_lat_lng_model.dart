@@ -6,10 +6,12 @@ class CustomLatLngModel {
     required this.lon,
     this.accurracy,
     this.altitude,
+    this.zoom,
   });
 
   final double lat;
   final double lon;
   final double? accurracy;
   final double? altitude;
+  final double? zoom;
 }
