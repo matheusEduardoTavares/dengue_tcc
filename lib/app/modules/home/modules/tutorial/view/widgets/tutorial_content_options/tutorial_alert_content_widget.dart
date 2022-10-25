@@ -20,6 +20,7 @@ class TutorialAlertContentWidget extends StatelessWidget {
           'Por esses e outros motivos devemos evitar que a dengue continue se propagando, assim evitando com que outras pessoas, sendo por exemplo, um deles como nossos entes queridos.',
       onTap: onTap,
       selectedBottomNavigatorBarIndex: selectedBottomNavigatorBarIndex,
+      title: 'Sintomas',
     );
   }
 }

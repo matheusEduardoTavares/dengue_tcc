@@ -15,6 +15,7 @@ class TutorialGraphicContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TutorialContentWidget(
+      title: 'Gráfico',
       imagePath: ImagesPath.dengueGraphic,
       contentText:
           'De acordo com a Prefeitura da Estância Turística de Barra Bonita (2021), foram registrados 2 casos em 2021; 1 caso em 2020; 12 casos em 2019 e nenhum caso em 2018. Com base nestes números,  verifica-se que a cidade vêm registrando poucos casos da doença nos últimos anos, indicativo de que os órgãos públicos podem estar executando bem sua função de monitoramento e conscientização da população. No entanto, deve-se fazer uma ressalva: a pandemia de covid-19 levou as pessoas a passarem maior tempo em casa, podendo se dedicar mais a cuidar do ambiente doméstico e assim eliminar, com maior eficiência, possíveis focos de proliferação.'

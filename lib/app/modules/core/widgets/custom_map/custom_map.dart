@@ -221,8 +221,10 @@ class _CustomMapState extends State<CustomMap> {
                     (index, currentEnum) => MapEntry(
                       index,
                       Positioned(
-                        right: 20,
-                        top: 60.0 * (index + 1),
+                        right: index.isEven ? 20 : 80,
+                        top: index == 0 || index == 1
+                            ? 60
+                            : (60.0 * (index + 1) - (index.isOdd ? 120 : 60)),
                         child: FloatingActionButton(
                           heroTag: index,
                           mini: true,

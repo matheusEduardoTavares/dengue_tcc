@@ -14,7 +14,7 @@ class ApiDefinitions {
   static const addMarker = '/alertas/';
   static const signin = '/usuarios/login';
   static const signup = '/usuarios/signup';
-  static const logout = '/logout/';
-  static const refreshToken = '/logout/';
+  static const logout = '/usuarios/logout';
+  static const refreshToken = '/usuarios/logout';
   static const getNextCampaigns = '/campanhas/';
 }

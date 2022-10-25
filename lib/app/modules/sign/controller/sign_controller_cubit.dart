@@ -162,7 +162,7 @@ class SignControllerCubit extends SignControllerInterface {
   @override
   void updateAdmCode(String admCode) {
     emit(state.copyWith(
-      admCode: state.isAdmin ? state.admCode : null,
+      admCode: state.isAdmin ? admCode : null,
     ));
   }
 

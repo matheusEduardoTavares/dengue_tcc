@@ -6,15 +6,15 @@ enum MapStylesEnum {
     style: 'dark-v10',
     iconData: Icons.nightlight_round,
   ),
-  SATELLITE(
-    title: 'Satélite',
-    style: 'satellite-v9',
-    iconData: Icons.satellite,
-  ),
   LIGHT(
     title: 'Claro',
     style: 'light-v10',
     iconData: Icons.wb_sunny,
+  ),
+  SATELLITE(
+    title: 'Satélite',
+    style: 'satellite-v9',
+    iconData: Icons.satellite,
   ),
   STREET(
     title: 'Padrão',

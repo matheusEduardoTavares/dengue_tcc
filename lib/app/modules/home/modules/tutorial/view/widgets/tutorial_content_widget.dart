@@ -7,12 +7,14 @@ class TutorialContentWidget extends StatelessWidget {
       {required this.imagePath,
       required this.selectedBottomNavigatorBarIndex,
       required this.onTap,
+      required this.title,
       this.contentText,
       this.content,
       Key? key})
       : super(key: key);
 
   final String imagePath;
+  final String title;
   final String? contentText;
   final Widget? content;
   final int selectedBottomNavigatorBarIndex;
@@ -26,6 +28,10 @@ class TutorialContentWidget extends StatelessWidget {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Text(
+                  title,
+                  style: context.getTitle,
+                ),
                 Image.asset(
                   imagePath,
                   fit: BoxFit.fill,

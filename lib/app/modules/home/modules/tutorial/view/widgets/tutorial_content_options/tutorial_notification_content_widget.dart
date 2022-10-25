@@ -16,6 +16,7 @@ class TutorialNotificationContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TutorialContentWidget(
+      title: 'Como tratar',
       imagePath: ImagesPath.dengueFight,
       content: RichText(
         textAlign: TextAlign.center,
