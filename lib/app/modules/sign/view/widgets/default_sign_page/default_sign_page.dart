@@ -174,6 +174,10 @@ class DefaultSignPage extends StatelessWidget {
                                   Checkbox(
                                     value: state.isAdmin,
                                     onChanged: (isSelected) {
+                                      if (isSelected != true) {
+                                        _admCodeEC.clear();
+                                      }
+
                                       _controller.updateIsAdmin(
                                         isSelected ?? false,
                                       );
