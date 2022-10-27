@@ -130,7 +130,7 @@ class _MarkersListPageState extends State<MarkersListPage> {
                                 ),
                                 trailing: TextButton(
                                   child: const Icon(
-                                    Icons.send,
+                                    Icons.room_sharp,
                                     color: Colors.white,
                                   ),
                                   onPressed: () {
