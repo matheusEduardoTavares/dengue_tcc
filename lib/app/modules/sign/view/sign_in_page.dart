@@ -50,13 +50,14 @@ class _SignINPageState extends State<SignINPage> {
           UserModel(
             login: state.email,
             password: state.password,
-            phone: state.phone,
-            name: state.name,
             isAdm: state.isAdmin,
             authToken: (state as SuccessSignINControllerState)
                 .loginResponseModel
                 .accessToken,
             refreshToken: null,
+            phone: state.loginResponseModel.phone,
+            name: state.loginResponseModel.name,
+            id: state.loginResponseModel.id,
           ),
         );
 

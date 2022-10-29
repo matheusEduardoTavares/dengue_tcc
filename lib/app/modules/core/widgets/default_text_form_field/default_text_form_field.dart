@@ -39,9 +39,17 @@ class DefaultTextFormField extends StatelessWidget {
       ),
       controller: controller,
       obscureText: obscureText ?? false,
-      validator: validator,
+      validator: validator != null
+          ? (value) {
+              final formattedValue = value?.trim();
+              return validator!(formattedValue);
+            }
+          : null,
       autovalidateMode: AutovalidateMode.onUserInteraction,
-      onChanged: onChanged,
+      onChanged: (value) {
+        final formattedValue = value.trim();
+        onChanged(formattedValue);
+      },
       keyboardType: keyboardType,
       inputFormatters: inputFormatters,
     );
