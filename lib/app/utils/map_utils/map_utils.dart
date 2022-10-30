@@ -20,7 +20,6 @@ class MapUtils {
     final lat1 = markerBase.latLngModel.lat;
     final lon1 = markerBase.latLngModel.lon;
     for (final currentMarker in markers) {
-      //TODO!: VALIDAR SE DEVE DESCONSIDERAR O FINALIZADO MESMO
       if (markerBase == currentMarker ||
           currentMarker.status == MapMarkerEnum.finished) {
         continue;

@@ -28,7 +28,6 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _titleEC;
   late TextEditingController _descriptionEC;
-  late AuthControllerInterface _globalCubit;
   late MapMarkerModel initialMapMarkerModel;
 
   @override
@@ -36,7 +35,6 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
     super.initState();
 
     _controller = context.read<CustomMapControllerInterface>();
-    _globalCubit = context.read<AuthControllerInterface>();
     final selectedMarker =
         (_controller.state as CustomMapStateWithMarkers).selectedMarker!;
     _titleEC = TextEditingController.fromValue(
@@ -133,7 +131,6 @@ class _MapMarkerPageState extends State<MapMarkerPage> {
                           onChanged:
                               _controller.updateTemporaryMarkerDescription,
                         ),
-                        //TODO!: VALIDAR SE DEVE MANTER A REGRA PARA O FINALIZADO
                         if (state.selectedMarker!.isCreatedMarker &&
                             state.selectedMarker!.status !=
                                 MapMarkerEnum.finished)

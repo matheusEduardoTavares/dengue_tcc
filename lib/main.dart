@@ -21,7 +21,6 @@ Future<void> main() async {
           module: AppModule(),
           child: const AppWidget(),
         ),
-        //TODO sempre que precisar testar responsividade, trocar o enabled para true e após usar voltar para false (nunca commitar com enabled true)
         enabled: false,
         availableLocales: const [
           Locale('pt', 'BR'),
