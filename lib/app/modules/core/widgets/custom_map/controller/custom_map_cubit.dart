@@ -530,11 +530,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
   @override
   void clearSelectedMarkerCounter() {
     final currentState = state as CustomMapStateWithMarkers;
-    emit(currentState.copyWith(
-      mapPosition: state.mapPosition,
-      hasIncrementedMarkerCounter: null,
-      selectedMarker: null,
-    ));
+    emit(currentState.clearSelectedMarker());
   }
 
   @override

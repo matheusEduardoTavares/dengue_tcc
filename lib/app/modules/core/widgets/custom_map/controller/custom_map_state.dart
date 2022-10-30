@@ -92,7 +92,8 @@ class SuccessGetMarkersCustomMapState extends CustomMapStateWithMarkers {
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter:
+          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
       mapPosition: mapPosition ?? this.mapPosition,
     );
   }
@@ -154,7 +155,8 @@ class CustomMapStateWithMarkers extends CustomMapState {
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter:
+          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
       mapPosition: mapPosition ?? this.mapPosition,
     );
   }
@@ -197,7 +199,8 @@ class CustomMapAddingMarkerState extends CustomMapStateWithMarkers {
       selectedMarker: selectedMarker,
       filteredMarkers: filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
-      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter:
+          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
       mapPosition: mapPosition ?? this.mapPosition,
@@ -237,7 +240,8 @@ class CustomMapUpdateMarkerSuccess extends CustomMapStateWithMarkers {
       selectedMarker: selectedMarker,
       filteredMarkers: filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
-      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter:
+          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
       mapPosition: mapPosition ?? this.mapPosition,
@@ -277,7 +281,8 @@ class CustomMapUpdateMarkerLoading extends CustomMapStateWithMarkers {
       selectedMarker: selectedMarker,
       filteredMarkers: filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
-      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter:
+          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
       mapPosition: mapPosition ?? this.mapPosition,
@@ -322,7 +327,8 @@ class CustomMapUpdateMarkerError extends CustomMapStateWithMarkers {
       selectedMarker: selectedMarker,
       filteredMarkers: filteredMarkers,
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
-      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter:
+          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
       mapPosition: mapPosition ?? this.mapPosition,
@@ -367,7 +373,8 @@ class LoadingCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter:
+          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
       mapPosition: mapPosition ?? this.mapPosition,
     );
   }
@@ -415,7 +422,8 @@ class ErrorCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter:
+          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
       mapPosition: mapPosition ?? this.mapPosition,
     );
   }
@@ -458,7 +466,8 @@ class SuccessCustomMapAddingMarkerState extends CustomMapAddingMarkerState {
       showFinishedMarkers: showFinishedMarkers ?? this.showFinishedMarkers,
       showUnfinishedMarkers:
           showUnfinishedMarkers ?? this.showUnfinishedMarkers,
-      hasIncrementedMarkerCounter: hasIncrementedMarkerCounter,
+      hasIncrementedMarkerCounter:
+          hasIncrementedMarkerCounter ?? this.hasIncrementedMarkerCounter,
       mapPosition: mapPosition ?? this.mapPosition,
     );
   }
