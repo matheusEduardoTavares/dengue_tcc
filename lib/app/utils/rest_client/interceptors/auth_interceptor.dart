@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:dengue_tcc/app/modules/core/repositories/auth_repository/auth_repository.dart';
 import 'package:dengue_tcc/app/modules/core/repositories/local_repository/local_repository.dart';
@@ -59,6 +60,10 @@ class AuthInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+    log(
+      err.response?.data?.toString() ?? err.error.toString(),
+      stackTrace: err.stackTrace,
+    );
     if (!kDebugMode) {
       FirebaseUtils.sendToCrashlytics(
         error: err,

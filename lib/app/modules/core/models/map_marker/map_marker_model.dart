@@ -27,7 +27,7 @@ class MapMarkerModel {
   bool get isCreatedMarker => id != null;
 
   Map<String, dynamic> toMap({
-    bool isSendMarkersQuantity = false,
+    bool isSendMarkersQuantity = true,
   }) {
     return {
       'id': id,
