@@ -12,6 +12,7 @@ dependencies:
   another_flushbar: ^1.12.29
   awesome_dialog: ^3.0.0
   bloc: ^8.1.0
+  collection: ^1.16.0
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
   device_preview: ^1.1.0

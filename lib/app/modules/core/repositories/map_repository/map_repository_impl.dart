@@ -50,14 +50,19 @@ class MapRepositoryImpl implements MapRepository {
   }
 
   @override
-  Future<Either<String, void>> updateMarker(MapMarkerModel model) async {
+  Future<Either<String, void>> updateMarker({
+    required MapMarkerModel model,
+    required bool isSendMarkersQuantity,
+  }) async {
     const genericErrorMessage = 'Ocorreu um erro ao atualizar o alerta';
     try {
       await _client.auth().put(
             ApiDefinitions.updateMarker(
               markerID: model.id!,
             ),
-            data: model.toMap(),
+            data: model.toMap(
+              isSendMarkersQuantity: isSendMarkersQuantity,
+            ),
           );
 
       return const Right(null);

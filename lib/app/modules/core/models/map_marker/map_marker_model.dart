@@ -26,7 +26,9 @@ class MapMarkerModel {
 
   bool get isCreatedMarker => id != null;
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMap({
+    bool isSendMarkersQuantity = false,
+  }) {
     return {
       'id': id,
       'titulo': title,
@@ -35,8 +37,8 @@ class MapMarkerModel {
       'latitude': latLngModel.lat,
       'longitude': latLngModel.lon,
       'usuario_id': userID,
-      'qtd_alertas': counter,
       'data_finalizado': finishedDate?.toIso8601String(),
+      if (isSendMarkersQuantity) 'qtd_alertas': counter,
     };
   }
 

@@ -274,7 +274,7 @@ class _CustomMapState extends State<CustomMap> {
                   onPressed: () {
                     _controller.goToUserLocation(_mapController);
                   },
-                  child: const Icon(Icons.pin_drop),
+                  child: const Icon(Icons.gps_fixed),
                 ),
               ),
               Positioned(

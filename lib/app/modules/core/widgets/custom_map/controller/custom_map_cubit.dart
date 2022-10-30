@@ -11,6 +11,7 @@ import 'package:dengue_tcc/app/utils/modules_route/modules_route.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:collection/collection.dart';
 
 part 'custom_map_state.dart';
 
@@ -35,6 +36,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
     emit(state.copyWith(
       selectedStyle: newStyle,
       mapPosition: state.mapPosition,
+      userPosition: state.userPosition,
     ));
   }
 
@@ -49,6 +51,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
     emit(state.copyWith(
       mapPosition: state.mapPosition,
       userPosition: userPosition,
+      selectedStyle: state.selectedStyle,
     ));
   }
 
@@ -81,6 +84,11 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
         )
       ],
       markers: currentState.markers,
+      hasIncrementedMarkerCounter: currentState.hasIncrementedMarkerCounter,
+      filteredMarkers: currentState.filteredMarkers,
+      selectedMarker: currentState.selectedMarker,
+      showFinishedMarkers: currentState.showFinishedMarkers,
+      showUnfinishedMarkers: currentState.showUnfinishedMarkers,
     ));
   }
 
@@ -414,7 +422,7 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
       final currentState = state as CustomMapAddingMarkerState;
       emit(currentState.copyWith(
         mapPosition: state.mapPosition,
-        selectedMarker: currentState.temporaryMarkers[0],
+        selectedMarker: currentState.temporaryMarkers[0].copyWith(),
       ));
     } else {
       final currentState = state as CustomMapStateWithMarkers;
@@ -463,11 +471,20 @@ class CustomMapControllerCubit extends CustomMapControllerInterface {
       showUnfinishedMarkers: currentState.showUnfinishedMarkers,
     ));
 
+    final associatedMarker = currentState.selectedMarker!.isCreatedMarker
+        ? currentState.markers.firstWhereOrNull(
+            (element) => element.id == currentState.selectedMarker!.id,
+          )
+        : null;
+    final isSendMarkersQuantity = associatedMarker != null &&
+        associatedMarker.counter < currentState.selectedMarker!.counter;
+
     final either = await _repository.updateMarker(
-      currentState.selectedMarker!.copyWith(
+      model: currentState.selectedMarker!.copyWith(
         title: title,
         description: description,
       ),
+      isSendMarkersQuantity: isSendMarkersQuantity,
     );
 
     either.fold(
